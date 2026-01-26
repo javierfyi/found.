@@ -1,0 +1,56 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "foundry",
+  "homepage": "https://foundry.dev",
+  "items": [
+    {
+      "name": "magnetic-button",
+      "type": "registry:component",
+      "title": "Magnetic Button",
+      "description": "A button that follows your cursor with a magnetic effect",
+      "files": [
+        {
+          "path": "registry/foundry/magnetic-button.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "dependencies": ["framer-motion"]
+    },
+    {
+      "name": "shimmer-text",
+      "type": "registry:component",
+      "title": "Shimmer Text",
+      "description": "Text with an animated shimmer gradient effect",
+      "files": [
+        {
+          "path": "registry/foundry/shimmer-text.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "glow-card",
+      "type": "registry:component",
+      "title": "Glow Card",
+      "description": "A card with a glowing border that follows your cursor",
+      "files": [
+        {
+          "path": "registry/foundry/glow-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "typewriter",
+      "type": "registry:component",
+      "title": "Typewriter",
+      "description": "Animated typewriter text effect with customizable speed",
+      "files": [
+        {
+          "path": "registry/foundry/typewriter.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}
