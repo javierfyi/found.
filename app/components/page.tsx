@@ -44,7 +44,7 @@ export default function ComponentsPage() {
   const pathname = usePathname()
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearchFocused, setIsSearchFocused] = useState(false)
-  const { playClick, playHover } = useSoundContext()
+  const { playClick, playHover, playWelcome } = useSoundContext()
 
   const filteredComponents = components.filter((component) =>
     component.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -59,27 +59,43 @@ export default function ComponentsPage() {
           style={{ backgroundColor: "rgba(176, 176, 176, 0.2)" }}
         >
           {/* Left - Logo/Name */}
-          <Link href="/" className={`text-xs font-bold transition-colors hover:text-black ${
-            pathname === "/" ? "text-black" : "text-black/40"
-          }`}>
+          <Link 
+            href="/" 
+            onClick={() => playWelcome()}
+            className={`text-xs font-bold transition-colors hover:text-black ${
+              pathname === "/" ? "text-black" : "text-black/40"
+            }`}
+          >
             Foundry
           </Link>
 
           {/* Mobile - Navigation Links - Centered */}
           <nav className="flex md:hidden items-center justify-center gap-x-6">
-            <Link href="/components" className={`text-xs font-bold transition-colors hover:text-black ${
-              pathname === "/components" ? "text-black" : "text-black/40"
-            }`} onMouseDown={() => playClick()}>
+            <Link 
+              href="/components" 
+              onClick={() => playWelcome()}
+              className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/components" ? "text-black" : "text-black/40"
+              }`}
+            >
               Components
             </Link>
-            <Link href="/docs" className={`text-xs font-bold transition-colors hover:text-black ${
-              pathname === "/docs" ? "text-black" : "text-black/40"
-            }`} onMouseDown={() => playClick()}>
+            <Link 
+              href="/docs" 
+              onClick={() => playWelcome()}
+              className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/docs" ? "text-black" : "text-black/40"
+              }`}
+            >
               Docs
             </Link>
-            <Link href="/about" className={`text-xs font-bold transition-colors hover:text-black ${
-              pathname === "/about" ? "text-black" : "text-black/40"
-            }`} onMouseDown={() => playClick()}>
+            <Link 
+              href="/about" 
+              onClick={() => playWelcome()}
+              className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/about" ? "text-black" : "text-black/40"
+              }`}
+            >
               About
             </Link>
           </nav>
@@ -88,21 +104,33 @@ export default function ComponentsPage() {
           <div className="hidden md:flex items-center gap-x-12">
             {/* Navigation Links */}
             <nav className="flex items-center gap-x-24 md:mr-16 lg:mr-32 xl:mr-38">
-              <Link href="/components" className={`text-xs font-bold transition-colors hover:text-black ${
-                pathname === "/components" ? "text-black" : "text-black/40"
-              }`}>
+              <Link 
+                href="/components" 
+                onClick={() => playWelcome()}
+                className={`text-xs font-bold transition-colors hover:text-black ${
+                  pathname === "/components" ? "text-black" : "text-black/40"
+                }`}
+              >
                 Components
               </Link>
-              <Link href="/docs" className={`text-xs font-bold transition-colors hover:text-black ${
-                pathname === "/docs" ? "text-black" : "text-black/40"
-              }`}>
+              <Link 
+                href="/docs" 
+                onClick={() => playWelcome()}
+                className={`text-xs font-bold transition-colors hover:text-black ${
+                  pathname === "/docs" ? "text-black" : "text-black/40"
+                }`}
+              >
                 Docs
               </Link>
-            <Link href="/about" className={`text-xs font-bold transition-colors hover:text-black ${
-              pathname === "/about" ? "text-black" : "text-black/40"
-            }`}>
-              About
-            </Link>
+              <Link 
+                href="/about" 
+                onClick={() => playWelcome()}
+                className={`text-xs font-bold transition-colors hover:text-black ${
+                  pathname === "/about" ? "text-black" : "text-black/40"
+                }`}
+              >
+                About
+              </Link>
             </nav>
 
             {/* Live Time */}
@@ -214,19 +242,6 @@ export default function ComponentsPage() {
                 </svg>
               </button>
             </div>
-
-            {/* Clear Filters */}
-            <button
-              type="button"
-              onClick={() => {
-                setSearchQuery("")
-              }}
-              onMouseDown={() => playClick()}
-              className="flex items-center gap-2 opacity-60 transition-opacity hover:opacity-100 lg:ml-2"
-            >
-              <Plus className="h-4 w-4 rotate-45 text-black/40" />
-              <p className="text-xs font-bold text-black/40">Clear Filters</p>
-            </button>
           </div>
         </div>
       </main>

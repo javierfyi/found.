@@ -51,7 +51,7 @@ export function HeroSection() {
 
           {/* Quick Start Button */}
           <Link 
-            href="/components/foundry1" 
+            href="/docs" 
             className="flex items-center justify-center"
             onMouseDown={() => playClick()}
           >

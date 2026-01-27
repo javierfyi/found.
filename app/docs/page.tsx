@@ -65,6 +65,7 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
 
 export default function DocsPage() {
   const pathname = usePathname()
+  const { playWelcome } = useSoundContext()
   
   return (
     <div className="min-h-screen bg-background">
@@ -75,27 +76,43 @@ export default function DocsPage() {
           style={{ backgroundColor: "rgba(176, 176, 176, 0.2)" }}
         >
           {/* Left - Logo/Name */}
-          <Link href="/" className={`text-xs font-bold transition-colors hover:text-black ${
-            pathname === "/" ? "text-black" : "text-black/40"
-          }`}>
+          <Link 
+            href="/" 
+            onClick={() => playWelcome()}
+            className={`text-xs font-bold transition-colors hover:text-black ${
+              pathname === "/" ? "text-black" : "text-black/40"
+            }`}
+          >
             Foundry
           </Link>
 
           {/* Mobile - Navigation Links - Centered */}
           <nav className="flex md:hidden items-center justify-center gap-x-6">
-            <Link href="/components" className={`text-xs font-bold transition-colors hover:text-black ${
-              pathname === "/components" ? "text-black" : "text-black/40"
-            }`}>
+            <Link 
+              href="/components" 
+              onClick={() => playWelcome()}
+              className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/components" ? "text-black" : "text-black/40"
+              }`}
+            >
               Components
             </Link>
-            <Link href="/docs" className={`text-xs font-bold transition-colors hover:text-black ${
-              pathname === "/docs" ? "text-black" : "text-black/40"
-            }`}>
+            <Link 
+              href="/docs" 
+              onClick={() => playWelcome()}
+              className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/docs" ? "text-black" : "text-black/40"
+              }`}
+            >
               Docs
             </Link>
-            <Link href="/about" className={`text-xs font-bold transition-colors hover:text-black ${
-              pathname === "/about" ? "text-black" : "text-black/40"
-            }`}>
+            <Link 
+              href="/about" 
+              onClick={() => playWelcome()}
+              className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/about" ? "text-black" : "text-black/40"
+              }`}
+            >
               About
             </Link>
           </nav>
@@ -104,19 +121,31 @@ export default function DocsPage() {
           <div className="hidden md:flex items-center gap-x-12">
             {/* Navigation Links */}
             <nav className="flex items-center gap-x-24 md:mr-16 lg:mr-32 xl:mr-38">
-              <Link href="/components" className={`text-xs font-bold transition-colors hover:text-black ${
-                pathname === "/components" ? "text-black" : "text-black/40"
-              }`}>
+              <Link 
+                href="/components" 
+                onClick={() => playWelcome()}
+                className={`text-xs font-bold transition-colors hover:text-black ${
+                  pathname === "/components" ? "text-black" : "text-black/40"
+                }`}
+              >
                 Components
               </Link>
-              <Link href="/docs" className={`text-xs font-bold transition-colors hover:text-black ${
-                pathname === "/docs" ? "text-black" : "text-black/40"
-              }`}>
+              <Link 
+                href="/docs" 
+                onClick={() => playWelcome()}
+                className={`text-xs font-bold transition-colors hover:text-black ${
+                  pathname === "/docs" ? "text-black" : "text-black/40"
+                }`}
+              >
                 Docs
               </Link>
-              <Link href="/about" className={`text-xs font-bold transition-colors hover:text-black ${
-                pathname === "/about" ? "text-black" : "text-black/40"
-              }`}>
+              <Link 
+                href="/about" 
+                onClick={() => playWelcome()}
+                className={`text-xs font-bold transition-colors hover:text-black ${
+                  pathname === "/about" ? "text-black" : "text-black/40"
+                }`}
+              >
                 About
               </Link>
             </nav>

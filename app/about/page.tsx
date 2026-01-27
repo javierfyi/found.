@@ -3,6 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import { useSoundContext } from "@/contexts/sound-context"
 
 function LiveClock() {
   const [time, setTime] = useState("")
@@ -26,6 +27,8 @@ function LiveClock() {
 }
 
 export default function AboutPage() {
+  const { playWelcome } = useSoundContext()
+  
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       {/* Header */}
@@ -35,19 +38,35 @@ export default function AboutPage() {
           style={{ backgroundColor: "rgba(176, 176, 176, 0.2)" }}
         >
           {/* Left - Logo/Name - Hidden on mobile */}
-          <Link href="/" className="hidden md:block text-xs font-bold text-black transition-colors hover:text-black">
+          <Link 
+            href="/" 
+            onClick={() => playWelcome()}
+            className="hidden md:block text-xs font-bold text-black transition-colors hover:text-black"
+          >
             Foundry
           </Link>
 
           {/* Mobile - Navigation Links - Centered */}
           <nav className="flex md:hidden w-full items-center justify-center gap-x-12">
-            <Link href="/components" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+            <Link 
+              href="/components" 
+              onClick={() => playWelcome()}
+              className="text-xs font-bold text-black/40 transition-colors hover:text-black"
+            >
               Components
             </Link>
-            <Link href="/docs" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+            <Link 
+              href="/docs" 
+              onClick={() => playWelcome()}
+              className="text-xs font-bold text-black/40 transition-colors hover:text-black"
+            >
               Docs
             </Link>
-            <Link href="/about" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+            <Link 
+              href="/about" 
+              onClick={() => playWelcome()}
+              className="text-xs font-bold text-black/40 transition-colors hover:text-black"
+            >
               About
             </Link>
           </nav>
@@ -56,13 +75,25 @@ export default function AboutPage() {
           <div className="hidden md:flex items-center gap-x-12">
             {/* Navigation Links */}
             <nav className="flex items-center gap-x-24 md:mr-16 lg:mr-32 xl:mr-38">
-              <Link href="/components" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+              <Link 
+                href="/components" 
+                onClick={() => playWelcome()}
+                className="text-xs font-bold text-black/40 transition-colors hover:text-black"
+              >
                 Components
               </Link>
-              <Link href="/docs" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+              <Link 
+                href="/docs" 
+                onClick={() => playWelcome()}
+                className="text-xs font-bold text-black/40 transition-colors hover:text-black"
+              >
                 Docs
               </Link>
-              <Link href="/about" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+              <Link 
+                href="/about" 
+                onClick={() => playWelcome()}
+                className="text-xs font-bold text-black/40 transition-colors hover:text-black"
+              >
                 About
               </Link>
             </nav>

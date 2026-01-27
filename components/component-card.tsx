@@ -48,7 +48,6 @@ export function ComponentCard({
         href={`/components/${name}`}
         className="relative w-full flex-1 overflow-hidden"
         onMouseDown={() => playClick()}
-        onMouseEnter={() => playHover()}
       >
         {imageUrl ? (
           <>
