@@ -4,10 +4,14 @@ import Link from "next/link"
 import { Command, Maximize2 } from "lucide-react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+import { useSoundContext } from "@/contexts/sound-context"
+import { useState } from "react"
 
 export function Header() {
   const pathname = usePathname()
   const isHomePage = pathname === "/"
+  const { playClick, playOpen, playClose } = useSoundContext()
+  const [isMaximized, setIsMaximized] = useState(false)
 
   if (isHomePage) {
     // Minimal header for home page
@@ -17,14 +21,16 @@ export function Header() {
           {/* Navigation Links - Light gray buttons */}
           <div className="flex items-center gap-2">
             <Link
-              href="/pricing"
+              href="/about"
               className="rounded-lg bg-muted px-4 py-2 text-sm font-medium uppercase text-foreground transition-colors hover:bg-muted/80"
+              onMouseDown={() => playClick()}
             >
-              Pricing
+              About
             </Link>
             <Link
               href="/components"
               className="rounded-lg bg-muted px-4 py-2 text-sm font-medium uppercase text-foreground transition-colors hover:bg-muted/80"
+              onMouseDown={() => playClick()}
             >
               Components
             </Link>
@@ -67,14 +73,16 @@ export function Header() {
         {/* Navigation Links and Actions */}
         <div className="flex items-center gap-4 text-[13px]">
           <Link
-            href="/pricing"
+            href="/about"
             className="hidden rounded-md opacity-50 outline-offset-4 outline-sky-500 transition-opacity hover:opacity-100 focus-visible:outline-1 md:block"
+            onMouseDown={() => playClick()}
           >
-            Pricing
+            About
           </Link>
           <Link
             href="/components"
             className="hidden items-center gap-1 rounded-md text-foreground/50 outline-offset-4 outline-sky-500 transition-colors hover:text-foreground focus-visible:outline-1 md:flex"
+            onMouseDown={() => playClick()}
           >
             Components
           </Link>
@@ -87,6 +95,7 @@ export function Header() {
                 type="button"
                 className="flex size-full items-center justify-center rounded-2xl"
                 aria-label="Command + K"
+                onMouseDown={() => playClick()}
               >
                 <span className="flex size-full cursor-pointer items-center justify-center transition-all ease-in-out active:scale-95">
                   <Command className="size-4" />
@@ -101,6 +110,14 @@ export function Header() {
                 type="button"
                 className="flex size-full items-center justify-center"
                 aria-label="Show Menu"
+                onMouseDown={() => {
+                  setIsMaximized(!isMaximized)
+                  if (isMaximized) {
+                    playClose()
+                  } else {
+                    playOpen()
+                  }
+                }}
               >
                 <span className="flex size-full cursor-pointer items-center justify-center transition-all ease-in-out active:scale-95">
                   <Maximize2 className="size-4" />

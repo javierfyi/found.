@@ -47,8 +47,8 @@ export default function AboutPage() {
             <Link href="/docs" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
               Docs
             </Link>
-            <Link href="/pricing" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
-              Pricing
+            <Link href="/about" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+              About
             </Link>
           </nav>
 
@@ -62,8 +62,8 @@ export default function AboutPage() {
               <Link href="/docs" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
                 Docs
               </Link>
-              <Link href="/pricing" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
-                Pricing
+              <Link href="/about" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+                About
               </Link>
             </nav>
 
@@ -76,14 +76,23 @@ export default function AboutPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col px-4 pt-20 pb-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto w-full min-h-[calc(100vh-8rem)]">
-          {/* Left Column - Bio, Contact, Portrait, Copyright */}
-          <div className="flex flex-col gap-12">
-            {/* Biography Section */}
-            <div className="max-w-2xl">
-              <p className="text-sm leading-relaxed text-black/60">
-                Hi, i'm a <span className="font-bold text-black">digital designer</span> based in Amsterdam, currently working at <span className="font-bold text-black">Higuita</span>. I work across projects from startups to established brands, bringing a blend of visual design and motion. Whether I'm crafting sleek interfaces, dynamic brand identities, or engaging animations, I focus on creating thoughtful, visually striking experiences that stand out across digital platforms.
+      <main className="flex flex-1 flex-col pt-20 pb-4">
+        <div className="w-full min-h-[calc(100vh-8rem)] px-4">
+          <div className="flex flex-col gap-12 max-w-7xl">
+            {/* About Section */}
+            <div className="max-w-7xl">
+              <p 
+                className="font-semibold"
+                style={{
+                  fontFamily: '"Neue Haas Grotesk Display Pro 65 Medium", "Neue Haas Grotesk Display Pro 65 Medium Placeholder", sans-serif',
+                  fontSize: '16px',
+                  fontWeight: 600,
+                  letterSpacing: '0px',
+                  lineHeight: '100%',
+                  color: 'rgb(153, 153, 153)'
+                }}
+              >
+                Foundry is a <span style={{ color: 'rgb(0, 0, 0)' }}>shadcn/ui registry</span> that provides a curated collection of <span style={{ color: 'rgb(0, 0, 0)' }}>uncommon components</span> for modern web applications. Built on top of shadcn/ui's component system, Foundry offers unique, production-ready components that extend beyond the standard UI library. Whether you're building sleek interfaces, dynamic interactions, or engaging animations, Foundry provides the building blocks to create thoughtful, visually striking experiences.
               </p>
             </div>
 
@@ -91,57 +100,13 @@ export default function AboutPage() {
             <div className="space-y-3">
               <h2 className="text-xs font-semibold text-black/60">Contact</h2>
               <div className="flex flex-col items-start leading-none gap-0">
-                <a href="mailto:e.planeix@gmail.com" className="text-xs font-bold text-black transition-colors hover:text-black/70">
-                  e.planeix@gmail.com
+                <a href="mailto:hello@foundry.dev" className="text-xs font-bold text-black transition-colors hover:text-black/70">
+                  hello@foundry.dev
                 </a>
-                <a href="tel:+31621613350" className="-mt-0.5 text-xs font-bold text-black transition-colors hover:text-black/70">
-                  (+31) 6 216 133 50
-                </a>
-                <a href="https://instagram.com/eplaneix" className="-mt-0.5 text-xs font-bold text-black transition-colors hover:text-black/70">
-                  @eplaneix
+                <a href="https://github.com/foundry" className="-mt-0.5 text-xs font-bold text-black transition-colors hover:text-black/70">
+                  @foundry
                 </a>
               </div>
-            </div>
-
-            {/* Portrait Image */}
-            <div className="mt-auto">
-              <div className="relative w-full aspect-square max-w-sm">
-                <Image
-                  src="/placeholder-user.jpg"
-                  alt="Portrait"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Copyright */}
-            <div className="text-xs font-bold text-black">
-              © 2025 Etienne Planeix
-            </div>
-          </div>
-
-          {/* Right Column - Social Links and Contact (Bottom Right) */}
-          <div className="flex flex-col justify-end items-start lg:items-end pb-4">
-            <div className="flex flex-col items-start leading-none gap-0">
-              <a href="https://instagram.com/eplaneix" target="_blank" rel="noopener" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
-                Instagram
-              </a>
-              <a href="https://linkedin.com/in/etienne-planeix" target="_blank" rel="noopener" className="-mt-0.5 text-xs font-bold text-black/40 transition-colors hover:text-black">
-                Linkedin
-              </a>
-              <a href="https://behance.net/thatfrenchguy" target="_blank" rel="noopener" className="-mt-0.5 text-xs font-bold text-black/40 transition-colors hover:text-black">
-                Behance
-              </a>
-            </div>
-
-            <div className="flex flex-col items-start leading-none gap-0 mt-6">
-              <a href="mailto:e.planeix@gmail.com" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
-                e.planeix@gmail.com
-              </a>
-              <a href="tel:+31621613350" className="-mt-0.5 text-xs font-bold text-black/40 transition-colors hover:text-black">
-                (+31) 6 216 133 50
-              </a>
             </div>
           </div>
         </div>

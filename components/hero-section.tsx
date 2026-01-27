@@ -1,17 +1,20 @@
 "use client"
 
-import { Copy } from "lucide-react"
+import { Copy, Check } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import { useSoundContext } from "@/contexts/sound-context"
 
 export function HeroSection() {
   const [copied, setCopied] = useState(false)
   const componentId = "foundry1"
   const installCommand = `npx shadcn add @foundry/${componentId}`
+  const { playCopy, playClick } = useSoundContext()
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(installCommand)
     setCopied(true)
+    playCopy()
     setTimeout(() => setCopied(false), 2000)
   }
 
@@ -19,6 +22,9 @@ export function HeroSection() {
     <section className="relative flex h-full w-full items-center justify-center overflow-hidden text-foreground">
       {/* Content - Centered */}
       <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-5 sm:px-10">
+        {/* Title Text */}
+        <p className="text-xl font-bold text-black mb-4">Get started with Foundry</p>
+        
         {/* Action Buttons */}
         <div className="flex items-center justify-center gap-2">
           {/* Install Command */}
@@ -32,14 +38,23 @@ export function HeroSection() {
               <span>npx shadcn add </span>
               @foundry
               <span className="text-black/40">/{componentId}</span>
-              <span className="ml-2">
-                <Copy className="size-4" />
+              <span className="relative ml-3 flex items-center">
+                <Copy 
+                  className={`size-4 transition-all duration-200 ease ${copied ? "opacity-0 scale-0" : "opacity-100 scale-100"}`}
+                />
+                <Check 
+                  className={`absolute size-4 transition-all duration-200 ease ${copied ? "opacity-100 scale-100" : "opacity-0 scale-0"}`}
+                />
               </span>
             </div>
           </div>
 
           {/* Quick Start Button */}
-          <Link href="/components/foundry1" className="flex items-center justify-center">
+          <Link 
+            href="/components/foundry1" 
+            className="flex items-center justify-center"
+            onMouseDown={() => playClick()}
+          >
             <div
               className="flex cursor-pointer items-center justify-center rounded-2xl bg-blue-500 text-xs font-bold text-white"
               style={{ padding: "12px 20px" }}

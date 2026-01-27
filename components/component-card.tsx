@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { BadgeDollarSign } from "lucide-react"
+import { useSoundContext } from "@/contexts/sound-context"
 
 interface ComponentCardProps {
   name: string
@@ -25,6 +26,8 @@ export function ComponentCard({
   imageUrl,
   videoUrl,
 }: ComponentCardProps) {
+  const { playClick, playHover } = useSoundContext()
+
   return (
     <div className="group relative flex cursor-pointer flex-col overflow-hidden rounded-[20px] border border-muted bg-muted p-3 shadow-glass transition-colors hover:bg-muted/90 h-[280px]">
       {/* Premium Badge */}
@@ -44,18 +47,20 @@ export function ComponentCard({
         aria-label={title}
         href={`/components/${name}`}
         className="relative w-full flex-1 overflow-hidden"
+        onMouseDown={() => playClick()}
+        onMouseEnter={() => playHover()}
       >
         {imageUrl ? (
           <>
             <img
-              className="h-full w-full rounded-2xl border border-muted4 object-cover"
+              className="h-full w-full rounded-2xl object-cover"
               alt=""
               loading="lazy"
               src={imageUrl}
             />
             {videoUrl && (
               <video
-                className="absolute top-0 h-full w-full rounded-2xl border border-muted4 object-cover opacity-0 transition-opacity group-hover:opacity-100"
+                className="absolute top-0 h-full w-full rounded-2xl object-cover opacity-0 transition-opacity group-hover:opacity-100"
                 playsInline
                 preload="none"
                 loop
@@ -66,7 +71,7 @@ export function ComponentCard({
             )}
           </>
         ) : (
-          <div className="relative h-full w-full overflow-hidden rounded-2xl border border-muted4 bg-[#f5f5f5]">
+          <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[#f5f5f5]">
             <div className="flex h-full w-full items-center justify-center">
               <ComponentPreview type={previewType} />
             </div>

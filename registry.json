@@ -4,53 +4,17 @@
   "homepage": "https://foundry.dev",
   "items": [
     {
-      "name": "magnetic-button",
+      "name": "animated-stack",
       "type": "registry:component",
-      "title": "Magnetic Button",
-      "description": "A button that follows your cursor with a magnetic effect",
+      "title": "Animated Stack",
+      "description": "An interactive stack of cards that expand and animate on hover with smooth spring animations",
       "files": [
         {
-          "path": "registry/foundry/magnetic-button.tsx",
+          "path": "registry/foundry/animated-stack.tsx",
           "type": "registry:component"
         }
       ],
-      "dependencies": ["framer-motion"]
-    },
-    {
-      "name": "shimmer-text",
-      "type": "registry:component",
-      "title": "Shimmer Text",
-      "description": "Text with an animated shimmer gradient effect",
-      "files": [
-        {
-          "path": "registry/foundry/shimmer-text.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "glow-card",
-      "type": "registry:component",
-      "title": "Glow Card",
-      "description": "A card with a glowing border that follows your cursor",
-      "files": [
-        {
-          "path": "registry/foundry/glow-card.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "typewriter",
-      "type": "registry:component",
-      "title": "Typewriter",
-      "description": "Animated typewriter text effect with customizable speed",
-      "files": [
-        {
-          "path": "registry/foundry/typewriter.tsx",
-          "type": "registry:component"
-        }
-      ]
+      "dependencies": ["motion", "lucide-react"]
     }
   ]
 }

@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Copy, Check } from "lucide-react"
+import { useSoundContext } from "@/contexts/sound-context"
 
 interface CopyButtonProps {
   value: string
@@ -10,10 +11,12 @@ interface CopyButtonProps {
 
 export function CopyButton({ value }: CopyButtonProps) {
   const [copied, setCopied] = useState(false)
+  const { playCopy } = useSoundContext()
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(value)
     setCopied(true)
+    playCopy()
     setTimeout(() => setCopied(false), 2000)
   }
 

@@ -2,6 +2,7 @@ import React from "react"
 import type { Metadata } from 'next'
 import { Geist_Mono, Inter, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SoundProvider } from '@/contexts/sound-context'
 import './globals.css'
 
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -48,7 +49,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${dmSans.variable} font-sans antialiased`}>
-        {children}
+        <SoundProvider>
+          {children}
+        </SoundProvider>
         <Analytics />
       </body>
     </html>
