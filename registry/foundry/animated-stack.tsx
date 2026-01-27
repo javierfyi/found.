@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { RotateCcw, ArrowUpRight } from "lucide-react"
-import { motion, type Transition } from "framer-motion"
+import { motion, type Transition } from "motion/react"
 
 const notifications = [
   {
