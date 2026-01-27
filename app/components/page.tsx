@@ -6,6 +6,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useSoundContext } from "@/contexts/sound-context"
+import { componentsData } from "@/lib/components-data"
 
 function LiveClock() {
   const [time, setTime] = useState("")
@@ -28,25 +29,13 @@ function LiveClock() {
   return <span>{time}</span>
 }
 
-const components = [
-  {
-    name: "animated-stack",
-    title: "Animated Stack",
-    description: "An interactive stack of cards that expand and animate on hover with smooth spring animations",
-    id: "foundry1",
-    size: "tall" as const,
-    previewType: "card" as const,
-    imageUrl: "/images/animated-stack.png",
-  },
-]
-
 export default function ComponentsPage() {
   const pathname = usePathname()
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearchFocused, setIsSearchFocused] = useState(false)
   const { playClick, playHover, playWelcome } = useSoundContext()
 
-  const filteredComponents = components.filter((component) =>
+  const filteredComponents = componentsData.filter((component) =>
     component.title.toLowerCase().includes(searchQuery.toLowerCase())
   )
 

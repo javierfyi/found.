@@ -1,187 +1,44 @@
-import { Header } from "@/components/header"
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CopyButton } from "@/components/copy-button"
 import { ArrowLeft, ExternalLink } from "lucide-react"
 import Link from "next/link"
-import { notFound } from "next/navigation"
-
-const componentsData: Record<
-  string,
-  {
-    title: string
-    description: string
-    code: string
-  }
-> = {
-  "magnetic-button": {
-    title: "Magnetic Button",
-    description: "A button that follows your cursor with a magnetic effect. Uses Framer Motion for smooth animations.",
-    code: `"use client"
-
-import { useRef, useState } from "react"
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
-
-interface MagneticButtonProps {
-  children: React.ReactNode
-  className?: string
-}
-
-export function MagneticButton({ children, className }: MagneticButtonProps) {
-  const ref = useRef<HTMLButtonElement>(null)
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-
-  const handleMouse = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { clientX, clientY } = e
-    const { left, top, width, height } = ref.current!.getBoundingClientRect()
-    const x = (clientX - left - width / 2) * 0.3
-    const y = (clientY - top - height / 2) * 0.3
-    setPosition({ x, y })
-  }
-
-  const reset = () => setPosition({ x: 0, y: 0 })
-
-  return (
-    <motion.button
-      ref={ref}
-      onMouseMove={handleMouse}
-      onMouseLeave={reset}
-      animate={position}
-      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-      className={cn(
-        "relative rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90",
-        className
-      )}
-    >
-      {children}
-    </motion.button>
-  )
-}`,
-  },
-  "shimmer-text": {
-    title: "Shimmer Text",
-    description: "Text with an animated shimmer gradient effect. Great for headlines and attention-grabbing text.",
-    code: `import { cn } from "@/lib/utils"
-
-interface ShimmerTextProps {
-  children: React.ReactNode
-  className?: string
-}
-
-export function ShimmerText({ children, className }: ShimmerTextProps) {
-  return (
-    <span
-      className={cn(
-        "animate-shimmer bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent",
-        className
-      )}
-      style={{
-        animation: "shimmer 2s linear infinite",
-      }}
-    >
-      {children}
-      <style>{\`
-        @keyframes shimmer {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
-        }
-      \`}</style>
-    </span>
-  )
-}`,
-  },
-  "glow-card": {
-    title: "Glow Card",
-    description: "A card with a glowing border that follows your cursor. Creates an eye-catching hover effect.",
-    code: `"use client"
-
-import { useRef, useState } from "react"
-import { cn } from "@/lib/utils"
-
-interface GlowCardProps {
-  children: React.ReactNode
-  className?: string
-}
-
-export function GlowCard({ children, className }: GlowCardProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [opacity, setOpacity] = useState(0)
-
-  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { left, top } = ref.current!.getBoundingClientRect()
-    setPosition({ x: e.clientX - left, y: e.clientY - top })
-    setOpacity(1)
-  }
-
-  return (
-    <div
-      ref={ref}
-      onMouseMove={handleMouse}
-      onMouseLeave={() => setOpacity(0)}
-      className={cn(
-        "relative overflow-hidden rounded-xl border border-border bg-card p-6",
-        className
-      )}
-    >
-      <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300"
-        style={{
-          opacity,
-          background: \`radial-gradient(400px circle at \${position.x}px \${position.y}px, hsl(var(--primary) / 0.15), transparent 40%)\`,
-        }}
-      />
-      {children}
-    </div>
-  )
-}`,
-  },
-  typewriter: {
-    title: "Typewriter",
-    description: "Animated typewriter text effect with customizable speed. Perfect for hero sections and landing pages.",
-    code: `"use client"
-
+import { notFound, useParams } from "next/navigation"
+import { getComponentByName } from "@/lib/components-data"
+import { ComponentPreview } from "@/components/component-card"
+import { useSoundContext } from "@/contexts/sound-context"
 import { useEffect, useState } from "react"
-import { cn } from "@/lib/utils"
+import { AnimatedStack } from "@/registry/foundry/animated-stack"
 
-interface TypewriterProps {
-  text: string
-  speed?: number
-  className?: string
-}
-
-export function Typewriter({ text, speed = 50, className }: TypewriterProps) {
-  const [displayText, setDisplayText] = useState("")
-  const [currentIndex, setCurrentIndex] = useState(0)
+function LiveClock() {
+  const [time, setTime] = useState("")
 
   useEffect(() => {
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setDisplayText((prev) => prev + text[currentIndex])
-        setCurrentIndex((prev) => prev + 1)
-      }, speed)
-      return () => clearTimeout(timeout)
+    const updateTime = () => {
+      const now = new Date()
+      const hours = now.getHours()
+      const minutes = now.getMinutes().toString().padStart(2, "0")
+      const seconds = now.getSeconds().toString().padStart(2, "0")
+      const period = hours >= 12 ? "p.m." : "a.m."
+      const displayHours = hours % 12 || 12
+      setTime(`${displayHours}:${minutes}:${seconds} ${period}`)
     }
-  }, [currentIndex, text, speed])
+    updateTime()
+    const interval = setInterval(updateTime, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
-  return (
-    <span className={cn("", className)}>
-      {displayText}
-      <span className="animate-pulse text-primary">|</span>
-    </span>
-  )
-}`,
-  },
+  return <span>{time}</span>
 }
 
-export default async function ComponentDetailPage({
-  params,
-}: {
-  params: Promise<{ name: string }>
-}) {
-  const { name } = await params
-  const component = componentsData[name]
+export default function ComponentDetailPage() {
+  const params = useParams()
+  const name = params.name as string
+  const component = getComponentByName(name)
+  const pathname = `/components/${name}`
+  const { playWelcome } = useSoundContext()
 
   if (!component) {
     notFound()
@@ -192,8 +49,100 @@ export default async function ComponentDetailPage({
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      <main className="container mx-auto px-4 py-12">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50">
+        <div 
+          className="flex w-full items-center justify-between px-3 py-2 md:px-4 md:py-[0.425rem] backdrop-blur-[20px]"
+          style={{ backgroundColor: "rgba(176, 176, 176, 0.2)" }}
+        >
+          {/* Left - Logo/Name */}
+          <Link 
+            href="/" 
+            onClick={() => playWelcome()}
+            className={`text-xs font-bold transition-colors hover:text-black ${
+              pathname === "/" ? "text-black" : "text-black/40"
+            }`}
+          >
+            Foundry
+          </Link>
+
+          {/* Mobile - Navigation Links - Centered */}
+          <nav className="flex md:hidden items-center justify-center gap-x-6">
+            <Link 
+              href="/components" 
+              onClick={() => playWelcome()}
+              className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/components" ? "text-black" : "text-black/40"
+              }`}
+            >
+              Components
+            </Link>
+            <Link 
+              href="/docs" 
+              onClick={() => playWelcome()}
+              className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/docs" ? "text-black" : "text-black/40"
+              }`}
+            >
+              Docs
+            </Link>
+            <Link 
+              href="/about" 
+              onClick={() => playWelcome()}
+              className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/about" ? "text-black" : "text-black/40"
+              }`}
+            >
+              About
+            </Link>
+          </nav>
+
+          {/* Desktop - Navigation Links and Time */}
+          <div className="hidden md:flex items-center gap-x-12">
+            {/* Navigation Links */}
+            <nav className="flex items-center gap-x-24 md:mr-16 lg:mr-32 xl:mr-38">
+              <Link 
+                href="/components" 
+                onClick={() => playWelcome()}
+                className={`text-xs font-bold transition-colors hover:text-black ${
+                  pathname === "/components" ? "text-black" : "text-black/40"
+                }`}
+              >
+                Components
+              </Link>
+              <Link 
+                href="/docs" 
+                onClick={() => playWelcome()}
+                className={`text-xs font-bold transition-colors hover:text-black ${
+                  pathname === "/docs" ? "text-black" : "text-black/40"
+                }`}
+              >
+                Docs
+              </Link>
+              <Link 
+                href="/about" 
+                onClick={() => playWelcome()}
+                className={`text-xs font-bold transition-colors hover:text-black ${
+                  pathname === "/about" ? "text-black" : "text-black/40"
+                }`}
+              >
+                About
+              </Link>
+            </nav>
+
+            {/* Live Time */}
+            <div className="min-w-[100px] text-right text-xs font-bold text-black/40">
+              <LiveClock />
+            </div>
+          </div>
+
+          {/* Mobile - Live Time */}
+          <div className="flex md:hidden text-xs font-bold text-black/40">
+            <LiveClock />
+          </div>
+        </div>
+      </header>
+      <main className="container mx-auto px-4 pb-32 pt-24">
         <Link
           href="/components"
           className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -239,20 +188,24 @@ export default async function ComponentDetailPage({
           </TabsList>
 
           <TabsContent value="preview" className="mt-6">
-            <div className="flex min-h-[300px] items-center justify-center rounded-lg border border-border bg-card p-8">
-              <ComponentPreview name={name} />
-            </div>
+            <PreviewSection component={component} />
           </TabsContent>
 
           <TabsContent value="code" className="mt-6">
-            <div className="relative rounded-lg border border-border bg-card">
-              <div className="absolute right-4 top-4">
-                <CopyButton value={component.code} />
+            {component.code ? (
+              <div className="relative rounded-lg border border-border bg-card">
+                <div className="absolute right-4 top-4">
+                  <CopyButton value={component.code} />
+                </div>
+                <pre className="overflow-x-auto p-6">
+                  <code className="text-sm text-foreground">{component.code}</code>
+                </pre>
               </div>
-              <pre className="overflow-x-auto p-6">
-                <code className="text-sm text-foreground">{component.code}</code>
-              </pre>
-            </div>
+            ) : (
+              <div className="rounded-lg border border-border bg-card p-8 text-center">
+                <p className="text-muted-foreground">Code not available for this component</p>
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </main>
@@ -260,43 +213,28 @@ export default async function ComponentDetailPage({
   )
 }
 
-function ComponentPreview({ name }: { name: string }) {
-  switch (name) {
-    case "magnetic-button":
-      return (
-        <div className="rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground">
-          Hover me
+function PreviewSection({ component }: { component: ReturnType<typeof getComponentByName> }) {
+  if (!component) return null
+
+  // Render the actual component if it exists
+  if (component.name === "animated-stack") {
+    return (
+      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+        <div className="relative w-full max-w-2xl flex items-center justify-center">
+          <AnimatedStack />
         </div>
-      )
-    case "shimmer-text":
-      return (
-        <div
-          className="bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-4xl font-bold text-transparent"
-          style={{ animation: "shimmer 2s linear infinite" }}
-        >
-          Shimmer Text
-          <style>{`
-            @keyframes shimmer {
-              0% { background-position: 200% 0; }
-              100% { background-position: -200% 0; }
-            }
-          `}</style>
-        </div>
-      )
-    case "glow-card":
-      return (
-        <div className="h-32 w-48 rounded-xl border border-primary/30 bg-card p-4 shadow-lg shadow-primary/20">
-          <p className="text-sm text-muted-foreground">Hover to see glow</p>
-        </div>
-      )
-    case "typewriter":
-      return (
-        <div className="font-mono text-2xl">
-          <span className="text-foreground">Hello World</span>
-          <span className="animate-pulse text-primary">|</span>
-        </div>
-      )
-    default:
-      return <div className="text-muted-foreground">Preview not available</div>
+      </div>
+    )
   }
+
+  // Otherwise, show the interactive preview based on previewType
+  return (
+    <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+      <div className="relative h-full w-full max-w-2xl overflow-hidden rounded-lg bg-[#f5f5f5]">
+        <div className="flex h-full w-full items-center justify-center">
+          <ComponentPreview type={component.previewType} />
+        </div>
+      </div>
+    </div>
+  )
 }

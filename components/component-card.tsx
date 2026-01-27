@@ -89,7 +89,7 @@ export function ComponentCard({
   )
 }
 
-function ComponentPreview({ type }: { type: ComponentCardProps["previewType"] }) {
+export function ComponentPreview({ type }: { type: ComponentCardProps["previewType"] }) {
   switch (type) {
     case "scrollbar":
       return (
