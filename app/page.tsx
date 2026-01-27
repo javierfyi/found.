@@ -2,6 +2,7 @@
 
 import { HeroSection } from "@/components/hero-section"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
 function LiveClock() {
@@ -26,6 +27,8 @@ function LiveClock() {
 }
 
 export default function HomePage() {
+  const pathname = usePathname()
+  
   return (
     <div className="flex min-h-dvh flex-col bg-background">
       {/* Header */}
@@ -35,19 +38,27 @@ export default function HomePage() {
           style={{ backgroundColor: "rgba(176, 176, 176, 0.2)" }}
         >
           {/* Left - Logo/Name - Hidden on mobile */}
-          <Link href="/" className="hidden md:block text-xs font-bold text-black transition-colors hover:text-black">
+          <Link href="/" className={`hidden md:block text-xs font-bold transition-colors hover:text-black ${
+            pathname === "/" ? "text-black" : "text-black/40"
+          }`}>
             Foundry
           </Link>
 
           {/* Mobile - Navigation Links - Centered */}
           <nav className="flex md:hidden w-full items-center justify-center gap-x-12">
-            <Link href="/components" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+            <Link href="/components" className={`text-xs font-bold transition-colors hover:text-black ${
+              pathname === "/components" ? "text-black" : "text-black/40"
+            }`}>
               Components
             </Link>
-            <Link href="/docs" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+            <Link href="/docs" className={`text-xs font-bold transition-colors hover:text-black ${
+              pathname === "/docs" ? "text-black" : "text-black/40"
+            }`}>
               Docs
             </Link>
-            <Link href="/pricing" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+            <Link href="/pricing" className={`text-xs font-bold transition-colors hover:text-black ${
+              pathname === "/pricing" ? "text-black" : "text-black/40"
+            }`}>
               Pricing
             </Link>
           </nav>
@@ -56,19 +67,25 @@ export default function HomePage() {
           <div className="hidden md:flex items-center gap-x-12">
             {/* Navigation Links */}
             <nav className="flex items-center gap-x-24 md:mr-16 lg:mr-32 xl:mr-38">
-              <Link href="/components" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+              <Link href="/components" className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/components" ? "text-black" : "text-black/40"
+              }`}>
                 Components
               </Link>
-              <Link href="/docs" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+              <Link href="/docs" className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/docs" ? "text-black" : "text-black/40"
+              }`}>
                 Docs
               </Link>
-              <Link href="/pricing" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+              <Link href="/pricing" className={`text-xs font-bold transition-colors hover:text-black ${
+                pathname === "/pricing" ? "text-black" : "text-black/40"
+              }`}>
                 Pricing
               </Link>
             </nav>
 
             {/* Live Time */}
-            <div className="min-w-[100px] text-right text-xs font-bold text-black/50">
+            <div className="min-w-[100px] text-right text-xs font-bold text-black/40">
               <LiveClock />
             </div>
           </div>

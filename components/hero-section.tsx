@@ -23,17 +23,16 @@ export function HeroSection() {
         <div className="flex items-center justify-center gap-2">
           {/* Install Command */}
           <div
-            className="group flex cursor-pointer items-center justify-center rounded-2xl bg-muted font-mono text-foreground"
+            className="group flex cursor-pointer items-center justify-center rounded-2xl bg-muted font-mono"
             style={{ padding: "12px 20px" }}
             tabIndex={0}
             onClick={handleCopy}
           >
-            <div className="flex items-center text-xs group-active:scale-[0.999] sm:text-sm lg:text-base">
-              <span className="hidden sm:inline">npx shadcn add </span>
-              <span className="sm:hidden">npx shadcn add </span>
+            <div className="flex items-center text-xs font-semibold text-black/40 group-active:scale-[0.999]">
+              <span>npx shadcn add </span>
               @foundry
-              <span className="text-foreground/60">/{componentId}</span>
-              <span className="hidden lg:block ml-2">
+              <span className="text-black/40">/{componentId}</span>
+              <span className="ml-2">
                 <Copy className="size-4" />
               </span>
             </div>
@@ -42,7 +41,7 @@ export function HeroSection() {
           {/* Quick Start Button */}
           <Link href="/components/foundry1" className="flex items-center justify-center">
             <div
-              className="flex cursor-pointer items-center justify-center rounded-2xl bg-blue-500 text-xs font-medium text-white sm:text-[15px]"
+              className="flex cursor-pointer items-center justify-center rounded-2xl bg-blue-500 text-xs font-bold text-white"
               style={{ padding: "12px 20px" }}
               tabIndex={0}
             >

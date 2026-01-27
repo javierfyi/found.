@@ -76,9 +76,9 @@ export function ComponentCard({
 
       {/* Title Section */}
       <div className="flex items-center justify-between gap-2 px-2 pt-2">
-        <p className="font-medium">{title}</p>
+        <p className="text-xs font-bold text-black/40">{title}</p>
         <div className="flex items-center justify-center gap-2">
-          <span className="text-sm font-medium text-foreground/50">{id}</span>
+          <span className="text-xs font-bold text-black/40">{id}</span>
         </div>
       </div>
     </div>
