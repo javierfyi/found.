@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { BadgeDollarSign } from "lucide-react"
 import { useSoundContext } from "@/contexts/sound-context"
+import { AnimatedStack } from "@/registry/foundry/animated-stack"
+import { ShimmeringText } from "@/registry/foundry/shimmering-text"
 
 interface ComponentCardProps {
   name: string
@@ -49,33 +51,44 @@ export function ComponentCard({
         className="relative w-full flex-1 overflow-hidden"
         onMouseDown={() => playClick()}
       >
-        {imageUrl ? (
-          <>
-            <img
-              className="h-full w-full rounded-2xl object-cover"
-              alt=""
-              loading="lazy"
-              src={imageUrl}
-            />
-            {videoUrl && (
-              <video
-                className="absolute top-0 h-full w-full rounded-2xl object-cover opacity-0 transition-opacity group-hover:opacity-100"
-                playsInline
-                preload="none"
-                loop
-                muted
-              >
-                <source src={videoUrl} />
-              </video>
-            )}
-          </>
-        ) : (
-          <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[#f5f5f5]">
-            <div className="flex h-full w-full items-center justify-center">
-              <ComponentPreview type={previewType} />
+        <div className="relative h-full w-full overflow-hidden rounded-2xl bg-white">
+          {/* Render actual component when available (add new names + import above) */}
+          {name === "animated-stack" ? (
+            <div className="flex h-full w-full items-center justify-center p-4">
+              <div className="scale-[0.7] origin-center">
+                <AnimatedStack />
+              </div>
             </div>
-          </div>
-        )}
+          ) : name === "shimmering-text" ? (
+            <div className="flex h-full w-full items-center justify-center p-6">
+              <ShimmeringText text="Shimmering Text" className="text-xl font-bold" duration={1.5} repeatDelay={1} />
+            </div>
+          ) : imageUrl ? (
+            <>
+              <img
+                className="h-full w-full object-cover"
+                alt=""
+                loading="lazy"
+                src={imageUrl}
+              />
+              {videoUrl && (
+                <video
+                  className="absolute top-0 left-0 h-full w-full rounded-2xl object-cover opacity-0 transition-opacity group-hover:opacity-100"
+                  playsInline
+                  preload="none"
+                  loop
+                  muted
+                >
+                  <source src={videoUrl} />
+                </video>
+              )}
+            </>
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <ComponentPreview type={previewType} title={title} />
+            </div>
+          )}
+        </div>
       </Link>
 
       {/* Title Section */}
@@ -89,7 +102,13 @@ export function ComponentCard({
   )
 }
 
-export function ComponentPreview({ type }: { type: ComponentCardProps["previewType"] }) {
+export function ComponentPreview({
+  type,
+  title,
+}: {
+  type: ComponentCardProps["previewType"]
+  title?: string
+}) {
   switch (type) {
     case "scrollbar":
       return (
@@ -229,7 +248,7 @@ export function ComponentPreview({ type }: { type: ComponentCardProps["previewTy
       return (
         <div className="w-full h-full bg-white flex items-center justify-center p-8">
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Shimmer Text</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">{title ?? "Shimmer Text"}</h3>
             <p className="text-gray-600">Animated text effect</p>
           </div>
         </div>

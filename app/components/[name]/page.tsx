@@ -11,6 +11,7 @@ import { ComponentPreview } from "@/components/component-card"
 import { useSoundContext } from "@/contexts/sound-context"
 import { useEffect, useState } from "react"
 import { AnimatedStack } from "@/registry/foundry/animated-stack"
+import { ShimmeringText } from "@/registry/foundry/shimmering-text"
 
 function LiveClock() {
   const [time, setTime] = useState("")
@@ -222,6 +223,16 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
       <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <AnimatedStack />
+        </div>
+      </div>
+    )
+  }
+
+  if (component.name === "shimmering-text") {
+    return (
+      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+        <div className="relative w-full max-w-2xl flex items-center justify-center">
+          <ShimmeringText text="Shimmering Text" className="text-2xl font-bold" duration={1.5} repeatDelay={1} />
         </div>
       </div>
     )
