@@ -12,6 +12,8 @@ import { useSoundContext } from "@/contexts/sound-context"
 import { useEffect, useState } from "react"
 import { AnimatedStack } from "@/registry/foundry/animated-stack"
 import { ShimmeringText } from "@/registry/foundry/shimmering-text"
+import { TypingText, TypingTextCursor } from "@/registry/foundry/typing-text"
+import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
 
 function LiveClock() {
   const [time, setTime] = useState("")
@@ -233,6 +235,34 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
       <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <ShimmeringText text="Shimmering Text" className="text-2xl font-bold" duration={1.5} repeatDelay={1} />
+        </div>
+      </div>
+    )
+  }
+
+  if (component.name === "typing-text") {
+    return (
+      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+        <div className="relative w-full max-w-2xl flex items-center justify-center">
+          <TypingText
+            text="Typing Text component made with Motion. Highly customizable and easy to use."
+            delay={0.05}
+            holdDelay={1}
+            loop
+            className="text-4xl font-semibold"
+          >
+            <TypingTextCursor className="!h-8 !w-1 rounded-full ml-1" />
+          </TypingText>
+        </div>
+      </div>
+    )
+  }
+
+  if (component.name === "animated-number") {
+    return (
+      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+        <div className="relative w-full max-w-2xl flex items-center justify-center">
+          <AnimatedNumberDemo />
         </div>
       </div>
     )

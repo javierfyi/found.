@@ -115,6 +115,125 @@ export function ShimmeringText({
   )
 }`,
   },
+  {
+    name: "typing-text",
+    title: "Typing Text",
+    description: "A typing text animation. Highly customizable and easy to use.",
+    id: "foundry-typing",
+    size: "normal",
+    previewType: "typewriter",
+    code: `"use client"
+
+import React, { useEffect, useState } from "react"
+import { motion } from "motion/react"
+import { cn } from "@/lib/utils"
+
+interface TypingTextProps extends React.HTMLAttributes<HTMLDivElement> {
+  text: string
+  delay?: number
+  holdDelay?: number
+  loop?: boolean
+  className?: string
+  children?: React.ReactNode
+}
+
+export function TypingText({
+  text,
+  delay = 0.05,
+  holdDelay = 1,
+  loop = true,
+  className,
+  children,
+  ...props
+}: TypingTextProps) {
+  const [visibleLength, setVisibleLength] = useState(0)
+
+  useEffect(() => {
+    if (text.length === 0) return
+    let timeout: ReturnType<typeof setTimeout>
+    const typeNext = (index: number) => {
+      if (index <= text.length) {
+        setVisibleLength(index)
+        if (index < text.length) {
+          timeout = setTimeout(() => typeNext(index + 1), delay * 1000)
+        } else if (loop) {
+          timeout = setTimeout(() => {
+            setVisibleLength(0)
+            timeout = setTimeout(() => typeNext(1), delay * 1000)
+          }, holdDelay * 1000)
+        }
+      }
+    }
+    timeout = setTimeout(() => typeNext(1), delay * 1000)
+    return () => clearTimeout(timeout)
+  }, [text, delay, holdDelay, loop])
+
+  return (
+    <motion.div className={cn("inline-flex items-baseline flex-wrap", className)} {...props}>
+      <span>{text.slice(0, visibleLength)}</span>
+      {children}
+    </motion.div>
+  )
+}
+
+export function TypingTextCursor({ className }: { className?: string }) {
+  return (
+    <motion.span
+      className={cn("inline-block h-4 w-0.5 rounded-full bg-current ml-0.5 align-baseline", className)}
+      animate={{ opacity: [1, 0] }}
+      transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse" }}
+      aria-hidden
+    />
+  )
+}`,
+  },
+  {
+    name: "animated-number",
+    title: "Animated Number",
+    description: "A number that animates smoothly to a new value using spring physics.",
+    id: "foundry-number",
+    size: "normal",
+    previewType: "button",
+    code: `"use client"
+
+import { cn } from "@/lib/utils"
+import { motion, type SpringOptions, useSpring, useTransform } from "motion/react"
+import { useEffect } from "react"
+
+export type AnimatedNumberProps = {
+  value: number
+  className?: string
+  springOptions?: SpringOptions
+  as?: React.ElementType
+}
+
+export function AnimatedNumber({
+  value,
+  className,
+  springOptions,
+  as = "span",
+}: AnimatedNumberProps) {
+  const MotionComponent =
+    typeof as === "string"
+      ? (motion as unknown as Record<string, React.ComponentType>)[as] ?? motion.span
+      : motion.span
+
+  const spring = useSpring(value, springOptions)
+  const display = useTransform(spring, (current) =>
+    Math.round(current).toLocaleString()
+  )
+
+  useEffect(() => {
+    spring.set(value)
+  }, [spring, value])
+
+  return (
+    <MotionComponent className={cn("tabular-nums", className)}>
+      {display}
+    </MotionComponent>
+  )
+}`,
+  },
 ]
 
 // Helper function to get component by name

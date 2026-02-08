@@ -3,18 +3,15 @@
 import { Copy, Check } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
-import { useSoundContext } from "@/contexts/sound-context"
 
 export function HeroSection() {
   const [copied, setCopied] = useState(false)
   const componentId = "foundry1"
   const installCommand = `npx shadcn add @foundry/${componentId}`
-  const { playCopy, playClick } = useSoundContext()
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(installCommand)
     setCopied(true)
-    playCopy()
     setTimeout(() => setCopied(false), 2000)
   }
 
@@ -50,11 +47,7 @@ export function HeroSection() {
           </div>
 
           {/* Quick Start Button */}
-          <Link 
-            href="/docs" 
-            className="flex items-center justify-center"
-            onMouseDown={() => playClick()}
-          >
+          <Link href="/components/foundry1" className="flex items-center justify-center">
             <div
               className="flex cursor-pointer items-center justify-center rounded-2xl bg-blue-500 text-xs font-bold text-white"
               style={{ padding: "12px 20px" }}

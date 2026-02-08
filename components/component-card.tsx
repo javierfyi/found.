@@ -5,6 +5,8 @@ import { BadgeDollarSign } from "lucide-react"
 import { useSoundContext } from "@/contexts/sound-context"
 import { AnimatedStack } from "@/registry/foundry/animated-stack"
 import { ShimmeringText } from "@/registry/foundry/shimmering-text"
+import { TypingText, TypingTextCursor } from "@/registry/foundry/typing-text"
+import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
 
 interface ComponentCardProps {
   name: string
@@ -62,6 +64,22 @@ export function ComponentCard({
           ) : name === "shimmering-text" ? (
             <div className="flex h-full w-full items-center justify-center p-6">
               <ShimmeringText text="Shimmering Text" className="text-xl font-bold" duration={1.5} repeatDelay={1} />
+            </div>
+          ) : name === "typing-text" ? (
+            <div className="flex h-full w-full items-center justify-center p-6">
+              <TypingText
+                text="Typing Text"
+                delay={0.05}
+                holdDelay={1}
+                loop
+                className="text-lg font-semibold"
+              >
+                <TypingTextCursor className="!h-5 !w-0.5 rounded-full ml-0.5" />
+              </TypingText>
+            </div>
+          ) : name === "animated-number" ? (
+            <div className="flex h-full w-full items-center justify-center p-6">
+              <AnimatedNumberDemo />
             </div>
           ) : imageUrl ? (
             <>

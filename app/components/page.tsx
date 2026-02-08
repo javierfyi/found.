@@ -161,9 +161,9 @@ export default function ComponentsPage() {
             <p className="text-xs font-bold text-black/20">Try adjusting your search</p>
           </div>
         ) : (
-          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {filteredComponents.map((component) => (
-              <div key={component.name} className="mb-5 break-inside-avoid">
+              <div key={component.name}>
                 <ComponentCard {...component} />
               </div>
             ))}
