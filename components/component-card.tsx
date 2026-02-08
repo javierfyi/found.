@@ -7,6 +7,8 @@ import { AnimatedStack } from "@/registry/foundry/animated-stack"
 import { ShimmeringText } from "@/registry/foundry/shimmering-text"
 import { TypingText, TypingTextCursor } from "@/registry/foundry/typing-text"
 import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
+import { PopoverMorph } from "@/registry/foundry/popover-morph"
+import { Feedback } from "@/registry/foundry/feedback"
 
 interface ComponentCardProps {
   name: string
@@ -80,6 +82,24 @@ export function ComponentCard({
           ) : name === "animated-number" ? (
             <div className="flex h-full w-full items-center justify-center p-6">
               <AnimatedNumberDemo />
+            </div>
+          ) : name === "popover-morph" ? (
+            <div className="flex h-full w-full items-center justify-center p-6">
+              <PopoverMorph
+                trigger={<span className="text-sm font-medium">Click me</span>}
+                triggerClassName="rounded-lg bg-primary px-4 py-2 text-primary-foreground"
+                popoverClassName="min-w-[160px] rounded-xl border border-border bg-card p-3 shadow-lg"
+              >
+                <p className="text-xs text-muted-foreground">Any content here!</p>
+              </PopoverMorph>
+            </div>
+          ) : name === "feedback" ? (
+            <div className="flex h-full w-full items-center justify-center p-6">
+              <Feedback
+                onSubmit={async () => {}}
+                buttonText="Feedback"
+                successDuration={0}
+              />
             </div>
           ) : imageUrl ? (
             <>

@@ -234,6 +234,62 @@ export function AnimatedNumber({
   )
 }`,
   },
+  {
+    name: "popover-morph",
+    title: "Popover Morph",
+    description: "A button that morphs into a popover with smooth layout animations. Perfect for feedback forms, quick actions, or any content that expands from a button.",
+    id: "foundry-popover",
+    size: "normal",
+    previewType: "button",
+    code: `"use client"
+
+import { PopoverMorph } from "@/registry/foundry/popover-morph";
+
+export function Example() {
+  return (
+    <PopoverMorph
+      trigger={<span>Click me</span>}
+      onOpenChange={(open) => console.log("Open:", open)}
+      triggerClassName="rounded-lg bg-primary px-4 py-2 text-sm text-primary-foreground"
+      popoverClassName="min-w-[200px] rounded-xl border border-border bg-card p-4 shadow-lg"
+    >
+      <div className="p-2">
+        <h3 className="font-semibold">Any content here!</h3>
+        <p className="text-sm text-muted-foreground">This morphs smoothly from the button.</p>
+      </div>
+    </PopoverMorph>
+  );
+}`,
+  },
+  {
+    name: "feedback",
+    title: "Feedback",
+    description: "A polished feedback form built on PopoverMorph. Character counter, loading states, success animation, and error handling.",
+    id: "foundry-feedback",
+    size: "normal",
+    previewType: "button",
+    code: `"use client"
+
+import { Feedback } from "@/registry/foundry/feedback";
+
+export function Example() {
+  return (
+    <Feedback
+      onSubmit={async (feedback) => {
+        await fetch("/api/feedback", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ feedback }),
+        });
+      }}
+      buttonText="Feedback"
+      placeholder="Share your feedback..."
+      maxLength={500}
+      submitText="Send feedback"
+    />
+  );
+}`,
+  },
 ]
 
 // Helper function to get component by name
