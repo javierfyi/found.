@@ -84,10 +84,10 @@ export function ComponentCard({
               <AnimatedNumberDemo />
             </div>
           ) : name === "hover-card" ? (
-            <div className="flex h-full w-full items-center justify-center overflow-hidden p-2">
-              <div className="scale-[0.82] origin-center">
+            <div className="flex h-full w-full items-center justify-center overflow-hidden p-1">
+              <div className="scale-[0.58] origin-center">
                 <HoverCard
-                  href="#"
+                  asDiv
                   title="Hover Card"
                   description="Reveals on hover"
                   image="/images/hongwei-fan-wGdXZE8jTp8-unsplash.jpg"

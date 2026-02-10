@@ -40,6 +40,12 @@ export interface HoverCardProps
    * Custom icon to replace the default external link icon
    */
   customIcon?: React.ReactNode;
+
+  /**
+   * When true, render as a div instead of an anchor (e.g. when used inside a Link to avoid invalid nested <a>).
+   * @default false
+   */
+  asDiv?: boolean;
 }
 
 /**
@@ -61,6 +67,7 @@ export function HoverCard({
   descriptionClassName,
   showIcon = true,
   customIcon,
+  asDiv = false,
   ...props
 }: HoverCardProps) {
   const defaultIcon = (
@@ -81,19 +88,14 @@ export function HoverCard({
     </svg>
   );
 
-  return (
-    <a
-      href={href}
-      className={cn(
-        // Base styles
-        "group relative flex h-[340px] w-[340px] items-end overflow-hidden rounded-2xl bg-white text-left no-underline",
-        // Shadow (matches original)
-        "shadow-[0px_0px_0px_1px_rgba(9,9,11,0.08),0px_1px_2px_-1px_rgba(9,9,11,0.08),0px_2px_4px_0px_rgba(9,9,11,0.04)]",
-        className
-      )}
-      {...props}
-    >
-      {/* Optional background image */}
+  const wrapperClassName = cn(
+    "group relative flex h-[340px] w-[340px] items-end overflow-hidden rounded-2xl bg-white text-left no-underline",
+    "shadow-[0px_0px_0px_1px_rgba(9,9,11,0.08),0px_1px_2px_-1px_rgba(9,9,11,0.08),0px_2px_4px_0px_rgba(9,9,11,0.04)]",
+    className
+  );
+
+  const content = (
+    <>
       {image && (
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -101,34 +103,35 @@ export function HoverCard({
           aria-hidden="true"
         />
       )}
-
-      {/* Description container */}
       <div
         className={cn(
-          // Base styles
           "relative m-1.5 w-full rounded-xl border border-white bg-neutral-50 px-3.5 pb-3.5 pt-2.5 text-[13px]",
-          // Shadow (with stacked border effect)
           "shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_1px_2px_-1px_rgba(0,0,0,0.08),0px_2px_4px_0px_rgba(0,0,0,0.04)]",
-          // Initial state: hidden below card
           "translate-y-[calc(100%+0.375rem+1px)]",
-          // Transition and easing
           "transition-transform duration-500",
           "[transition-timing-function:cubic-bezier(0.19,1,0.22,1)]",
-          // Reveal on hover or keyboard focus
           "group-hover:translate-y-0 group-focus-visible:translate-y-0",
           descriptionClassName
         )}
       >
         <h3 className="font-medium text-neutral-900">{title}</h3>
         <p className="mt-1 leading-none text-neutral-500">{description}</p>
-
-        {/* Icon */}
         {showIcon && (
           <div className="text-neutral-600">
             {customIcon ?? defaultIcon}
           </div>
         )}
       </div>
+    </>
+  );
+
+  if (asDiv) {
+    return <div className={wrapperClassName}>{content}</div>;
+  }
+
+  return (
+    <a href={href} className={wrapperClassName} {...props}>
+      {content}
     </a>
   );
 }

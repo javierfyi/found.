@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Hook for detecting clicks outside of a referenced element
+ * Fixed TypeScript definition to accept nullable refs
  */
 function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   ref: React.RefObject<T | null>, // ← FIXED: Accept nullable refs
@@ -54,96 +55,21 @@ function LoadingDots() {
 type FeedbackState = "idle" | "loading" | "success" | "error";
 
 export interface FeedbackProps {
-  /**
-   * Callback fired when feedback is submitted
-   * Should return a Promise that resolves on success or rejects on error
-   */
   onSubmit: (feedback: string) => Promise<void>;
-
-  /**
-   * Callback fired when open state changes
-   */
   onOpenChange?: (open: boolean) => void;
-
-  /**
-   * Text for the trigger button
-   * @default "Feedback"
-   */
   buttonText?: string;
-
-  /**
-   * Icon to show before button text
-   */
   buttonIcon?: React.ReactNode;
-
-  /**
-   * Placeholder text for the textarea
-   * @default "Share your feedback..."
-   */
   placeholder?: string;
-
-  /**
-   * Maximum character length
-   * @default 500
-   */
   maxLength?: number;
-
-  /**
-   * Success message title
-   * @default "Feedback received!"
-   */
   successTitle?: string;
-
-  /**
-   * Success message description
-   * @default "Thanks for helping us improve."
-   */
   successMessage?: string;
-
-  /**
-   * Error message to show on submit failure
-   * @default "Failed to submit feedback. Please try again."
-   */
   errorMessage?: string;
-
-  /**
-   * How long to show success state before auto-closing (ms)
-   * Set to 0 to disable auto-close
-   * @default 3300
-   */
   successDuration?: number;
-
-  /**
-   * Submit button text
-   * @default "Send feedback"
-   */
   submitText?: string;
-
-  /**
-   * Custom class for the trigger button
-   */
   triggerClassName?: string;
-
-  /**
-   * Custom class for the popover
-   */
   popoverClassName?: string;
-
-  /**
-   * Show character counter
-   * @default true
-   */
   showCharacterCounter?: boolean;
-
-  /**
-   * Controlled open state
-   */
   open?: boolean;
-
-  /**
-   * Default open state (uncontrolled)
-   * @default false
-   */
   defaultOpen?: boolean;
 }
 
@@ -156,17 +82,7 @@ const defaultPopoverClass =
 /**
  * Feedback - A polished feedback form with morphing animation
  *
- * Built for shadcn/ui registry - zero custom CSS required!
- *
- * Features:
- * - Button morphs into popover with smooth layoutId animation
- * - Character counter with live updates
- * - Loading state with animated dots (no custom CSS!)
- * - Success animation with staggered elements
- * - Error handling with retry
- * - Full keyboard support (Escape, Cmd+Enter)
- * - Accessible with proper ARIA labels
- * - Dark mode support
+ * Registry-ready with zero custom CSS required!
  *
  * @example
  * ```tsx
@@ -211,13 +127,8 @@ export function Feedback({
   const setOpen = (newOpen: boolean) => {
     if (!isControlled) setInternalOpen(newOpen);
     onOpenChange?.(newOpen);
-    if (!newOpen) {
-      setTimeout(() => {
-        setFormState("idle");
-        setFeedback("");
-        setError(null);
-      }, 300);
-    }
+    // Don't reset state when closing - let the next open reset it instead
+    // This prevents state changes from interfering with the close animation
   };
 
   useOnClickOutside(ref, () => setOpen(false), open && formState !== "loading");
@@ -225,6 +136,7 @@ export function Feedback({
   useEffect(() => {
     if (!open) return;
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Allow closing with Escape in any state except loading
       if (e.key === "Escape" && formState !== "loading") setOpen(false);
       if (
         (e.metaKey || e.ctrlKey) &&
@@ -253,7 +165,7 @@ export function Feedback({
     try {
       await onSubmit(feedback);
       setFormState("success");
-      if (successDuration > 0) setTimeout(() => setOpen(false), successDuration);
+      // Removed auto-close - user must close manually like clicking outside
     } catch (err) {
       setFormState("error");
       setError(err instanceof Error ? err.message : errorMessage);
@@ -281,7 +193,8 @@ export function Feedback({
 
   return (
     <div className="relative flex items-center justify-center">
-      <AnimatePresence mode="wait">
+      {/* FIXED: Removed mode="wait" to match original smooth close behavior */}
+      <AnimatePresence>
         {!open ? (
           <motion.button
             layoutId="feedback-wrapper"
@@ -294,6 +207,7 @@ export function Feedback({
             }}
             className={cn(defaultTriggerClass, triggerClassName)}
             style={{ borderRadius: 8 }}
+            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", duration: 0.3, bounce: 0.2 }}
           >
@@ -313,7 +227,7 @@ export function Feedback({
             <motion.span
               aria-hidden
               layoutId="feedback-title"
-              className="absolute left-3.5 top-3 flex items-center gap-2 text-sm font-medium text-neutral-500 dark:text-neutral-400"
+              className="absolute left-3.5 top-3 flex items-center gap-2 text-sm font-medium text-neutral-500 data-[feedback=true]:opacity-0 dark:text-neutral-400"
               data-success={formState === "success" ? "true" : "false"}
               data-feedback={feedback ? "true" : "false"}
             >
@@ -321,7 +235,6 @@ export function Feedback({
               {buttonText}
             </motion.span>
 
-            {/* Nested AnimatePresence prevents button content from disappearing */}
             <AnimatePresence mode="popLayout">
               {formState === "success" ? (
                 <motion.div

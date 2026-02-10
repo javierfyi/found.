@@ -16,6 +16,7 @@ import { TypingText, TypingTextCursor } from "@/registry/foundry/typing-text"
 import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
 import { HoverCard } from "@/registry/foundry/hover-card"
 import { Feedback } from "@/registry/foundry/feedback"
+import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
 
 function LiveClock() {
   const [time, setTime] = useState("")
