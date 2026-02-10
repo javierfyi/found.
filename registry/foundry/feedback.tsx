@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
  * Hook for detecting clicks outside of a referenced element
  */
 function useOnClickOutside<T extends HTMLElement = HTMLElement>(
-  ref: React.RefObject<T>,
+  ref: React.RefObject<T | null>, // ← FIXED: Accept nullable refs
   handler: (event: MouseEvent | TouchEvent) => void,
   enabled: boolean = true
 ) {
@@ -30,62 +30,155 @@ function useOnClickOutside<T extends HTMLElement = HTMLElement>(
 }
 
 /**
- * Spinner component for loading state
+ * Simple loading dots - no custom CSS required!
  */
-function Spinner({ size = 14, className }: { size?: number; className?: string }) {
+function LoadingDots() {
   return (
-    <div
-      className={cn("relative", className)}
-      style={{ width: size, height: size }}
-      role="status"
-      aria-label="Loading"
-    >
-      <div className="absolute inset-0">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute left-[45%] top-[3.9%] h-[8%] w-[24%] animate-spin rounded-sm bg-current opacity-0"
-            style={{
-              transform: `rotate(${i * 30}deg) translate(0, 146%)`,
-              animationDelay: `${-(1.2 - i * 0.1)}s`,
-            }}
-          />
-        ))}
-      </div>
-    </div>
+    <span className="flex items-center gap-0.5">
+      Sending
+      <span className="flex">
+        <span className="animate-bounce" style={{ animationDelay: "0ms" }}>
+          .
+        </span>
+        <span className="animate-bounce" style={{ animationDelay: "150ms" }}>
+          .
+        </span>
+        <span className="animate-bounce" style={{ animationDelay: "300ms" }}>
+          .
+        </span>
+      </span>
+    </span>
   );
 }
 
 type FeedbackState = "idle" | "loading" | "success" | "error";
 
 export interface FeedbackProps {
+  /**
+   * Callback fired when feedback is submitted
+   * Should return a Promise that resolves on success or rejects on error
+   */
   onSubmit: (feedback: string) => Promise<void>;
+
+  /**
+   * Callback fired when open state changes
+   */
   onOpenChange?: (open: boolean) => void;
+
+  /**
+   * Text for the trigger button
+   * @default "Feedback"
+   */
   buttonText?: string;
+
+  /**
+   * Icon to show before button text
+   */
   buttonIcon?: React.ReactNode;
+
+  /**
+   * Placeholder text for the textarea
+   * @default "Share your feedback..."
+   */
   placeholder?: string;
+
+  /**
+   * Maximum character length
+   * @default 500
+   */
   maxLength?: number;
+
+  /**
+   * Success message title
+   * @default "Feedback received!"
+   */
   successTitle?: string;
+
+  /**
+   * Success message description
+   * @default "Thanks for helping us improve."
+   */
   successMessage?: string;
+
+  /**
+   * Error message to show on submit failure
+   * @default "Failed to submit feedback. Please try again."
+   */
   errorMessage?: string;
+
+  /**
+   * How long to show success state before auto-closing (ms)
+   * Set to 0 to disable auto-close
+   * @default 3300
+   */
   successDuration?: number;
+
+  /**
+   * Submit button text
+   * @default "Send feedback"
+   */
   submitText?: string;
+
+  /**
+   * Custom class for the trigger button
+   */
   triggerClassName?: string;
+
+  /**
+   * Custom class for the popover
+   */
   popoverClassName?: string;
+
+  /**
+   * Show character counter
+   * @default true
+   */
   showCharacterCounter?: boolean;
+
+  /**
+   * Controlled open state
+   */
   open?: boolean;
+
+  /**
+   * Default open state (uncontrolled)
+   * @default false
+   */
   defaultOpen?: boolean;
 }
 
 const defaultTriggerClass =
   "flex h-9 items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3.5 text-sm font-medium outline-none transition-all hover:border-neutral-300 hover:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-neutral-700";
+
 const defaultPopoverClass =
   "absolute h-48 w-[364px] overflow-hidden rounded-xl bg-neutral-100 p-1 shadow-lg dark:bg-neutral-900";
 
 /**
- * Feedback - A polished feedback form with morphing animation.
- * Standalone layoutId button↔popover; AnimatePresence around form/success and inside submit button
- * so content never disappears and there’s no hover blur.
+ * Feedback - A polished feedback form with morphing animation
+ *
+ * Built for shadcn/ui registry - zero custom CSS required!
+ *
+ * Features:
+ * - Button morphs into popover with smooth layoutId animation
+ * - Character counter with live updates
+ * - Loading state with animated dots (no custom CSS!)
+ * - Success animation with staggered elements
+ * - Error handling with retry
+ * - Full keyboard support (Escape, Cmd+Enter)
+ * - Accessible with proper ARIA labels
+ * - Dark mode support
+ *
+ * @example
+ * ```tsx
+ * <Feedback
+ *   onSubmit={async (feedback) => {
+ *     await fetch('/api/feedback', {
+ *       method: 'POST',
+ *       body: JSON.stringify({ feedback })
+ *     });
+ *   }}
+ * />
+ * ```
  */
 export function Feedback({
   onSubmit,
@@ -201,7 +294,6 @@ export function Feedback({
             }}
             className={cn(defaultTriggerClass, triggerClassName)}
             style={{ borderRadius: 8 }}
-            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", duration: 0.3, bounce: 0.2 }}
           >
@@ -229,7 +321,7 @@ export function Feedback({
               {buttonText}
             </motion.span>
 
-            {/* Nested AnimatePresence so form/success transition doesn’t leave button content empty */}
+            {/* Nested AnimatePresence prevents button content from disappearing */}
             <AnimatePresence mode="popLayout">
               {formState === "success" ? (
                 <motion.div
@@ -304,6 +396,7 @@ export function Feedback({
                   />
 
                   <div className="relative flex h-12 items-center border-t border-dashed border-neutral-200 px-2.5 dark:border-neutral-800">
+                    {/* Decorative half-circles */}
                     <div className="absolute -left-[3px] top-0 -translate-y-1/2">
                       <svg width="6" height="12" viewBox="0 0 6 12" fill="none">
                         <path
@@ -356,11 +449,7 @@ export function Feedback({
                             transition={{ type: "spring", duration: 0.3, bounce: 0 }}
                             className="flex items-center justify-center"
                           >
-                            {formState === "loading" ? (
-                              <Spinner size={14} className="text-white/70" />
-                            ) : (
-                              submitText
-                            )}
+                            {formState === "loading" ? <LoadingDots /> : submitText}
                           </motion.span>
                         </AnimatePresence>
                       </button>

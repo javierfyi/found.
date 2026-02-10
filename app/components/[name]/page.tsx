@@ -14,7 +14,6 @@ import { AnimatedStack } from "@/registry/foundry/animated-stack"
 import { ShimmeringText } from "@/registry/foundry/shimmering-text"
 import { TypingText, TypingTextCursor } from "@/registry/foundry/typing-text"
 import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
-import { PopoverMorph } from "@/registry/foundry/popover-morph"
 import { Feedback } from "@/registry/foundry/feedback"
 
 function LiveClock() {
@@ -265,25 +264,6 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
       <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <AnimatedNumberDemo />
-        </div>
-      </div>
-    )
-  }
-
-  if (component.name === "popover-morph") {
-    return (
-      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
-        <div className="relative w-full max-w-2xl flex items-center justify-center">
-          <PopoverMorph
-            trigger={<span className="text-sm font-medium">Click me</span>}
-            triggerClassName="rounded-lg bg-primary px-4 py-2 text-primary-foreground"
-            popoverClassName="min-w-[240px] rounded-xl border border-border bg-card p-6 shadow-lg"
-          >
-            <div>
-              <h3 className="font-semibold">Any content here!</h3>
-              <p className="mt-1 text-sm text-muted-foreground">This morphs smoothly from the button.</p>
-            </div>
-          </PopoverMorph>
         </div>
       </div>
     )
