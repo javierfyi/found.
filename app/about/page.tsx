@@ -2,29 +2,8 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useEffect, useState } from "react"
 import { useSoundContext } from "@/contexts/sound-context"
-
-function LiveClock() {
-  const [time, setTime] = useState("")
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      const hours = now.getHours()
-      const minutes = now.getMinutes().toString().padStart(2, "0")
-      const seconds = now.getSeconds().toString().padStart(2, "0")
-      const period = hours >= 12 ? "p.m." : "a.m."
-      const displayHours = hours % 12 || 12
-      setTime(`${displayHours}:${minutes}:${seconds} ${period}`)
-    }
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return <span>{time}</span>
-}
+import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
 
 export default function AboutPage() {
   const { playWelcome } = useSoundContext()
@@ -98,10 +77,13 @@ export default function AboutPage() {
               </Link>
             </nav>
 
-            {/* Live Time */}
-            <div className="min-w-[100px] text-right text-xs font-bold text-black/50">
-              <LiveClock />
-            </div>
+            {/* Mute Button and Live Time */}
+            <HeaderSoundAndClock />
+          </div>
+
+          {/* Mobile - Mute and Live Time */}
+          <div className="flex md:hidden">
+            <HeaderSoundAndClock />
           </div>
         </div>
       </header>

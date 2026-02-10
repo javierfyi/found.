@@ -3,73 +3,13 @@
 import { HeroSection } from "@/components/hero-section"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useEffect, useState, useRef } from "react"
 import { DecorativeIcons } from "@/components/decorative-icons"
 import { useSoundContext } from "@/contexts/sound-context"
-import { VolumeIcon, type VolumeIconHandle } from "@/components/volume-icon"
-
-function LiveClock() {
-  const [time, setTime] = useState("")
-  
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      const hours = now.getHours()
-      const minutes = now.getMinutes().toString().padStart(2, "0")
-      const seconds = now.getSeconds().toString().padStart(2, "0")
-      const period = hours >= 12 ? "p.m." : "a.m."
-      const displayHours = hours % 12 || 12
-      setTime(`${displayHours}:${minutes}:${seconds} ${period}`)
-    }
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return <span>{time}</span>
-}
+import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
 
 export default function HomePage() {
   const pathname = usePathname()
-  const { isMuted, toggleMute, playClick, playToggle, playWelcome } = useSoundContext()
-  const volumeIconRef = useRef<VolumeIconHandle>(null)
-  // const [showWelcomeModal, setShowWelcomeModal] = useState(false)
-  // const [modalVisible, setModalVisible] = useState(false)
-  
-  useEffect(() => {
-    if (volumeIconRef.current) {
-      if (isMuted) {
-        volumeIconRef.current.stopAnimation()
-      } else {
-        volumeIconRef.current.startAnimation()
-      }
-    }
-  }, [isMuted])
-
-  // Show welcome modal on first load
-  // useEffect(() => {
-  //   // TEMPORARY: Always show modal for testing - remove localStorage check
-  //   // const hasSeenWelcome = localStorage.getItem("foundry-welcome-seen")
-  //   // if (!hasSeenWelcome) {
-  //     // Small delay to ensure sound plays when modal appears
-  //     const timer = setTimeout(() => {
-  //       setShowWelcomeModal(true)
-  //       // Trigger CSS transition after a brief moment
-  //       setTimeout(() => {
-  //         setModalVisible(true)
-  //         // Play sound when modal becomes visible
-  //         playWelcome()
-  //       }, 10)
-  //       // localStorage.setItem("foundry-welcome-seen", "true")
-  //     }, 100)
-  //     return () => clearTimeout(timer)
-  //   // }
-  // }, [playWelcome])
-
-  const handleToggleMute = () => {
-    toggleMute()
-    playToggle()
-  }
+  const { playClick, playWelcome } = useSoundContext()
 
   return (
     <div className="flex min-h-dvh flex-col bg-background">
@@ -121,6 +61,11 @@ export default function HomePage() {
             </Link>
           </nav>
 
+          {/* Mobile - Mute and Live Time */}
+          <div className="flex md:hidden">
+            <HeaderSoundAndClock />
+          </div>
+
           {/* Desktop - Navigation Links and Time */}
           <div className="hidden md:flex items-center gap-x-12">
             {/* Navigation Links */}
@@ -155,19 +100,7 @@ export default function HomePage() {
             </nav>
 
             {/* Mute Button and Live Time */}
-            <div className="flex items-center gap-x-1">
-              <button
-                type="button"
-                onClick={handleToggleMute}
-                className="text-xs font-bold text-black/50 transition-colors hover:text-black"
-                aria-label={isMuted ? "Unmute sounds" : "Mute sounds"}
-              >
-                <VolumeIcon ref={volumeIconRef} size={14} />
-              </button>
-              <div className="min-w-[100px] text-right text-xs font-bold text-black/40">
-                <LiveClock />
-              </div>
-            </div>
+            <HeaderSoundAndClock />
           </div>
         </div>
       </header>

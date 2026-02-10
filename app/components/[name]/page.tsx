@@ -135,15 +135,13 @@ export default function ComponentDetailPage() {
               </Link>
             </nav>
 
-            {/* Live Time */}
-            <div className="min-w-[100px] text-right text-xs font-bold text-black/40">
-              <LiveClock />
-            </div>
+            {/* Mute Button and Live Time */}
+            <HeaderSoundAndClock />
           </div>
 
-          {/* Mobile - Live Time */}
-          <div className="flex md:hidden text-xs font-bold text-black/40">
-            <LiveClock />
+          {/* Mobile - Mute and Live Time */}
+          <div className="flex md:hidden">
+            <HeaderSoundAndClock />
           </div>
         </div>
       </header>

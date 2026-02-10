@@ -4,40 +4,29 @@ import { ComponentCard } from "@/components/component-card"
 import { Search, GraduationCap, Plus } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useSoundContext } from "@/contexts/sound-context"
 import { componentsData } from "@/lib/components-data"
+import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
 
-function LiveClock() {
-  const [time, setTime] = useState("")
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      const hours = now.getHours()
-      const minutes = now.getMinutes().toString().padStart(2, "0")
-      const seconds = now.getSeconds().toString().padStart(2, "0")
-      const period = hours >= 12 ? "p.m." : "a.m."
-      const displayHours = hours % 12 || 12
-      setTime(`${displayHours}:${minutes}:${seconds} ${period}`)
-    }
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return <span>{time}</span>
-}
+type SortOrder = "asc" | "desc"
 
 export default function ComponentsPage() {
   const pathname = usePathname()
   const [searchQuery, setSearchQuery] = useState("")
   const [isSearchFocused, setIsSearchFocused] = useState(false)
+  const [sortOrder, setSortOrder] = useState<SortOrder>("asc")
   const { playClick, playHover, playWelcome } = useSoundContext()
 
-  const filteredComponents = componentsData.filter((component) =>
-    component.title.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const filteredComponents = componentsData
+    .filter((component) =>
+      component.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .slice()
+    .sort((a, b) => {
+      const cmp = a.title.localeCompare(b.title, undefined, { sensitivity: "base" })
+      return sortOrder === "asc" ? cmp : -cmp
+    })
 
   return (
     <div className="min-h-screen bg-background">
@@ -122,15 +111,13 @@ export default function ComponentsPage() {
               </Link>
             </nav>
 
-            {/* Live Time */}
-            <div className="min-w-[100px] text-right text-xs font-bold text-black/40">
-              <LiveClock />
-            </div>
+            {/* Mute Button and Live Time */}
+            <HeaderSoundAndClock />
           </div>
 
-          {/* Mobile - Live Time */}
-          <div className="flex md:hidden text-xs font-bold text-black/40">
-            <LiveClock />
+          {/* Mobile - Mute and Live Time */}
+          <div className="flex md:hidden">
+            <HeaderSoundAndClock />
           </div>
         </div>
       </header>
@@ -212,8 +199,12 @@ export default function ComponentsPage() {
               </div>
               <button
                 type="button"
-                className="flex h-full items-center justify-center rounded-lg px-2 text-foreground/20 transition-opacity hover:bg-foreground/5"
-                onMouseDown={() => playClick()}
+                title="A → Z"
+                className={`flex h-full items-center justify-center rounded-lg px-2 transition-opacity hover:bg-foreground/5 ${sortOrder === "asc" ? "text-foreground" : "text-foreground/20"}`}
+                onMouseDown={() => {
+                  playClick()
+                  setSortOrder("asc")
+                }}
               >
                 <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5.2168 11.2812L8.3418 8.15625L11.4668 11.2812" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
@@ -222,8 +213,12 @@ export default function ComponentsPage() {
               </button>
               <button
                 type="button"
-                className="relative flex h-full items-center justify-center rounded-lg px-2 text-foreground/20 transition-opacity hover:bg-foreground/5"
-                onMouseDown={() => playClick()}
+                title="Z → A"
+                className={`relative flex h-full items-center justify-center rounded-lg px-2 transition-opacity hover:bg-foreground/5 ${sortOrder === "desc" ? "text-foreground" : "text-foreground/20"}`}
+                onMouseDown={() => {
+                  playClick()
+                  setSortOrder("desc")
+                }}
               >
                 <svg className="rotate-180" width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5.2168 11.2812L8.3418 8.15625L11.4668 11.2812" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />

@@ -47,7 +47,7 @@ export function HeroSection() {
           </div>
 
           {/* Quick Start Button */}
-          <Link href="/components/foundry1" className="flex items-center justify-center">
+          <Link href="/components" className="flex items-center justify-center">
             <div
               className="flex cursor-pointer items-center justify-center rounded-2xl bg-blue-500 text-xs font-bold text-white"
               style={{ padding: "12px 20px" }}
