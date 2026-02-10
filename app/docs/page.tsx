@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { useSoundContext } from "@/contexts/sound-context"
 import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
+import { componentsData } from "@/lib/components-data"
 
 function CodeBlock({ code, label }: { code: string; label: string }) {
   const [copied, setCopied] = useState(false)
@@ -145,34 +146,61 @@ export default function DocsPage() {
           {/* Page Title */}
           <div className="mb-12">
             <h1 className="mb-4 text-xs font-bold text-black">
-              Quick Start
+              Docs
             </h1>
             <p className="text-xs font-bold text-black/40">
-              Install Foundry components in your project using the shadcn CLI.
+              Foundry was born out of a training given to a school. It is not
+              open to the public — access is by registration only. If you want
+              access, use &quot;Request access&quot; on any component page to
+              register.
             </p>
           </div>
 
-          {/* Installation Section */}
+          {/* Request Access / Registration Section */}
           <section className="mb-12">
             <h2 className="mb-4 text-xs font-bold text-black">
-              Installation
+              Register for access
+            </h2>
+            <p className="text-xs font-bold text-black/40">
+              Foundry is a private registry. If you&apos;d like access, go to any
+              component page and click &quot;Request access&quot; to submit your
+              email. We&apos;ll get back to you when you&apos;re approved. Once
+              you&apos;re in, you&apos;ll see install commands and the Code tab on
+              each component page.
+            </p>
+          </section>
+
+          {/* Installation Section (for those with access) */}
+          <section className="mb-12">
+            <h2 className="mb-4 text-xs font-bold text-black">
+              Installation (with access)
             </h2>
             <p className="mb-6 text-xs font-bold text-black/40">
-              You can install any Foundry component directly using the shadcn
-              CLI. Make sure you have shadcn/ui set up in your project first.
+              Once you have access and are signed in, install any component
+              using the shadcn CLI. The install command and Code tab appear on
+              each component detail page. Make sure shadcn/ui is set up in your
+              project first.
             </p>
 
             <CodeBlock
               label="Terminal"
-              code="npx shadcn add https://foundry.dev/r/magnetic-button.json"
+              code="npx shadcn add https://foundry.dev/r/animated-stack.json"
             />
 
             <p className="mt-4 text-xs font-bold text-black/40">
               Replace{" "}
               <code className="rounded-md bg-muted px-2 py-1 text-xs font-bold text-black/40">
-                magnetic-button
+                animated-stack
               </code>{" "}
-              with any component name from our registry.
+              with any component name from the registry (e.g.{" "}
+              <code className="rounded-md bg-muted px-2 py-1 text-xs font-bold text-black/40">
+                feedback
+              </code>
+              ,{" "}
+              <code className="rounded-md bg-muted px-2 py-1 text-xs font-bold text-black/40">
+                hover-card
+              </code>
+              ).
             </p>
           </section>
 
@@ -182,55 +210,34 @@ export default function DocsPage() {
               Available Components
             </h2>
             <div className="space-y-3">
-              {[
-                {
-                  name: "magnetic-button",
-                  desc: "A button with magnetic cursor effect",
-                },
-                {
-                  name: "shimmer-text",
-                  desc: "Animated shimmer gradient text",
-                },
-                { name: "glow-card", desc: "Card with cursor-following glow" },
-                { name: "typewriter", desc: "Typewriter animation effect" },
-              ].map((component) => (
-                <div
+              {componentsData.map((component) => (
+                <Link
                   key={component.name}
-                  className="flex items-center justify-between rounded-xl border border-muted bg-muted p-4"
+                  href={`/components/${component.name}`}
+                  className="flex items-center justify-between rounded-xl border border-muted bg-muted p-4 transition-colors hover:bg-muted/80"
                 >
                   <div className="flex items-center gap-4">
                     <code className="rounded-md bg-background px-3 py-1.5 font-mono text-xs font-bold text-black/40">
                       {component.name}
                     </code>
                     <span className="text-xs font-bold text-black/40">
-                      {component.desc}
+                      {component.description}
                     </span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </section>
 
-          {/* Open in v0 Section */}
-          <section className="mb-12">
-            <h2 className="mb-4 text-xs font-bold text-black">
-              Open in v0
-            </h2>
-            <p className="text-xs font-bold text-black/40">
-              Every component includes an &quot;Open in v0&quot; button that
-              lets you instantly add the component to a v0 project for further
-              customization.
-            </p>
-          </section>
-
-          {/* Contributing Section */}
+          {/* Origin Section */}
           <section>
             <h2 className="mb-4 text-xs font-bold text-black">
-              Contributing
+              Origin
             </h2>
             <p className="text-xs font-bold text-black/40">
-              Foundry is open source. Feel free to submit your own components
-              via pull request on GitHub.
+              Foundry came from a training given to a school. The registry is
+              not open; anyone who wants access needs to register via Request
+              access.
             </p>
           </section>
         </div>

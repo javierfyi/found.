@@ -3,7 +3,17 @@
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CopyButton } from "@/components/copy-button"
-import { ArrowLeft, ExternalLink } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { notFound, useParams } from "next/navigation"
 import { getComponentByName } from "@/lib/components-data"
@@ -17,6 +27,9 @@ import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
 import { HoverCard } from "@/registry/foundry/hover-card"
 import { Feedback } from "@/registry/foundry/feedback"
 import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
+
+/** Set to true when user is logged in (e.g. via Supabase). Install command + Code tab visible only when true. */
+const isLoggedIn = false
 
 function LiveClock() {
   const [time, setTime] = useState("")
@@ -45,6 +58,8 @@ export default function ComponentDetailPage() {
   const component = getComponentByName(name)
   const pathname = `/components/${name}`
   const { playWelcome } = useSoundContext()
+  const [requestAccessOpen, setRequestAccessOpen] = useState(false)
+  const [requestEmail, setRequestEmail] = useState("")
 
   if (!component) {
     notFound()
@@ -52,6 +67,14 @@ export default function ComponentDetailPage() {
 
   const registryUrl = `https://foundry.dev/r/${name}.json`
   const installCommand = `npx shadcn add ${registryUrl}`
+
+  const handleRequestAccess = (e: React.FormEvent) => {
+    e.preventDefault()
+    // TODO: submit to backend / Supabase when ready
+    console.log("Request access:", requestEmail)
+    setRequestEmail("")
+    setRequestAccessOpen(false)
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -165,30 +188,64 @@ export default function ComponentDetailPage() {
         </div>
 
         <div className="mb-8 flex flex-wrap items-center gap-4">
-          <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2">
-            <code className="text-sm text-muted-foreground">
-              {installCommand}
-            </code>
-            <CopyButton value={installCommand} />
-          </div>
+          {isLoggedIn && (
+            <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2">
+              <code className="text-sm text-muted-foreground">
+                {installCommand}
+              </code>
+              <CopyButton value={installCommand} />
+            </div>
+          )}
 
-          <Button variant="outline" asChild>
-            <a
-              href={`https://v0.dev/chat?q=${encodeURIComponent(`Add the ${component.title} component from ${registryUrl}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="gap-2"
-            >
-              Open in v0
-              <ExternalLink className="h-4 w-4" />
-            </a>
+          <Button
+            variant="outline"
+            onClick={() => setRequestAccessOpen(true)}
+            className="gap-2"
+          >
+            Request access
           </Button>
         </div>
+
+        <Dialog open={requestAccessOpen} onOpenChange={setRequestAccessOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Request access</DialogTitle>
+              <DialogDescription>
+                Submit your email and we&apos;ll get back to you when access is available.
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleRequestAccess} className="grid gap-4 py-2">
+              <div className="grid gap-2">
+                <Label htmlFor="request-email">Email</Label>
+                <Input
+                  id="request-email"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={requestEmail}
+                  onChange={(e) => setRequestEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <DialogFooter>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setRequestAccessOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit">Submit request</Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
 
         <Tabs defaultValue="preview" className="w-full">
           <TabsList>
             <TabsTrigger value="preview">Preview</TabsTrigger>
-            <TabsTrigger value="code">Code</TabsTrigger>
+            <TabsTrigger value="code" disabled={!isLoggedIn}>
+              Code
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="preview" className="mt-6">
@@ -196,7 +253,11 @@ export default function ComponentDetailPage() {
           </TabsContent>
 
           <TabsContent value="code" className="mt-6">
-            {component.code ? (
+            {!isLoggedIn ? (
+              <div className="rounded-lg border border-border bg-card p-8 text-center">
+                <p className="text-muted-foreground">Sign in to view code</p>
+              </div>
+            ) : component.code ? (
               <div className="relative rounded-lg border border-border bg-card">
                 <div className="absolute right-4 top-4">
                   <CopyButton value={component.code} />

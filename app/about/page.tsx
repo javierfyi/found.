@@ -105,7 +105,7 @@ export default function AboutPage() {
                   color: 'rgb(153, 153, 153)'
                 }}
               >
-                Foundry is a <span style={{ color: 'rgb(0, 0, 0)' }}>shadcn/ui registry</span> that provides a curated collection of <span style={{ color: 'rgb(0, 0, 0)' }}>uncommon components</span> for modern web applications. Built on top of shadcn/ui's component system, Foundry offers unique, production-ready components that extend beyond the standard UI library. Whether you're building sleek interfaces, dynamic interactions, or engaging animations, Foundry provides the building blocks to create thoughtful, visually striking experiences.
+                Foundry was born out of a <span style={{ color: 'rgb(0, 0, 0)' }}>training given to a school</span>. It is a private <span style={{ color: 'rgb(0, 0, 0)' }}>shadcn/ui registry</span> with a curated set of components — not open to the public. Access is by registration only: use &quot;Request access&quot; on any component page to sign up. Once in, you get install commands and source code for building sleek interfaces, dynamic interactions, and engaging animations.
               </p>
             </div>
 
