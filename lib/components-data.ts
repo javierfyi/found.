@@ -235,6 +235,27 @@ export function AnimatedNumber({
 }`,
   },
   {
+    name: "hover-card",
+    title: "Hover Card",
+    description: "A card that reveals its description on hover with a smooth slide-up animation. Keyboard accessible, customizable.",
+    id: "foundry-hover-card",
+    size: "normal",
+    previewType: "card",
+    code: `"use client"
+
+import { HoverCard } from "@/registry/foundry/hover-card";
+
+export function Example() {
+  return (
+    <HoverCard
+      href="/projects/my-app"
+      title="My Awesome App"
+      description="A revolutionary new application"
+    />
+  );
+}`,
+  },
+  {
     name: "feedback",
     title: "Feedback",
     description: "A polished feedback form with character counter, loading states, success animation, and error handling.",

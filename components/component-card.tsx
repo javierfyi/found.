@@ -7,6 +7,7 @@ import { AnimatedStack } from "@/registry/foundry/animated-stack"
 import { ShimmeringText } from "@/registry/foundry/shimmering-text"
 import { TypingText, TypingTextCursor } from "@/registry/foundry/typing-text"
 import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
+import { HoverCard } from "@/registry/foundry/hover-card"
 import { Feedback } from "@/registry/foundry/feedback"
 
 interface ComponentCardProps {
@@ -81,6 +82,17 @@ export function ComponentCard({
           ) : name === "animated-number" ? (
             <div className="flex h-full w-full items-center justify-center p-6">
               <AnimatedNumberDemo />
+            </div>
+          ) : name === "hover-card" ? (
+            <div className="flex h-full w-full items-center justify-center overflow-hidden p-2">
+              <div className="scale-[0.82] origin-center">
+                <HoverCard
+                  href="#"
+                  title="Hover Card"
+                  description="Reveals on hover"
+                  image="/images/hongwei-fan-wGdXZE8jTp8-unsplash.jpg"
+                />
+              </div>
             </div>
           ) : name === "feedback" ? (
             <div className="flex h-full w-full items-center justify-center p-6">

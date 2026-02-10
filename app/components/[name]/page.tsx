@@ -14,6 +14,7 @@ import { AnimatedStack } from "@/registry/foundry/animated-stack"
 import { ShimmeringText } from "@/registry/foundry/shimmering-text"
 import { TypingText, TypingTextCursor } from "@/registry/foundry/typing-text"
 import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
+import { HoverCard } from "@/registry/foundry/hover-card"
 import { Feedback } from "@/registry/foundry/feedback"
 
 function LiveClock() {
@@ -264,6 +265,21 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
       <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <AnimatedNumberDemo />
+        </div>
+      </div>
+    )
+  }
+
+  if (component.name === "hover-card") {
+    return (
+      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+        <div className="relative w-full max-w-2xl flex items-center justify-center">
+          <HoverCard
+            href="#"
+            title="Hover Card"
+            description="A card that reveals its description on hover with a smooth slide-up animation."
+            image="/images/hongwei-fan-wGdXZE8jTp8-unsplash.jpg"
+          />
         </div>
       </div>
     )
