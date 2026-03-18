@@ -1,18 +1,8 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CopyButton } from "@/components/copy-button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { InstallationSection, ApiReferenceSection } from "@/components/component-docs"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { notFound, useParams } from "next/navigation"
@@ -27,9 +17,7 @@ import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
 import { HoverCard } from "@/registry/foundry/hover-card"
 import { Feedback } from "@/registry/foundry/feedback"
 import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
-
-/** Set to true when user is logged in (e.g. via Supabase). Install command + Code tab visible only when true. */
-const isLoggedIn = false
+import { getComponentSource } from "./actions"
 
 function LiveClock() {
   const [time, setTime] = useState("")
@@ -58,8 +46,11 @@ export default function ComponentDetailPage() {
   const component = getComponentByName(name)
   const pathname = `/components/${name}`
   const { playWelcome } = useSoundContext()
-  const [requestAccessOpen, setRequestAccessOpen] = useState(false)
-  const [requestEmail, setRequestEmail] = useState("")
+  const [sourceCode, setSourceCode] = useState<string | null>(null)
+
+  useEffect(() => {
+    getComponentSource(name).then(setSourceCode)
+  }, [name])
 
   if (!component) {
     notFound()
@@ -68,25 +59,17 @@ export default function ComponentDetailPage() {
   const registryUrl = `https://foundry.dev/r/${name}.json`
   const installCommand = `npx shadcn add ${registryUrl}`
 
-  const handleRequestAccess = (e: React.FormEvent) => {
-    e.preventDefault()
-    // TODO: submit to backend / Supabase when ready
-    console.log("Request access:", requestEmail)
-    setRequestEmail("")
-    setRequestAccessOpen(false)
-  }
-
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50">
-        <div 
+        <div
           className="flex w-full items-center justify-between px-3 py-2 md:px-4 md:py-[0.425rem] backdrop-blur-[20px]"
           style={{ backgroundColor: "rgba(176, 176, 176, 0.2)" }}
         >
           {/* Left - Logo/Name */}
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             onClick={() => playWelcome()}
             className={`text-xs font-bold transition-colors hover:text-black ${
               pathname === "/" ? "text-black" : "text-black/40"
@@ -97,8 +80,8 @@ export default function ComponentDetailPage() {
 
           {/* Mobile - Navigation Links - Centered */}
           <nav className="flex md:hidden items-center justify-center gap-x-6">
-            <Link 
-              href="/components" 
+            <Link
+              href="/components"
               onClick={() => playWelcome()}
               className={`text-xs font-bold transition-colors hover:text-black ${
                 pathname === "/components" ? "text-black" : "text-black/40"
@@ -106,8 +89,8 @@ export default function ComponentDetailPage() {
             >
               Components
             </Link>
-            <Link 
-              href="/docs" 
+            <Link
+              href="/docs"
               onClick={() => playWelcome()}
               className={`text-xs font-bold transition-colors hover:text-black ${
                 pathname === "/docs" ? "text-black" : "text-black/40"
@@ -115,8 +98,8 @@ export default function ComponentDetailPage() {
             >
               Docs
             </Link>
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               onClick={() => playWelcome()}
               className={`text-xs font-bold transition-colors hover:text-black ${
                 pathname === "/about" ? "text-black" : "text-black/40"
@@ -130,8 +113,8 @@ export default function ComponentDetailPage() {
           <div className="hidden md:flex items-center gap-x-12">
             {/* Navigation Links */}
             <nav className="flex items-center gap-x-24 md:mr-16 lg:mr-32 xl:mr-38">
-              <Link 
-                href="/components" 
+              <Link
+                href="/components"
                 onClick={() => playWelcome()}
                 className={`text-xs font-bold transition-colors hover:text-black ${
                   pathname === "/components" ? "text-black" : "text-black/40"
@@ -139,8 +122,8 @@ export default function ComponentDetailPage() {
               >
                 Components
               </Link>
-              <Link 
-                href="/docs" 
+              <Link
+                href="/docs"
                 onClick={() => playWelcome()}
                 className={`text-xs font-bold transition-colors hover:text-black ${
                   pathname === "/docs" ? "text-black" : "text-black/40"
@@ -148,8 +131,8 @@ export default function ComponentDetailPage() {
               >
                 Docs
               </Link>
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 onClick={() => playWelcome()}
                 className={`text-xs font-bold transition-colors hover:text-black ${
                   pathname === "/about" ? "text-black" : "text-black/40"
@@ -188,64 +171,19 @@ export default function ComponentDetailPage() {
         </div>
 
         <div className="mb-8 flex flex-wrap items-center gap-4">
-          {isLoggedIn && (
-            <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2">
-              <code className="text-sm text-muted-foreground">
-                {installCommand}
-              </code>
-              <CopyButton value={installCommand} />
-            </div>
-          )}
-
-          <Button
-            variant="outline"
-            onClick={() => setRequestAccessOpen(true)}
-            className="gap-2"
-          >
-            Request access
-          </Button>
+          <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2">
+            <code className="text-sm text-muted-foreground">
+              {installCommand}
+            </code>
+            <CopyButton value={installCommand} />
+          </div>
         </div>
 
-        <Dialog open={requestAccessOpen} onOpenChange={setRequestAccessOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Request access</DialogTitle>
-              <DialogDescription>
-                Submit your email and we&apos;ll get back to you when access is available.
-              </DialogDescription>
-            </DialogHeader>
-            <form onSubmit={handleRequestAccess} className="grid gap-4 py-2">
-              <div className="grid gap-2">
-                <Label htmlFor="request-email">Email</Label>
-                <Input
-                  id="request-email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={requestEmail}
-                  onChange={(e) => setRequestEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <DialogFooter>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setRequestAccessOpen(false)}
-                >
-                  Cancel
-                </Button>
-                <Button type="submit">Submit request</Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
-
+        {/* Preview / Code tabs */}
         <Tabs defaultValue="preview" className="w-full">
           <TabsList>
             <TabsTrigger value="preview">Preview</TabsTrigger>
-            <TabsTrigger value="code" disabled={!isLoggedIn}>
-              Code
-            </TabsTrigger>
+            <TabsTrigger value="code">Code</TabsTrigger>
           </TabsList>
 
           <TabsContent value="preview" className="mt-6">
@@ -253,26 +191,53 @@ export default function ComponentDetailPage() {
           </TabsContent>
 
           <TabsContent value="code" className="mt-6">
-            {!isLoggedIn ? (
-              <div className="rounded-lg border border-border bg-card p-8 text-center">
-                <p className="text-muted-foreground">Sign in to view code</p>
-              </div>
-            ) : component.code ? (
+            {sourceCode ? (
               <div className="relative rounded-lg border border-border bg-card">
-                <div className="absolute right-4 top-4">
-                  <CopyButton value={component.code} />
+                <div className="flex items-center justify-between border-b border-border px-4 py-2">
+                  <span className="text-sm text-muted-foreground">
+                    components/{name}.tsx
+                  </span>
+                  <CopyButton value={sourceCode} />
                 </div>
                 <pre className="overflow-x-auto p-6">
-                  <code className="text-sm text-foreground">{component.code}</code>
+                  <code className="text-sm text-foreground">{sourceCode}</code>
                 </pre>
               </div>
             ) : (
               <div className="rounded-lg border border-border bg-card p-8 text-center">
-                <p className="text-muted-foreground">Code not available for this component</p>
+                <p className="text-muted-foreground">Loading source code...</p>
               </div>
             )}
           </TabsContent>
         </Tabs>
+
+        {/* Installation */}
+        <InstallationSection
+          name={name}
+          installCommand={installCommand}
+          dependencies={component.dependencies}
+          sourceCode={sourceCode}
+        />
+
+        {/* Usage */}
+        {component.example && (
+          <div className="mt-16">
+            <h2 className="mb-6 text-2xl font-semibold tracking-tight">Usage</h2>
+            <div className="relative rounded-lg border border-border bg-card">
+              <div className="absolute right-4 top-4">
+                <CopyButton value={component.example} />
+              </div>
+              <pre className="overflow-x-auto p-6">
+                <code className="text-sm text-foreground">{component.example}</code>
+              </pre>
+            </div>
+          </div>
+        )}
+
+        {/* API Reference */}
+        {component.apiReference && component.apiReference.length > 0 && (
+          <ApiReferenceSection entries={component.apiReference} />
+        )}
       </main>
     </div>
   )
@@ -281,7 +246,6 @@ export default function ComponentDetailPage() {
 function PreviewSection({ component }: { component: ReturnType<typeof getComponentByName> }) {
   if (!component) return null
 
-  // Render the actual component if it exists
   if (component.name === "animated-stack") {
     return (
       <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
@@ -363,7 +327,6 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
     )
   }
 
-  // Otherwise, show the interactive preview based on previewType
   return (
     <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
       <div className="relative h-full w-full max-w-2xl overflow-hidden rounded-lg bg-[#f5f5f5]">

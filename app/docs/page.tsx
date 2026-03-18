@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { useSoundContext } from "@/contexts/sound-context"
 import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
-import { componentsData } from "@/lib/components-data"
 
 function CodeBlock({ code, label }: { code: string; label: string }) {
   const [copied, setCopied] = useState(false)
@@ -29,10 +28,10 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
           className="relative flex h-8 w-8 items-center justify-center rounded-full text-black/40 transition-colors hover:text-black"
           aria-label="Copy code"
         >
-          <Copy 
+          <Copy
             className={`size-4 transition-all duration-200 ease ${copied ? "opacity-0 scale-0" : "opacity-100 scale-100"}`}
           />
-          <Check 
+          <Check
             className={`absolute size-4 transition-all duration-200 ease ${copied ? "opacity-100 scale-100" : "opacity-0 scale-0"}`}
           />
         </button>
@@ -44,21 +43,29 @@ function CodeBlock({ code, label }: { code: string; label: string }) {
   )
 }
 
+function InlineCode({ children }: { children: React.ReactNode }) {
+  return (
+    <code className="text-xs font-bold text-black">
+      {children}
+    </code>
+  )
+}
+
 export default function DocsPage() {
   const pathname = usePathname()
   const { playWelcome } = useSoundContext()
-  
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50">
-        <div 
+        <div
           className="flex w-full items-center justify-between px-3 py-2 md:px-4 md:py-[0.425rem] backdrop-blur-[20px]"
           style={{ backgroundColor: "rgba(176, 176, 176, 0.2)" }}
         >
           {/* Left - Logo/Name */}
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             onClick={() => playWelcome()}
             className={`text-xs font-bold transition-colors hover:text-black ${
               pathname === "/" ? "text-black" : "text-black/40"
@@ -69,8 +76,8 @@ export default function DocsPage() {
 
           {/* Mobile - Navigation Links - Centered */}
           <nav className="flex md:hidden items-center justify-center gap-x-6">
-            <Link 
-              href="/components" 
+            <Link
+              href="/components"
               onClick={() => playWelcome()}
               className={`text-xs font-bold transition-colors hover:text-black ${
                 pathname === "/components" ? "text-black" : "text-black/40"
@@ -78,8 +85,8 @@ export default function DocsPage() {
             >
               Components
             </Link>
-            <Link 
-              href="/docs" 
+            <Link
+              href="/docs"
               onClick={() => playWelcome()}
               className={`text-xs font-bold transition-colors hover:text-black ${
                 pathname === "/docs" ? "text-black" : "text-black/40"
@@ -87,8 +94,8 @@ export default function DocsPage() {
             >
               Docs
             </Link>
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               onClick={() => playWelcome()}
               className={`text-xs font-bold transition-colors hover:text-black ${
                 pathname === "/about" ? "text-black" : "text-black/40"
@@ -102,8 +109,8 @@ export default function DocsPage() {
           <div className="hidden md:flex items-center gap-x-12">
             {/* Navigation Links */}
             <nav className="flex items-center gap-x-24 md:mr-16 lg:mr-32 xl:mr-38">
-              <Link 
-                href="/components" 
+              <Link
+                href="/components"
                 onClick={() => playWelcome()}
                 className={`text-xs font-bold transition-colors hover:text-black ${
                   pathname === "/components" ? "text-black" : "text-black/40"
@@ -111,8 +118,8 @@ export default function DocsPage() {
               >
                 Components
               </Link>
-              <Link 
-                href="/docs" 
+              <Link
+                href="/docs"
                 onClick={() => playWelcome()}
                 className={`text-xs font-bold transition-colors hover:text-black ${
                   pathname === "/docs" ? "text-black" : "text-black/40"
@@ -120,8 +127,8 @@ export default function DocsPage() {
               >
                 Docs
               </Link>
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 onClick={() => playWelcome()}
                 className={`text-xs font-bold transition-colors hover:text-black ${
                   pathname === "/about" ? "text-black" : "text-black/40"
@@ -149,37 +156,43 @@ export default function DocsPage() {
               Docs
             </h1>
             <p className="text-xs font-bold text-black/40">
-              Foundry was born out of a training given to a school. It is not
-              open to the public — access is by registration only. If you want
-              access, use &quot;Request access&quot; on any component page to
-              register.
+              Foundry is a shadcn/ui component registry. Components are installed
+              directly into your project via the shadcn CLI — no packages to
+              manage, no version conflicts. You own the source code.
             </p>
           </div>
 
-          {/* Request Access / Registration Section */}
+          {/* Prerequisites */}
           <section className="mb-12">
             <h2 className="mb-4 text-xs font-bold text-black">
-              Register for access
+              Prerequisites
             </h2>
-            <p className="text-xs font-bold text-black/40">
-              Foundry is a private registry. If you&apos;d like access, go to any
-              component page and click &quot;Request access&quot; to submit your
-              email. We&apos;ll get back to you when you&apos;re approved. Once
-              you&apos;re in, you&apos;ll see install commands and the Code tab on
-              each component page.
+            <p className="mb-4 text-xs font-bold text-black/40">
+              Foundry components are built for projects that already have
+              shadcn/ui initialized. If you haven&apos;t set it up yet:
+            </p>
+            <CodeBlock
+              label="Terminal"
+              code="npx shadcn@latest init"
+            />
+            <p className="mt-4 text-xs font-bold text-black/40">
+              This scaffolds the <InlineCode>components.json</InlineCode> config,
+              adds the <InlineCode>cn</InlineCode> utility, and sets up
+              your path aliases. Foundry uses
+              the <InlineCode>new-york</InlineCode> style
+              with <InlineCode>lucide-react</InlineCode> icons.
             </p>
           </section>
 
-          {/* Installation Section (for those with access) */}
+          {/* Installation */}
           <section className="mb-12">
             <h2 className="mb-4 text-xs font-bold text-black">
-              Installation (with access)
+              Installation
             </h2>
             <p className="mb-6 text-xs font-bold text-black/40">
-              Once you have access and are signed in, install any component
-              using the shadcn CLI. The install command and Code tab appear on
-              each component detail page. Make sure shadcn/ui is set up in your
-              project first.
+              Install any component by pointing the shadcn CLI at the
+              Foundry registry URL. The CLI resolves dependencies, writes the
+              source file into your project, and updates your imports.
             </p>
 
             <CodeBlock
@@ -187,57 +200,106 @@ export default function DocsPage() {
               code="npx shadcn add https://foundry.dev/r/animated-stack.json"
             />
 
-            <p className="mt-4 text-xs font-bold text-black/40">
-              Replace{" "}
-              <code className="rounded-md bg-muted px-2 py-1 text-xs font-bold text-black/40">
-                animated-stack
-              </code>{" "}
-              with any component name from the registry (e.g.{" "}
-              <code className="rounded-md bg-muted px-2 py-1 text-xs font-bold text-black/40">
-                feedback
-              </code>
-              ,{" "}
-              <code className="rounded-md bg-muted px-2 py-1 text-xs font-bold text-black/40">
-                hover-card
-              </code>
-              ).
+            <p className="mt-4 mb-6 text-xs font-bold text-black/40">
+              Replace <InlineCode>animated-stack</InlineCode> with the
+              component name you want. Each component page shows the exact
+              install command with a copy button.
+            </p>
+
+            <p className="text-xs font-bold text-black/40">
+              Some components depend on <InlineCode>motion</InlineCode> (Framer
+              Motion). The CLI handles this automatically — if the dependency
+              isn&apos;t in your <InlineCode>package.json</InlineCode>, it will
+              be added.
             </p>
           </section>
 
-          {/* Available Components Section */}
+          {/* How It Works */}
           <section className="mb-12">
             <h2 className="mb-4 text-xs font-bold text-black">
-              Available Components
+              How it works
             </h2>
-            <div className="space-y-3">
-              {componentsData.map((component) => (
-                <Link
-                  key={component.name}
-                  href={`/components/${component.name}`}
-                  className="flex items-center justify-between rounded-xl border border-muted bg-muted p-4 transition-colors hover:bg-muted/80"
-                >
-                  <div className="flex items-center gap-4">
-                    <code className="rounded-md bg-background px-3 py-1.5 font-mono text-xs font-bold text-black/40">
-                      {component.name}
-                    </code>
-                    <span className="text-xs font-bold text-black/40">
-                      {component.description}
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <p className="mb-4 text-xs font-bold text-black/40">
+              Foundry serves component metadata as JSON from
+              the <InlineCode>/r/[name].json</InlineCode> endpoint. Each JSON
+              file follows
+              the <InlineCode>shadcn registry-item</InlineCode> schema and
+              includes the component name, type, dependencies, and full source
+              code.
+            </p>
+            <p className="mb-4 text-xs font-bold text-black/40">
+              When you run <InlineCode>npx shadcn add</InlineCode>, the CLI
+              fetches that JSON, reads the dependency list, installs anything
+              missing, and writes the component file into
+              your <InlineCode>components/</InlineCode> directory.
+            </p>
+            <p className="text-xs font-bold text-black/40">
+              Because components are copied into your project as source code,
+              you can modify them freely. There is no runtime dependency on
+              Foundry.
+            </p>
           </section>
 
-          {/* Origin Section */}
+          {/* Project Structure */}
+          <section className="mb-12">
+            <h2 className="mb-4 text-xs font-bold text-black">
+              Project structure
+            </h2>
+            <p className="mb-4 text-xs font-bold text-black/40">
+              After installation, components land in your configured components
+              directory. A typical setup looks like:
+            </p>
+            <CodeBlock
+              label="Project"
+              code={`components/
+  ui/              # shadcn/ui primitives (button, dialog, tabs...)
+  animated-stack.tsx   # installed from Foundry
+  hover-card.tsx       # installed from Foundry
+lib/
+  utils.ts         # cn() utility`}
+            />
+            <p className="mt-4 text-xs font-bold text-black/40">
+              Components use <InlineCode>@/lib/utils</InlineCode> for
+              the <InlineCode>cn</InlineCode> classname helper and
+              import from <InlineCode>motion/react</InlineCode> for animations.
+              No other internal dependencies.
+            </p>
+          </section>
+
+          {/* Usage */}
+          <section className="mb-12">
+            <h2 className="mb-4 text-xs font-bold text-black">
+              Usage
+            </h2>
+            <p className="mb-6 text-xs font-bold text-black/40">
+              Import the component from your local components directory and use
+              it like any other React component. All Foundry components are
+              client components (<InlineCode>&quot;use client&quot;</InlineCode>).
+            </p>
+            <CodeBlock
+              label="app/page.tsx"
+              code={`import { AnimatedNumber } from "@/components/animated-number"
+
+export default function Page() {
+  return <AnimatedNumber value={500} className="text-4xl font-bold" />
+}`}
+            />
+          </section>
+
+          {/* Tech Stack */}
           <section>
             <h2 className="mb-4 text-xs font-bold text-black">
-              Origin
+              Tech stack
             </h2>
             <p className="text-xs font-bold text-black/40">
-              Foundry came from a training given to a school. The registry is
-              not open; anyone who wants access needs to register via Request
-              access.
+              Foundry components are built
+              with <InlineCode>React 19</InlineCode>,{" "}
+              <InlineCode>TypeScript</InlineCode>,{" "}
+              <InlineCode>Tailwind CSS v4</InlineCode>,
+              and <InlineCode>Motion</InlineCode> (Framer Motion). The registry
+              itself runs on <InlineCode>Next.js 16</InlineCode> with the App
+              Router and conforms to
+              the <InlineCode>shadcn registry-item</InlineCode> JSON schema.
             </p>
           </section>
         </div>

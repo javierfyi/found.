@@ -1,5 +1,18 @@
 export type ComponentPreviewType = "scrollbar" | "island" | "emoji" | "list" | "parallax" | "canvas" | "button" | "text" | "card" | "typewriter"
 
+export interface PropDefinition {
+  name: string
+  type: string
+  default: string
+  description: string
+}
+
+export interface ApiReferenceEntry {
+  name: string
+  description: string
+  props: PropDefinition[]
+}
+
 export interface ComponentData {
   name: string
   title: string
@@ -10,7 +23,9 @@ export interface ComponentData {
   isPro?: boolean
   imageUrl?: string
   videoUrl?: string
-  code?: string
+  example?: string
+  dependencies?: string[]
+  apiReference?: ApiReferenceEntry[]
 }
 
 export const componentsData: ComponentData[] = [
@@ -21,20 +36,18 @@ export const componentsData: ComponentData[] = [
     id: "foundry1",
     size: "tall",
     previewType: "card",
-    code: `"use client"
+    dependencies: ["motion", "lucide-react"],
+    apiReference: [
+      {
+        name: "AnimatedStack",
+        description: "A self-contained notification stack component that expands on hover with spring animations.",
+        props: [],
+      },
+    ],
+    example: `import { AnimatedStack } from "@/components/animated-stack"
 
-import { useRef, useState } from "react"
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
-
-interface AnimatedStackProps {
-  children: React.ReactNode
-  className?: string
-}
-
-export function AnimatedStack({ children, className }: AnimatedStackProps) {
-  // Implementation here
-  return <div className={cn("", className)}>{children}</div>
+export default function NotificationsPage() {
+  return <AnimatedStack />
 }`,
   },
   {
@@ -44,74 +57,37 @@ export function AnimatedStack({ children, className }: AnimatedStackProps) {
     id: "foundry-shimmer",
     size: "normal",
     previewType: "text",
-    code: `"use client"
+    dependencies: ["motion"],
+    apiReference: [
+      {
+        name: "ShimmeringText",
+        description: "A text component that applies a shimmering gradient animation across the text.",
+        props: [
+          { name: "text", type: "string", default: "-", description: "Text to display with shimmer effect." },
+          { name: "duration", type: "number", default: "2", description: "Animation duration in seconds." },
+          { name: "delay", type: "number", default: "0", description: "Delay before starting animation in seconds." },
+          { name: "repeat", type: "boolean", default: "true", description: "Whether to repeat the animation." },
+          { name: "repeatDelay", type: "number", default: "0.5", description: "Pause duration between repeats in seconds." },
+          { name: "className", type: "string", default: "-", description: "Additional CSS classes." },
+          { name: "startOnView", type: "boolean", default: "true", description: "Start animation when entering viewport." },
+          { name: "once", type: "boolean", default: "false", description: "Whether to animate only once." },
+          { name: "inViewMargin", type: "UseInViewOptions[\"margin\"]", default: "-", description: "Margin for in-view detection (rootMargin)." },
+          { name: "spread", type: "number", default: "2", description: "Shimmer spread multiplier." },
+          { name: "color", type: "string", default: "-", description: "Base text color." },
+          { name: "shimmerColor", type: "string", default: "-", description: "Shimmer gradient color." },
+        ],
+      },
+    ],
+    example: `import { ShimmeringText } from "@/components/shimmering-text"
 
-import React, { useMemo, useRef } from "react"
-import { motion, useInView, type UseInViewOptions } from "motion/react"
-import { cn } from "@/lib/utils"
-
-interface ShimmeringTextProps {
-  text: string
-  duration?: number
-  delay?: number
-  repeat?: boolean
-  repeatDelay?: number
-  className?: string
-  startOnView?: boolean
-  once?: boolean
-  inViewMargin?: UseInViewOptions["margin"]
-  spread?: number
-  color?: string
-  shimmerColor?: string
-}
-
-export function ShimmeringText({
-  text,
-  duration = 2,
-  delay = 0,
-  repeat = true,
-  repeatDelay = 0.5,
-  className,
-  startOnView = true,
-  once = false,
-  inViewMargin,
-  spread = 2,
-  color,
-  shimmerColor,
-}: ShimmeringTextProps) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once, margin: inViewMargin })
-  const dynamicSpread = useMemo(() => text.length * spread, [text, spread])
-  const shouldAnimate = !startOnView || isInView
-
+export default function HeroSection() {
   return (
-    <motion.span
-      ref={ref}
-      className={cn(
-        "relative inline-block bg-[length:250%_100%,auto] bg-clip-text text-transparent",
-        "[--base-color:var(--color-zinc-400)] [--shimmer-color:var(--color-zinc-950)]",
-        "[background-repeat:no-repeat,padding-box]",
-        "[--shimmer-bg:linear-gradient(90deg,transparent_calc(50%-var(--spread)),var(--shimmer-color),transparent_calc(50%+var(--spread)))]",
-        "dark:[--base-color:var(--color-zinc-600)] dark:[--shimmer-color:var(--color-white)]",
-        className
-      )}
-      style={
-        {
-          "--spread": \`\${dynamicSpread}px\`,
-          ...(color && { "--base-color": color }),
-          ...(shimmerColor && { "--shimmer-color": shimmerColor }),
-          backgroundImage: \`var(--shimmer-bg), linear-gradient(var(--base-color), var(--base-color))\`,
-        } as React.CSSProperties
-      }
-      initial={{ backgroundPosition: "100% center", opacity: 0 }}
-      animate={shouldAnimate ? { backgroundPosition: "0% center", opacity: 1 } : {}}
-      transition={{
-        backgroundPosition: { repeat: repeat ? Infinity : 0, duration, delay, repeatDelay, ease: "linear" },
-        opacity: { duration: 0.3, delay },
-      }}
-    >
-      {text}
-    </motion.span>
+    <ShimmeringText
+      text="Shimmering Text"
+      className="text-2xl font-bold"
+      duration={1.5}
+      repeatDelay={1}
+    />
   )
 }`,
   },
@@ -122,68 +98,41 @@ export function ShimmeringText({
     id: "foundry-typing",
     size: "normal",
     previewType: "typewriter",
-    code: `"use client"
+    dependencies: ["motion"],
+    apiReference: [
+      {
+        name: "TypingText",
+        description: "A text component that types out characters one by one with optional looping.",
+        props: [
+          { name: "text", type: "string", default: "-", description: "Text to type out." },
+          { name: "delay", type: "number", default: "0.05", description: "Delay between each character in seconds." },
+          { name: "holdDelay", type: "number", default: "1", description: "Pause at end before restart (when loop is true) in seconds." },
+          { name: "loop", type: "boolean", default: "true", description: "Whether to loop the animation." },
+          { name: "className", type: "string", default: "-", description: "Additional CSS classes." },
+          { name: "children", type: "ReactNode", default: "-", description: "Optional children rendered after the typed text (e.g. a cursor)." },
+        ],
+      },
+      {
+        name: "TypingTextCursor",
+        description: "An animated blinking cursor to pair with TypingText.",
+        props: [
+          { name: "className", type: "string", default: "-", description: "Additional CSS classes for the cursor." },
+        ],
+      },
+    ],
+    example: `import { TypingText, TypingTextCursor } from "@/components/typing-text"
 
-import React, { useEffect, useState } from "react"
-import { motion } from "motion/react"
-import { cn } from "@/lib/utils"
-
-interface TypingTextProps extends React.HTMLAttributes<HTMLDivElement> {
-  text: string
-  delay?: number
-  holdDelay?: number
-  loop?: boolean
-  className?: string
-  children?: React.ReactNode
-}
-
-export function TypingText({
-  text,
-  delay = 0.05,
-  holdDelay = 1,
-  loop = true,
-  className,
-  children,
-  ...props
-}: TypingTextProps) {
-  const [visibleLength, setVisibleLength] = useState(0)
-
-  useEffect(() => {
-    if (text.length === 0) return
-    let timeout: ReturnType<typeof setTimeout>
-    const typeNext = (index: number) => {
-      if (index <= text.length) {
-        setVisibleLength(index)
-        if (index < text.length) {
-          timeout = setTimeout(() => typeNext(index + 1), delay * 1000)
-        } else if (loop) {
-          timeout = setTimeout(() => {
-            setVisibleLength(0)
-            timeout = setTimeout(() => typeNext(1), delay * 1000)
-          }, holdDelay * 1000)
-        }
-      }
-    }
-    timeout = setTimeout(() => typeNext(1), delay * 1000)
-    return () => clearTimeout(timeout)
-  }, [text, delay, holdDelay, loop])
-
+export default function HeroSection() {
   return (
-    <motion.div className={cn("inline-flex items-baseline flex-wrap", className)} {...props}>
-      <span>{text.slice(0, visibleLength)}</span>
-      {children}
-    </motion.div>
-  )
-}
-
-export function TypingTextCursor({ className }: { className?: string }) {
-  return (
-    <motion.span
-      className={cn("inline-block h-4 w-0.5 rounded-full bg-current ml-0.5 align-baseline", className)}
-      animate={{ opacity: [1, 0] }}
-      transition={{ duration: 0.6, repeat: Infinity, repeatType: "reverse" }}
-      aria-hidden
-    />
+    <TypingText
+      text="Hello, world!"
+      delay={0.05}
+      holdDelay={1}
+      loop
+      className="text-4xl font-semibold"
+    >
+      <TypingTextCursor />
+    </TypingText>
   )
 }`,
   },
@@ -194,43 +143,35 @@ export function TypingTextCursor({ className }: { className?: string }) {
     id: "foundry-number",
     size: "normal",
     previewType: "button",
-    code: `"use client"
+    dependencies: ["motion"],
+    apiReference: [
+      {
+        name: "AnimatedNumber",
+        description: "A number display that animates smoothly to new values using spring physics.",
+        props: [
+          { name: "value", type: "number", default: "-", description: "The target number to animate to." },
+          { name: "className", type: "string", default: "-", description: "Additional CSS classes." },
+          { name: "springOptions", type: "SpringOptions", default: "-", description: "Motion spring configuration for the animation." },
+          { name: "as", type: "React.ElementType", default: "\"span\"", description: "The HTML element to render as." },
+        ],
+      },
+    ],
+    example: `import { AnimatedNumber } from "@/components/animated-number"
 
-import { cn } from "@/lib/utils"
-import { motion, type SpringOptions, useSpring, useTransform } from "motion/react"
-import { useEffect } from "react"
-
-export type AnimatedNumberProps = {
-  value: number
-  className?: string
-  springOptions?: SpringOptions
-  as?: React.ElementType
-}
-
-export function AnimatedNumber({
-  value,
-  className,
-  springOptions,
-  as = "span",
-}: AnimatedNumberProps) {
-  const MotionComponent =
-    typeof as === "string"
-      ? (motion as unknown as Record<string, React.ComponentType>)[as] ?? motion.span
-      : motion.span
-
-  const spring = useSpring(value, springOptions)
-  const display = useTransform(spring, (current) =>
-    Math.round(current).toLocaleString()
-  )
-
-  useEffect(() => {
-    spring.set(value)
-  }, [spring, value])
+export default function StatsPage() {
+  const [value, setValue] = useState(500)
 
   return (
-    <MotionComponent className={cn("tabular-nums", className)}>
-      {display}
-    </MotionComponent>
+    <div>
+      <AnimatedNumber
+        value={value}
+        className="text-4xl font-bold"
+        springOptions={{ stiffness: 100, damping: 20 }}
+      />
+      <button onClick={() => setValue(Math.floor(Math.random() * 10000))}>
+        Randomize
+      </button>
+    </div>
   )
 }`,
   },
@@ -241,18 +182,35 @@ export function AnimatedNumber({
     id: "foundry-hover-card",
     size: "normal",
     previewType: "card",
-    code: `"use client"
+    dependencies: [],
+    apiReference: [
+      {
+        name: "HoverCard",
+        description: "A card component that reveals its description on hover with a smooth slide-up animation. Extends anchor element attributes.",
+        props: [
+          { name: "title", type: "string", default: "-", description: "The title displayed on the card." },
+          { name: "description", type: "string", default: "-", description: "The description revealed on hover." },
+          { name: "image", type: "string", default: "-", description: "Optional background image URL." },
+          { name: "href", type: "string", default: "\"#\"", description: "Link destination URL." },
+          { name: "className", type: "string", default: "-", description: "Additional CSS classes for the card container." },
+          { name: "descriptionClassName", type: "string", default: "-", description: "Additional CSS classes for the description overlay." },
+          { name: "showIcon", type: "boolean", default: "true", description: "Show the external link icon." },
+          { name: "customIcon", type: "ReactNode", default: "-", description: "Custom icon to replace the default external link icon." },
+          { name: "asDiv", type: "boolean", default: "false", description: "Render as a div instead of an anchor." },
+        ],
+      },
+    ],
+    example: `import { HoverCard } from "@/components/hover-card"
 
-import { HoverCard } from "@/registry/foundry/hover-card";
-
-export function Example() {
+export default function ProjectsPage() {
   return (
     <HoverCard
       href="/projects/my-app"
       title="My Awesome App"
       description="A revolutionary new application"
+      image="/images/project-cover.jpg"
     />
-  );
+  )
 }`,
   },
   {
@@ -262,11 +220,34 @@ export function Example() {
     id: "foundry-feedback",
     size: "normal",
     previewType: "button",
-    code: `"use client"
+    dependencies: ["motion"],
+    apiReference: [
+      {
+        name: "Feedback",
+        description: "A polished feedback popover with morphing animation, character counter, loading states, and success/error handling.",
+        props: [
+          { name: "onSubmit", type: "(feedback: string) => Promise<void>", default: "-", description: "Async callback when feedback is submitted." },
+          { name: "onOpenChange", type: "(open: boolean) => void", default: "-", description: "Callback when the popover opens or closes." },
+          { name: "buttonText", type: "string", default: "\"Feedback\"", description: "Label for the trigger button." },
+          { name: "buttonIcon", type: "ReactNode", default: "-", description: "Custom icon for the trigger button." },
+          { name: "placeholder", type: "string", default: "\"Share your feedback...\"", description: "Textarea placeholder text." },
+          { name: "maxLength", type: "number", default: "500", description: "Maximum character count." },
+          { name: "successTitle", type: "string", default: "\"Feedback received!\"", description: "Title shown on successful submission." },
+          { name: "successMessage", type: "string", default: "\"Thanks for helping us improve.\"", description: "Message shown on successful submission." },
+          { name: "errorMessage", type: "string", default: "\"Failed to submit feedback. Please try again.\"", description: "Fallback error message." },
+          { name: "successDuration", type: "number", default: "3300", description: "Duration to show success state in milliseconds." },
+          { name: "submitText", type: "string", default: "\"Send feedback\"", description: "Label for the submit button." },
+          { name: "triggerClassName", type: "string", default: "-", description: "Additional CSS classes for the trigger button." },
+          { name: "popoverClassName", type: "string", default: "-", description: "Additional CSS classes for the popover container." },
+          { name: "showCharacterCounter", type: "boolean", default: "true", description: "Show the character count indicator." },
+          { name: "open", type: "boolean", default: "-", description: "Controlled open state." },
+          { name: "defaultOpen", type: "boolean", default: "-", description: "Default open state (uncontrolled)." },
+        ],
+      },
+    ],
+    example: `import { Feedback } from "@/components/feedback"
 
-import { Feedback } from "@/registry/foundry/feedback";
-
-export function Example() {
+export default function AppLayout() {
   return (
     <Feedback
       onSubmit={async (feedback) => {
@@ -274,14 +255,14 @@ export function Example() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ feedback }),
-        });
+        })
       }}
       buttonText="Feedback"
       placeholder="Share your feedback..."
       maxLength={500}
       submitText="Send feedback"
     />
-  );
+  )
 }`,
   },
 ]

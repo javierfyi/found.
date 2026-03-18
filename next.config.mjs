@@ -6,6 +6,15 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  headers: async () => [
+    {
+      source: "/r/:path*",
+      headers: [
+        { key: "Access-Control-Allow-Origin", value: "*" },
+        { key: "Access-Control-Allow-Methods", value: "GET" },
+      ],
+    },
+  ],
 }
 
 export default nextConfig

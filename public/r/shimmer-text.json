@@ -1,14 +1,15 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "shimmer-text",
-  "type": "registry:component",
   "title": "Shimmer Text",
-  "description": "Text with an animated shimmer gradient effect",
+  "description": "Text with an animated shimmer effect using a gradient background.",
+  "dependencies": [],
   "files": [
     {
-      "path": "components/shimmer-text.tsx",
-      "type": "registry:component",
-      "content": "import { cn } from \"@/lib/utils\"\n\ninterface ShimmerTextProps {\n  children: React.ReactNode\n  className?: string\n}\n\nexport function ShimmerText({ children, className }: ShimmerTextProps) {\n  return (\n    <span\n      className={cn(\n        \"animate-shimmer bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent\",\n        className\n      )}\n      style={{\n        animation: \"shimmer 2s linear infinite\",\n      }}\n    >\n      {children}\n      <style>{`\n        @keyframes shimmer {\n          0% { background-position: 200% 0; }\n          100% { background-position: -200% 0; }\n        }\n      `}</style>\n    </span>\n  )\n}"
+      "path": "registry/foundry/shimmer-text.tsx",
+      "content": "import React from \"react\"\nimport { cn } from \"@/lib/utils\"\n\ninterface ShimmerTextProps {\n  children: React.ReactNode\n  className?: string\n}\n\nexport function ShimmerText({ children, className }: ShimmerTextProps) {\n  return (\n    <span\n      className={cn(\n        \"animate-shimmer bg-gradient-to-r from-primary via-foreground to-primary bg-[length:200%_100%] bg-clip-text text-transparent\",\n        className\n      )}\n      style={{\n        animation: \"shimmer 2s linear infinite\",\n      }}\n    >\n      {children}\n      <style>{`\n        @keyframes shimmer {\n          0% { background-position: 200% 0; }\n          100% { background-position: -200% 0; }\n        }\n      `}</style>\n    </span>\n  )\n}\n",
+      "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:component"
 }

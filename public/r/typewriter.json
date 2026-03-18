@@ -1,14 +1,15 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "typewriter",
-  "type": "registry:component",
   "title": "Typewriter",
-  "description": "Animated typewriter text effect with customizable speed",
+  "description": "Types out text character-by-character with customizable speed.",
+  "dependencies": [],
   "files": [
     {
-      "path": "components/typewriter.tsx",
-      "type": "registry:component",
-      "content": "\"use client\"\n\nimport { useEffect, useState } from \"react\"\nimport { cn } from \"@/lib/utils\"\n\ninterface TypewriterProps {\n  text: string\n  speed?: number\n  className?: string\n}\n\nexport function Typewriter({ text, speed = 50, className }: TypewriterProps) {\n  const [displayText, setDisplayText] = useState(\"\")\n  const [currentIndex, setCurrentIndex] = useState(0)\n\n  useEffect(() => {\n    if (currentIndex < text.length) {\n      const timeout = setTimeout(() => {\n        setDisplayText((prev) => prev + text[currentIndex])\n        setCurrentIndex((prev) => prev + 1)\n      }, speed)\n      return () => clearTimeout(timeout)\n    }\n  }, [currentIndex, text, speed])\n\n  return (\n    <span className={cn(\"\", className)}>\n      {displayText}\n      <span className=\"animate-pulse text-primary\">|</span>\n    </span>\n  )\n}"
+      "path": "registry/foundry/typewriter.tsx",
+      "content": "\"use client\"\n\nimport { useEffect, useState } from \"react\"\nimport { cn } from \"@/lib/utils\"\n\ninterface TypewriterProps {\n  text: string\n  speed?: number\n  className?: string\n}\n\nexport function Typewriter({ text, speed = 50, className }: TypewriterProps) {\n  const [displayText, setDisplayText] = useState(\"\")\n  const [currentIndex, setCurrentIndex] = useState(0)\n\n  useEffect(() => {\n    if (currentIndex < text.length) {\n      const timeout = setTimeout(() => {\n        setDisplayText((prev) => prev + text[currentIndex])\n        setCurrentIndex((prev) => prev + 1)\n      }, speed)\n      return () => clearTimeout(timeout)\n    }\n  }, [currentIndex, text, speed])\n\n  return (\n    <span className={cn(\"\", className)}>\n      {displayText}\n      <span className=\"animate-pulse text-primary\">|</span>\n    </span>\n  )\n}\n",
+      "type": "registry:component"
     }
-  ]
+  ],
+  "type": "registry:component"
 }

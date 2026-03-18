@@ -105,7 +105,7 @@ export default function AboutPage() {
                   color: 'rgb(153, 153, 153)'
                 }}
               >
-                Foundry was born out of a <span style={{ color: 'rgb(0, 0, 0)' }}>training given to a school</span>. It is a private <span style={{ color: 'rgb(0, 0, 0)' }}>shadcn/ui registry</span> with a curated set of components — not open to the public. Access is by registration only: use &quot;Request access&quot; on any component page to sign up. Once in, you get install commands and source code for building sleek interfaces, dynamic interactions, and engaging animations.
+                Foundry is an open <span style={{ color: 'rgb(0, 0, 0)' }}>shadcn/ui component registry</span> — a curated set of <span style={{ color: 'rgb(0, 0, 0)' }}>animation-first React components</span> built with Motion and Tailwind CSS. Install any component into your project with a single <span style={{ color: 'rgb(0, 0, 0)' }}>npx shadcn add</span> command. The source code is copied directly into your codebase — no runtime dependency on Foundry, no packages to keep in sync. Modify the components however you want.
               </p>
             </div>
 

@@ -3,7 +3,7 @@
 import React from "react"
 
 import { useRef } from "react"
-import { motion, useInView, type Variants } from "framer-motion"
+import { motion, useInView, type Variants } from "motion/react"
 import { cn } from "@/lib/utils"
 
 interface BlurFadeProps {

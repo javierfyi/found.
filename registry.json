@@ -2,11 +2,143 @@
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "foundry",
   "homepage": "https://foundry.dev",
+  "author": "byeuler",
   "items": [
-    {"name": "animated-stack", "type": "registry:component", "title": "Animated Stack", "description": "An interactive stack of cards that expand and animate on hover with smooth spring animations", "files": [{"path": "registry/foundry/animated-stack.tsx", "type": "registry:component"}], "dependencies": ["motion", "lucide-react"]},
-    {"name": "shimmering-text", "type": "registry:component", "title": "Shimmering Text", "description": "A text component with beautiful shimmer animation effects that glide across the text.", "files": [{"path": "registry/foundry/shimmering-text.tsx", "type": "registry:component"}], "dependencies": ["motion"]},
-    {"name": "typing-text", "type": "registry:component", "title": "Typing Text", "description": "A typing text animation. Highly customizable and easy to use.", "files": [{"path": "registry/foundry/typing-text.tsx", "type": "registry:component"}], "dependencies": ["motion"]},
-    {"name": "animated-number", "type": "registry:component", "title": "Animated Number", "description": "A number that animates smoothly to a new value using spring physics.", "files": [{"path": "registry/foundry/animated-number.tsx", "type": "registry:component"}], "dependencies": ["motion"]},
-    {"name": "hover-card", "type": "registry:component", "title": "Hover Card", "description": "A card that reveals its description on hover with a smooth slide-up animation. Keyboard accessible, customizable.", "files": [{"path": "registry/foundry/hover-card.tsx", "type": "registry:component"}], "dependencies": []}
+    {
+      "name": "animated-counter",
+      "type": "registry:component",
+      "title": "Animated Counter",
+      "description": "Animates a numeric value from start to end using requestAnimationFrame with easing.",
+      "files": [{"path": "registry/foundry/animated-counter.tsx", "type": "registry:component"}],
+      "dependencies": []
+    },
+    {
+      "name": "animated-number",
+      "type": "registry:component",
+      "title": "Animated Number",
+      "description": "A number that animates smoothly to a new value using spring physics.",
+      "files": [{"path": "registry/foundry/animated-number.tsx", "type": "registry:component"}],
+      "dependencies": ["motion"]
+    },
+    {
+      "name": "animated-stack",
+      "type": "registry:component",
+      "title": "Animated Stack",
+      "description": "An interactive stack of cards that expand and animate on hover with smooth spring animations.",
+      "files": [{"path": "registry/foundry/animated-stack.tsx", "type": "registry:component"}],
+      "dependencies": ["motion", "lucide-react"]
+    },
+    {
+      "name": "blur-fade",
+      "type": "registry:component",
+      "title": "Blur Fade",
+      "description": "Animates children with a blur and fade effect on scroll into view.",
+      "files": [{"path": "registry/foundry/blur-fade.tsx", "type": "registry:component"}],
+      "dependencies": ["motion"]
+    },
+    {
+      "name": "feedback",
+      "type": "registry:component",
+      "title": "Feedback",
+      "description": "A feedback form with loading animation and click-outside detection.",
+      "files": [{"path": "registry/foundry/feedback.tsx", "type": "registry:component"}],
+      "dependencies": ["motion"]
+    },
+    {
+      "name": "glow-card",
+      "type": "registry:component",
+      "title": "Glow Card",
+      "description": "A card with a radial gradient glow effect that follows the mouse position.",
+      "files": [{"path": "registry/foundry/glow-card.tsx", "type": "registry:component"}],
+      "dependencies": []
+    },
+    {
+      "name": "gradient-text",
+      "type": "registry:component",
+      "title": "Gradient Text",
+      "description": "Text with a linear gradient background that can animate using CSS.",
+      "files": [{"path": "registry/foundry/gradient-text.tsx", "type": "registry:component"}],
+      "dependencies": []
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:component",
+      "title": "Hover Card",
+      "description": "A card that reveals its description on hover with a smooth slide-up animation. Keyboard accessible.",
+      "files": [{"path": "registry/foundry/hover-card.tsx", "type": "registry:component"}],
+      "dependencies": []
+    },
+    {
+      "name": "magnetic-button",
+      "type": "registry:component",
+      "title": "Magnetic Button",
+      "description": "A button that follows the cursor position with spring physics animation.",
+      "files": [{"path": "registry/foundry/magnetic-button.tsx", "type": "registry:component"}],
+      "dependencies": ["motion"]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:component",
+      "title": "Marquee",
+      "description": "Scrolling marquee text with optional reverse direction and hover pause.",
+      "files": [{"path": "registry/foundry/marquee.tsx", "type": "registry:component"}],
+      "dependencies": []
+    },
+    {
+      "name": "popover-morph",
+      "type": "registry:component",
+      "title": "Popover Morph",
+      "description": "A popover component with morphing animations and click-outside detection.",
+      "files": [{"path": "registry/foundry/popover-morph.tsx", "type": "registry:component"}],
+      "dependencies": ["motion"]
+    },
+    {
+      "name": "ripple-button",
+      "type": "registry:component",
+      "title": "Ripple Button",
+      "description": "A button with Material Design ripple effect on click.",
+      "files": [{"path": "registry/foundry/ripple-button.tsx", "type": "registry:component"}],
+      "dependencies": []
+    },
+    {
+      "name": "shimmer-text",
+      "type": "registry:component",
+      "title": "Shimmer Text",
+      "description": "Text with an animated shimmer effect using a gradient background.",
+      "files": [{"path": "registry/foundry/shimmer-text.tsx", "type": "registry:component"}],
+      "dependencies": []
+    },
+    {
+      "name": "shimmering-text",
+      "type": "registry:component",
+      "title": "Shimmering Text",
+      "description": "A text component with beautiful shimmer animation effects that glide across the text.",
+      "files": [{"path": "registry/foundry/shimmering-text.tsx", "type": "registry:component"}],
+      "dependencies": ["motion"]
+    },
+    {
+      "name": "text-reveal",
+      "type": "registry:component",
+      "title": "Text Reveal",
+      "description": "Reveals text word-by-word with an upward slide animation when scrolled into view.",
+      "files": [{"path": "registry/foundry/text-reveal.tsx", "type": "registry:component"}],
+      "dependencies": ["motion"]
+    },
+    {
+      "name": "typewriter",
+      "type": "registry:component",
+      "title": "Typewriter",
+      "description": "Types out text character-by-character with customizable speed.",
+      "files": [{"path": "registry/foundry/typewriter.tsx", "type": "registry:component"}],
+      "dependencies": []
+    },
+    {
+      "name": "typing-text",
+      "type": "registry:component",
+      "title": "Typing Text",
+      "description": "A typing text animation. Highly customizable and easy to use.",
+      "files": [{"path": "registry/foundry/typing-text.tsx", "type": "registry:component"}],
+      "dependencies": ["motion"]
+    }
   ]
 }
