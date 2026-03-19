@@ -26,7 +26,7 @@ export function InstallationSection({
         </TabsList>
 
         <TabsContent value="command" className="mt-6">
-          <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-3">
+          <div className="flex items-center gap-2 rounded-xl bg-muted px-4 py-2">
             <code className="flex-1 text-sm text-muted-foreground">{installCommand}</code>
             <CopyButton value={installCommand} />
           </div>
@@ -40,7 +40,7 @@ export function InstallationSection({
               </div>
               <div className="flex-1">
                 <p className="mb-3 text-sm font-medium">Install the following dependencies:</p>
-                <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-3">
+                <div className="flex items-center gap-2 rounded-xl bg-muted px-4 py-2">
                   <code className="flex-1 text-sm text-muted-foreground">
                     pnpm add {dependencies.join(" ")}
                   </code>
@@ -136,6 +136,42 @@ export function ApiReferenceSection({ entries }: { entries: ApiReferenceEntry[] 
           </div>
         ))}
       </div>
+    </div>
+  )
+}
+
+export function KeepInMindSection() {
+  return (
+    <div className="mt-16">
+      <h2 className="mb-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        Keep in mind
+      </h2>
+      <p className="max-w-2xl text-base text-foreground">
+        Most components here are recreations of the best out there. I don&apos;t
+        claim to be the original creator. This is my attempt to reverse-engineer,
+        replicate, and often add a few extra features. I&apos;ve tried to credit
+        everyone, but if I missed something, let me know.
+      </p>
+    </div>
+  )
+}
+
+export function ComponentContactSection() {
+  return (
+    <div className="mt-12">
+      <h2 className="mb-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        Contact
+      </h2>
+      <p className="text-base text-foreground">
+        If you find any bug or issue, feel free to{" "}
+        <a
+          href="mailto:hello@foundry.dev"
+          className="font-medium underline underline-offset-4 transition-colors hover:text-muted-foreground"
+        >
+          hello@foundry.dev
+        </a>
+        {" "}Drop a dm.
+      </p>
     </div>
   )
 }

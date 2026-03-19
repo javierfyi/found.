@@ -2,12 +2,11 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CopyButton } from "@/components/copy-button"
-import { InstallationSection, ApiReferenceSection } from "@/components/component-docs"
+import { InstallationSection, ApiReferenceSection, KeepInMindSection, ComponentContactSection } from "@/components/component-docs"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { notFound, useParams } from "next/navigation"
 import { getComponentByName } from "@/lib/components-data"
-import { ComponentPreview } from "@/components/component-card"
 import { useSoundContext } from "@/contexts/sound-context"
 import { useEffect, useState } from "react"
 import { AnimatedStack } from "@/registry/foundry/animated-stack"
@@ -16,7 +15,11 @@ import { TypingText, TypingTextCursor } from "@/registry/foundry/typing-text"
 import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
 import { HoverCard } from "@/registry/foundry/hover-card"
 import { Feedback } from "@/registry/foundry/feedback"
+import { ProgressiveBlur } from "@/registry/foundry/progressive-blur"
+import { ArrowTooltip, ArrowTooltipTrigger, ArrowTooltipContent } from "@/registry/foundry/arrow-tooltip"
+import { ChatInput } from "@/registry/foundry/chat-input"
 import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
+import { CodeBlock } from "@/components/code-block"
 import { getComponentSource } from "./actions"
 
 function LiveClock() {
@@ -171,7 +174,7 @@ export default function ComponentDetailPage() {
         </div>
 
         <div className="mb-8 flex flex-wrap items-center gap-4">
-          <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2">
+          <div className="flex items-center gap-2 rounded-xl bg-muted px-4 py-2">
             <code className="text-sm text-muted-foreground">
               {installCommand}
             </code>
@@ -204,7 +207,7 @@ export default function ComponentDetailPage() {
                 </pre>
               </div>
             ) : (
-              <div className="rounded-lg border border-border bg-card p-8 text-center">
+              <div className="rounded-2xl bg-muted p-8 text-center">
                 <p className="text-muted-foreground">Loading source code...</p>
               </div>
             )}
@@ -223,13 +226,11 @@ export default function ComponentDetailPage() {
         {component.example && (
           <div className="mt-16">
             <h2 className="mb-6 text-2xl font-semibold tracking-tight">Usage</h2>
-            <div className="relative rounded-lg border border-border bg-card">
-              <div className="absolute right-4 top-4">
+            <div className="relative">
+              <div className="absolute right-4 top-4 z-10">
                 <CopyButton value={component.example} />
               </div>
-              <pre className="overflow-x-auto p-6">
-                <code className="text-sm text-foreground">{component.example}</code>
-              </pre>
+              <CodeBlock code={component.example} />
             </div>
           </div>
         )}
@@ -238,6 +239,10 @@ export default function ComponentDetailPage() {
         {component.apiReference && component.apiReference.length > 0 && (
           <ApiReferenceSection entries={component.apiReference} />
         )}
+
+        {/* Keep in Mind + Contact */}
+        <KeepInMindSection />
+        <ComponentContactSection />
       </main>
     </div>
   )
@@ -248,7 +253,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
 
   if (component.name === "animated-stack") {
     return (
-      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+      <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <AnimatedStack />
         </div>
@@ -258,7 +263,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
 
   if (component.name === "shimmering-text") {
     return (
-      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+      <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <ShimmeringText text="Shimmering Text" className="text-2xl font-bold" duration={1.5} repeatDelay={1} />
         </div>
@@ -268,7 +273,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
 
   if (component.name === "typing-text") {
     return (
-      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+      <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <TypingText
             text="Typing Text component made with Motion. Highly customizable and easy to use."
@@ -286,7 +291,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
 
   if (component.name === "animated-number") {
     return (
-      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+      <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <AnimatedNumberDemo />
         </div>
@@ -296,7 +301,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
 
   if (component.name === "hover-card") {
     return (
-      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+      <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <HoverCard
             href="#"
@@ -311,7 +316,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
 
   if (component.name === "feedback") {
     return (
-      <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
+      <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <Feedback
             onSubmit={async (feedback) => {
@@ -327,13 +332,68 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
     )
   }
 
-  return (
-    <div className="flex min-h-[500px] items-center justify-center rounded-lg border border-border bg-card p-8">
-      <div className="relative h-full w-full max-w-2xl overflow-hidden rounded-lg bg-[#f5f5f5]">
-        <div className="flex h-full w-full items-center justify-center">
-          <ComponentPreview type={component.previewType} />
+  if (component.name === "arrow-tooltip") {
+    return (
+      <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
+        <div className="relative w-full max-w-2xl flex items-center justify-center">
+          <ArrowTooltip>
+            <ArrowTooltipTrigger>
+              <button className="rounded-md border border-border bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted">
+                Hover me
+              </button>
+            </ArrowTooltipTrigger>
+            <ArrowTooltipContent>
+              Arrow tooltip content
+            </ArrowTooltipContent>
+          </ArrowTooltip>
         </div>
       </div>
+    )
+  }
+
+  if (component.name === "progressive-blur") {
+    return (
+      <div className="relative flex min-h-[500px] items-center justify-center overflow-hidden rounded-2xl bg-muted text-black/40">
+        <ProgressiveBlur position="top" backgroundColor="#f5f4f3" />
+        <ProgressiveBlur position="bottom" backgroundColor="#f5f4f3" />
+        <div className="flex h-[500px] w-full flex-col items-center overflow-scroll">
+          <div className="mt-42 grid content-start justify-items-center gap-6 text-center text-black">
+            <span className="relative max-w-[12ch] text-xs uppercase leading-tight opacity-40 after:absolute after:left-1/2 after:top-full after:h-16 after:w-px after:bg-gradient-to-b after:from-white after:to-black after:content-['']">
+              Scroll down to see the effect
+            </span>
+          </div>
+          <div className="mt-24 w-full max-w-lg space-y-20 px-5 text-justify">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <div key={i}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Obcaecati, reiciendis eum vitae nostrum, temporibus repudiandae
+                voluptatibus, natus iure ipsa velit odit quibusdam illum. Quaerat
+                cumque laudantium libero reprehenderit perferendis quo nulla
+                voluptate? Repellat tenetur labore exercitationem dicta libero
+                voluptate suscipit, iusto ea assumenda. Ipsa enim, quidem atque
+                modi error eaque, debitis perferendis, hic iste libero dignissimos
+                ea! Quod inventore beatae aspernatur nulla rem perferendis aperiam
+                at debitis delectus odit quia animi ex mollitia vero molestias
+                itaque deleniti, quos exercitationem consequatur assumenda dolor?
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (component.name === "chat-input") {
+    return (
+      <div className="flex min-h-[500px] items-end justify-center rounded-2xl bg-muted p-8 pb-12">
+        <ChatInput />
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
+      <p className="text-xl font-semibold text-black/30">{component.title}</p>
     </div>
   )
 }

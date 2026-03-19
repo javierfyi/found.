@@ -1,5 +1,3 @@
-export type ComponentPreviewType = "scrollbar" | "island" | "emoji" | "list" | "parallax" | "canvas" | "button" | "text" | "card" | "typewriter"
-
 export interface PropDefinition {
   name: string
   type: string
@@ -19,9 +17,7 @@ export interface ComponentData {
   description: string
   id: string
   size?: "normal" | "tall" | "wide"
-  previewType: ComponentPreviewType
   isPro?: boolean
-  imageUrl?: string
   videoUrl?: string
   example?: string
   dependencies?: string[]
@@ -35,7 +31,8 @@ export const componentsData: ComponentData[] = [
     description: "An interactive stack of cards that expand and animate on hover with smooth spring animations",
     id: "foundry1",
     size: "tall",
-    previewType: "card",
+
+    videoUrl: "/demos/card_open.mp4",
     dependencies: ["motion", "lucide-react"],
     apiReference: [
       {
@@ -56,7 +53,8 @@ export default function NotificationsPage() {
     description: "A text component with beautiful shimmer animation effects that glide across the text.",
     id: "foundry-shimmer",
     size: "normal",
-    previewType: "text",
+
+    videoUrl: "/demos/shimering_text.mp4",
     dependencies: ["motion"],
     apiReference: [
       {
@@ -97,7 +95,8 @@ export default function HeroSection() {
     description: "A typing text animation. Highly customizable and easy to use.",
     id: "foundry-typing",
     size: "normal",
-    previewType: "typewriter",
+
+    videoUrl: "/demos/typing_text.mp4",
     dependencies: ["motion"],
     apiReference: [
       {
@@ -142,7 +141,8 @@ export default function HeroSection() {
     description: "A number that animates smoothly to a new value using spring physics.",
     id: "foundry-number",
     size: "normal",
-    previewType: "button",
+
+    videoUrl: "/demos/count_number.mp4",
     dependencies: ["motion"],
     apiReference: [
       {
@@ -181,7 +181,8 @@ export default function StatsPage() {
     description: "A card that reveals its description on hover with a smooth slide-up animation. Keyboard accessible, customizable.",
     id: "foundry-hover-card",
     size: "normal",
-    previewType: "card",
+
+    videoUrl: "/demos/card_hover.mp4",
     dependencies: [],
     apiReference: [
       {
@@ -214,12 +215,62 @@ export default function ProjectsPage() {
 }`,
   },
   {
+    name: "arrow-tooltip",
+    title: "Arrow Tooltip",
+    description: "A styled tooltip with an arrow indicator. Built on Radix UI with refined styling and smooth animations.",
+    id: "foundry-arrow-tooltip",
+    size: "normal",
+
+    videoUrl: "/demos/tooltip-hover.mov",
+    dependencies: ["@radix-ui/react-tooltip"],
+    apiReference: [
+      {
+        name: "ArrowTooltip",
+        description: "Root component that wraps the tooltip trigger and content. Includes a built-in provider with zero delay.",
+        props: [],
+      },
+      {
+        name: "ArrowTooltipTrigger",
+        description: "The element that triggers the tooltip on hover.",
+        props: [],
+      },
+      {
+        name: "ArrowTooltipContent",
+        description: "The tooltip content panel with the arrow indicator.",
+        props: [
+          { name: "sideOffset", type: "number", default: "4", description: "Distance in pixels from the trigger." },
+          { name: "side", type: "\"top\" | \"right\" | \"bottom\" | \"left\"", default: "\"top\"", description: "Preferred side of the trigger to render against." },
+          { name: "className", type: "string", default: "-", description: "Additional CSS classes for the content." },
+        ],
+      },
+    ],
+    example: `import {
+  ArrowTooltip,
+  ArrowTooltipTrigger,
+  ArrowTooltipContent,
+} from "@/components/arrow-tooltip"
+
+export default function Example() {
+  return (
+    <ArrowTooltip>
+      <ArrowTooltipTrigger>
+        <button>Hover me</button>
+      </ArrowTooltipTrigger>
+      <ArrowTooltipContent>
+        Tooltip content here
+      </ArrowTooltipContent>
+    </ArrowTooltip>
+  )
+}`,
+  },
+  {
     name: "feedback",
     title: "Feedback",
     description: "A polished feedback form with character counter, loading states, success animation, and error handling.",
     id: "foundry-feedback",
     size: "normal",
-    previewType: "button",
+
+    videoUrl: "/demos/feedback.mp4",
     dependencies: ["motion"],
     apiReference: [
       {
@@ -261,6 +312,75 @@ export default function AppLayout() {
       placeholder="Share your feedback..."
       maxLength={500}
       submitText="Send feedback"
+    />
+  )
+}`,
+  },
+  {
+    name: "progressive-blur",
+    title: "Progressive Blur",
+    description: "A gradient overlay with backdrop blur that fades content at the edges of a scrollable container.",
+    id: "foundry-progressive-blur",
+    size: "normal",
+
+    videoUrl: "/demos/blur_scroll.mov",
+    dependencies: [],
+    apiReference: [
+      {
+        name: "ProgressiveBlur",
+        description: "A positioned overlay that combines a gradient background with backdrop blur to smoothly fade content edges.",
+        props: [
+          { name: "className", type: "string", default: "-", description: "Additional CSS classes for the container." },
+          { name: "backgroundColor", type: "string", default: "\"#f5f4f3\"", description: "Background color for the gradient blend." },
+          { name: "position", type: "\"top\" | \"bottom\"", default: "\"top\"", description: "Position of the blur effect." },
+          { name: "height", type: "string", default: "\"150px\"", description: "Height of the blur area." },
+          { name: "blurAmount", type: "string", default: "\"4px\"", description: "Intensity of the backdrop blur." },
+        ],
+      },
+    ],
+    example: `import { ProgressiveBlur } from "@/components/progressive-blur"
+
+export default function ScrollContainer() {
+  return (
+    <div className="relative h-96 overflow-y-auto">
+      <ProgressiveBlur position="top" backgroundColor="#ffffff" />
+      <div className="p-8">
+        {/* Scrollable content */}
+      </div>
+      <ProgressiveBlur position="bottom" backgroundColor="#ffffff" />
+    </div>
+  )
+}`,
+  },
+  {
+    name: "chat-input",
+    title: "Chat Input",
+    description: "A minimalist chat input with animated message bubbles and auto bot replies.",
+    id: "foundry-chat-input",
+    size: "tall",
+
+    videoUrl: "/demos/ai-input-01.mov",
+    dependencies: ["motion", "lucide-react"],
+    apiReference: [
+      {
+        name: "ChatInput",
+        description: "A minimalist chat input bar with animated message bubbles that appear above the input.",
+        props: [
+          { name: "placeholder", type: "string", default: "\"Send Message\"", description: "Placeholder text for the input." },
+          { name: "onSend", type: "(message: string) => void", default: "-", description: "Callback when a message is sent." },
+          { name: "className", type: "string", default: "-", description: "Additional CSS classes for the container." },
+          { name: "maxMessages", type: "number", default: "8", description: "Maximum number of visible messages." },
+        ],
+      },
+    ],
+    example: `import { ChatInput } from "@/components/chat-input"
+
+export default function ChatPage() {
+  return (
+    <ChatInput
+      placeholder="Send Message"
+      onSend={(msg) => console.log("Sent:", msg)}
+      maxMessages={8}
     />
   )
 }`,

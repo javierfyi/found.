@@ -29,6 +29,22 @@
       "dependencies": ["motion", "lucide-react"]
     },
     {
+      "name": "arrow-tooltip",
+      "type": "registry:component",
+      "title": "Arrow Tooltip",
+      "description": "A styled tooltip with an arrow indicator, built on Radix UI.",
+      "files": [{"path": "registry/foundry/arrow-tooltip.tsx", "type": "registry:component"}],
+      "dependencies": ["@radix-ui/react-tooltip"]
+    },
+    {
+      "name": "chat-input",
+      "type": "registry:component",
+      "title": "Chat Input",
+      "description": "A minimalist chat input with animated message bubbles and auto bot replies.",
+      "files": [{"path": "registry/foundry/chat-input.tsx", "type": "registry:component"}],
+      "dependencies": ["motion", "lucide-react"]
+    },
+    {
       "name": "blur-fade",
       "type": "registry:component",
       "title": "Blur Fade",
@@ -91,6 +107,14 @@
       "description": "A popover component with morphing animations and click-outside detection.",
       "files": [{"path": "registry/foundry/popover-morph.tsx", "type": "registry:component"}],
       "dependencies": ["motion"]
+    },
+    {
+      "name": "progressive-blur",
+      "type": "registry:component",
+      "title": "Progressive Blur",
+      "description": "A gradient overlay with backdrop blur that fades content at the edges of a scrollable container.",
+      "files": [{"path": "registry/foundry/progressive-blur.tsx", "type": "registry:component"}],
+      "dependencies": []
     },
     {
       "name": "ripple-button",

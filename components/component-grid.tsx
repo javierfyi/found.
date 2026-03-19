@@ -11,7 +11,7 @@ const components = [
     description: "A button that follows your cursor with a magnetic effect",
     id: "skiper1",
     size: "normal" as const,
-    previewType: "scrollbar" as const,
+
     isPro: true,
   },
   {
@@ -20,7 +20,7 @@ const components = [
     description: "Text with an animated shimmer gradient effect",
     id: "skiper2",
     size: "normal" as const,
-    previewType: "island" as const,
+
     isPro: true,
   },
   {
@@ -29,7 +29,7 @@ const components = [
     description: "A card with a glowing border that follows your cursor",
     id: "skiper5",
     size: "normal" as const,
-    previewType: "emoji" as const,
+
     isPro: true,
   },
   {
@@ -38,7 +38,7 @@ const components = [
     description: "Animated typewriter text effect with customizable speed",
     id: "skiper24",
     size: "tall" as const,
-    previewType: "list" as const,
+
     isPro: true,
   },
   {
@@ -47,7 +47,7 @@ const components = [
     description: "Smooth parallax scrolling effect",
     id: "skiper29",
     size: "tall" as const,
-    previewType: "parallax" as const,
+
     isPro: true,
   },
   {
@@ -56,7 +56,7 @@ const components = [
     description: "Infinite scrollable canvas with drag support",
     id: "skiper73",
     size: "normal" as const,
-    previewType: "canvas" as const,
+
     isPro: true,
   },
 ]
