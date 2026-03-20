@@ -18,25 +18,14 @@ That's it. The component lands in your codebase as source code you own and can m
 
 | Component | Description |
 |-----------|-------------|
-| `animated-counter` | Animates a number from start to end with easing |
 | `animated-number` | Smooth spring-physics number transitions |
 | `animated-stack` | Expandable card stack with spring animations |
 | `arrow-tooltip` | Tooltip with arrow indicator (Radix UI) |
-| `blur-fade` | Blur + fade on scroll into view |
 | `chat-input` | Chat UI with animated message bubbles |
 | `feedback` | Feedback form with loading state |
-| `glow-card` | Mouse-tracking radial gradient glow |
-| `gradient-text` | Animated gradient text |
 | `hover-card` | Card revealing content on hover |
-| `magnetic-button` | Button that follows cursor with spring physics |
-| `marquee` | Infinite scrolling text, pausable on hover |
-| `popover-morph` | Popover with morphing animations |
 | `progressive-blur` | Gradient blur overlay for scrollable content |
-| `ripple-button` | Material Design ripple on click |
-| `shimmer-text` | Animated shimmer effect across text |
 | `shimmering-text` | Motion-powered shimmer animation |
-| `text-reveal` | Word-by-word reveal on scroll |
-| `typewriter` | Character-by-character typing effect |
 | `typing-text` | Typing animation with cursor |
 
 ## Run locally
