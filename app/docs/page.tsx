@@ -1,44 +1,20 @@
 "use client"
 
-import { Copy, Check } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
 import { useSoundContext } from "@/contexts/sound-context"
 import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
+import { CodeBlock as HighlightedCodeBlock } from "@/components/code-block"
+import { CopyButton } from "@/components/copy-button"
 
-function CodeBlock({ code, label }: { code: string; label: string }) {
-  const [copied, setCopied] = useState(false)
-  const { playCopy } = useSoundContext()
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(code)
-    setCopied(true)
-    playCopy()
-    setTimeout(() => setCopied(false), 2000)
-  }
-
+function CodeBlock({ code, label, language = "tsx" }: { code: string; label: string; language?: string }) {
   return (
-    <div className="rounded-2xl border border-muted bg-muted">
-      <div className="flex items-center justify-between border-b border-muted2 px-4 py-1.5">
+    <div className="relative rounded-2xl border border-border bg-muted/50">
+      <div className="flex items-center justify-between border-b border-border px-4 py-1.5">
         <span className="text-xs font-bold text-black/40">{label}</span>
-        <button
-          type="button"
-          onClick={handleCopy}
-          className="relative flex h-8 w-8 items-center justify-center rounded-full text-black/40 transition-colors hover:text-black"
-          aria-label="Copy code"
-        >
-          <Copy
-            className={`size-4 transition-all duration-200 ease ${copied ? "opacity-0 scale-0" : "opacity-100 scale-100"}`}
-          />
-          <Check
-            className={`absolute size-4 transition-all duration-200 ease ${copied ? "opacity-100 scale-100" : "opacity-0 scale-0"}`}
-          />
-        </button>
+        <CopyButton value={code} />
       </div>
-      <pre className="overflow-x-auto p-4">
-        <code className="font-mono text-xs font-bold text-black/40">{code}</code>
-      </pre>
+      <HighlightedCodeBlock code={code} language={language} className="rounded-none rounded-b-2xl border-0 p-4 text-xs" />
     </div>
   )
 }
@@ -174,6 +150,7 @@ export default function DocsPage() {
             <CodeBlock
               label="Terminal"
               code="npx shadcn@latest init"
+              language="bash"
             />
             <p className="mt-4 text-xs font-bold text-black/40">
               This scaffolds the <InlineCode>components.json</InlineCode> config,
@@ -198,6 +175,7 @@ export default function DocsPage() {
             <CodeBlock
               label="Terminal"
               code="npx shadcn add https://foundry.dev/r/animated-stack.json"
+              language="bash"
             />
 
             <p className="mt-4 mb-6 text-xs font-bold text-black/40">

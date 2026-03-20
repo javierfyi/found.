@@ -106,9 +106,9 @@ export default function HomePage() {
       </header>
 
       {/* Main Content - Center */}
-      <main className="flex flex-1 items-center justify-center pt-12">
+      <main className="relative flex flex-1 items-center justify-center pt-12">
+        <DecorativeIcons />
         <HeroSection />
-         {/* <DecorativeIcons />  */}
       </main>
 
       {/* Welcome Modal - Commented out for now */}

@@ -165,9 +165,31 @@ export default function ComponentDetailPage() {
         </Link>
 
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold tracking-tight">
-            {component.title}
-          </h1>
+          <div className="flex items-start justify-between gap-4">
+            <h1 className="mb-2 text-3xl font-bold tracking-tight">
+              {component.title}
+            </h1>
+            <div className="flex items-center gap-1 pt-1">
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href)
+                }}
+                className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                title="Copy link"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </button>
+              <button
+                onClick={() => {
+                  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out ${component.title} from Foundry`)}&url=${encodeURIComponent(window.location.href)}`, '_blank')
+                }}
+                className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                title="Share on X"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </button>
+            </div>
+          </div>
           <p className="max-w-2xl text-lg text-muted-foreground">
             {component.description}
           </p>
@@ -195,16 +217,16 @@ export default function ComponentDetailPage() {
 
           <TabsContent value="code" className="mt-6">
             {sourceCode ? (
-              <div className="relative rounded-lg border border-border bg-card">
-                <div className="flex items-center justify-between border-b border-border px-4 py-2">
+              <div className="relative">
+                <div className="flex items-center justify-between rounded-t-2xl border border-b-0 border-border bg-muted/50 px-4 py-2">
                   <span className="text-sm text-muted-foreground">
                     components/{name}.tsx
                   </span>
                   <CopyButton value={sourceCode} />
                 </div>
-                <pre className="overflow-x-auto p-6">
-                  <code className="text-sm text-foreground">{sourceCode}</code>
-                </pre>
+                <div className="max-h-[500px] overflow-auto rounded-b-2xl border border-border bg-muted/50">
+                  <CodeBlock code={sourceCode} className="rounded-none border-0" />
+                </div>
               </div>
             ) : (
               <div className="rounded-2xl bg-muted p-8 text-center">
@@ -276,7 +298,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
       <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <TypingText
-            text="Typing Text component made with Motion. Highly customizable and easy to use."
+            text="Hello, world!"
             delay={0.05}
             holdDelay={1}
             loop

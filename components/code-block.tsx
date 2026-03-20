@@ -2,12 +2,20 @@
 
 import { Highlight, themes } from "prism-react-renderer"
 
-export function CodeBlock({ code, language = "tsx" }: { code: string; language?: string }) {
+export function CodeBlock({
+  code,
+  language = "tsx",
+  className = "",
+}: {
+  code: string
+  language?: string
+  className?: string
+}) {
   return (
-    <Highlight theme={themes.github} code={code.trim()} language={language}>
+    <Highlight theme={themes.vsLight} code={code.trim()} language={language}>
       {({ style, tokens, getLineProps, getTokenProps }) => (
         <pre
-          className="overflow-x-auto rounded-2xl bg-muted p-6 text-sm"
+          className={`overflow-x-auto rounded-2xl border border-border bg-muted/50 p-6 text-sm ${className}`}
           style={{ ...style, backgroundColor: "transparent" }}
         >
           {tokens.map((line, i) => (
