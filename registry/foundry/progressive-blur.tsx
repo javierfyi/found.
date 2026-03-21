@@ -1,17 +1,17 @@
-import React from "react"
-import { cn } from "@/lib/utils"
+import React from "react";
+import { cn } from "@/lib/utils";
 
 interface ProgressiveBlurProps {
   /** Additional CSS classes for the container */
-  className?: string
+  className?: string;
   /** Background color for the gradient blend */
-  backgroundColor?: string
+  backgroundColor?: string;
   /** Position of the blur effect */
-  position?: "top" | "bottom"
+  position?: "top" | "bottom";
   /** Height of the blur area */
-  height?: string
+  height?: string;
   /** Intensity of the backdrop blur */
-  blurAmount?: string
+  blurAmount?: string;
 }
 
 export function ProgressiveBlur({
@@ -21,13 +21,13 @@ export function ProgressiveBlur({
   height = "150px",
   blurAmount = "4px",
 }: ProgressiveBlurProps) {
-  const isTop = position === "top"
+  const isTop = position === "top";
 
   return (
     <div
       className={cn(
         "pointer-events-none absolute left-0 w-full select-none",
-        className
+        className,
       )}
       style={{
         [isTop ? "top" : "bottom"]: 0,
@@ -38,5 +38,5 @@ export function ProgressiveBlur({
         backdropFilter: `blur(${blurAmount})`,
       }}
     />
-  )
+  );
 }

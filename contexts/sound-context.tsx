@@ -1,33 +1,39 @@
-"use client"
+"use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react"
-import useSound from "use-sound"
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+import useSound from "use-sound";
 
 interface SoundContextType {
-  isMuted: boolean
-  toggleMute: () => void
-  playClick: () => void
-  playHover: () => void
-  playSuccess: () => void
-  playOpen: () => void
-  playClose: () => void
-  playCopy: () => void
-  playToggle: () => void
-  playWelcome: () => void
+  isMuted: boolean;
+  toggleMute: () => void;
+  playClick: () => void;
+  playHover: () => void;
+  playSuccess: () => void;
+  playOpen: () => void;
+  playClose: () => void;
+  playCopy: () => void;
+  playToggle: () => void;
+  playWelcome: () => void;
 }
 
-const SoundContext = createContext<SoundContextType | undefined>(undefined)
+const SoundContext = createContext<SoundContextType | undefined>(undefined);
 
 export function SoundProvider({ children }: { children: React.ReactNode }) {
-  const [isMuted, setIsMuted] = useState(false)
+  const [isMuted, setIsMuted] = useState(false);
 
   // Load sound preference from localStorage on mount
   useEffect(() => {
-    const savedMuteState = localStorage.getItem("foundry-sound-muted")
+    const savedMuteState = localStorage.getItem("foundry-sound-muted");
     if (savedMuteState === "true") {
-      setIsMuted(true)
+      setIsMuted(true);
     }
-  }, [])
+  }, []);
 
   // Load sound files
   const [playClickSound] = useSound(
@@ -35,120 +41,120 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     {
       volume: 0.5,
       preload: true,
-    }
-  )
+    },
+  );
 
   const [playHoverSound] = useSound(
     "/sounds/ES_Neutral, Select Tone 03 - Epidemic Sound.mp3",
     {
       volume: 0.3,
       preload: true,
-    }
-  )
+    },
+  );
 
   const [playSuccessSound] = useSound(
     "/sounds/ES_Access Granted 05 - Epidemic Sound.mp3",
     {
       volume: 0.6,
       preload: true,
-    }
-  )
+    },
+  );
 
   const [playOpenSound] = useSound(
     "/sounds/ES_Sci Fi Games, UI Menu, Very Short, Open 05 - Epidemic Sound.mp3",
     {
       volume: 0.5,
       preload: true,
-    }
-  )
+    },
+  );
 
   const [playCloseSound] = useSound(
     "/sounds/ES_Sci Fi Games, UI Menu, Very Short, Close 09 - Epidemic Sound.mp3",
     {
       volume: 0.5,
       preload: true,
-    }
-  )
+    },
+  );
 
   const [playCopySound] = useSound(
     "/sounds/ES_Sci Fi Games, UI Menu, Very Short, Open 12 - Epidemic Sound.mp3",
     {
       volume: 0.5,
       preload: true,
-    }
-  )
+    },
+  );
 
   const [playToggleSound] = useSound(
     "/sounds/ES_Bring Up Hud - Epidemic Sound.mp3",
     {
       volume: 0.5,
       preload: true,
-    }
-  )
+    },
+  );
 
   const [playWelcomeSound] = useSound(
     "/sounds/ES_Pops, Wobble, Bloop, Pops - Epidemic Sound.mp3",
     {
       volume: 0.5,
       preload: true,
-    }
-  )
+    },
+  );
 
   const toggleMute = useCallback(() => {
     setIsMuted((prev) => {
-      const newState = !prev
-      localStorage.setItem("foundry-sound-muted", String(newState))
-      return newState
-    })
-  }, [])
+      const newState = !prev;
+      localStorage.setItem("foundry-sound-muted", String(newState));
+      return newState;
+    });
+  }, []);
 
   const playClick = useCallback(() => {
     if (!isMuted) {
-      playClickSound()
+      playClickSound();
     }
-  }, [isMuted, playClickSound])
+  }, [isMuted, playClickSound]);
 
   const playHover = useCallback(() => {
     if (!isMuted) {
-      playHoverSound()
+      playHoverSound();
     }
-  }, [isMuted, playHoverSound])
+  }, [isMuted, playHoverSound]);
 
   const playSuccess = useCallback(() => {
     if (!isMuted) {
-      playSuccessSound()
+      playSuccessSound();
     }
-  }, [isMuted, playSuccessSound])
+  }, [isMuted, playSuccessSound]);
 
   const playOpen = useCallback(() => {
     if (!isMuted) {
-      playOpenSound()
+      playOpenSound();
     }
-  }, [isMuted, playOpenSound])
+  }, [isMuted, playOpenSound]);
 
   const playClose = useCallback(() => {
     if (!isMuted) {
-      playCloseSound()
+      playCloseSound();
     }
-  }, [isMuted, playCloseSound])
+  }, [isMuted, playCloseSound]);
 
   const playCopy = useCallback(() => {
     if (!isMuted) {
-      playCopySound()
+      playCopySound();
     }
-  }, [isMuted, playCopySound])
+  }, [isMuted, playCopySound]);
 
   const playToggle = useCallback(() => {
     if (!isMuted) {
-      playToggleSound()
+      playToggleSound();
     }
-  }, [isMuted, playToggleSound])
+  }, [isMuted, playToggleSound]);
 
   const playWelcome = useCallback(() => {
     if (!isMuted) {
-      playWelcomeSound()
+      playWelcomeSound();
     }
-  }, [isMuted, playWelcomeSound])
+  }, [isMuted, playWelcomeSound]);
 
   return (
     <SoundContext.Provider
@@ -167,13 +173,13 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     >
       {children}
     </SoundContext.Provider>
-  )
+  );
 }
 
 export function useSoundContext() {
-  const context = useContext(SoundContext)
+  const context = useContext(SoundContext);
   if (context === undefined) {
-    throw new Error("useSoundContext must be used within a SoundProvider")
+    throw new Error("useSoundContext must be used within a SoundProvider");
   }
-  return context
+  return context;
 }

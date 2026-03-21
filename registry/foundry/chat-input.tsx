@@ -86,9 +86,7 @@ export function ChatInput({
   return (
     <div className={cn("relative w-full max-w-lg", className)}>
       {/* Messages */}
-      <div
-        className="pointer-events-none absolute bottom-[70px] right-0 z-[1] flex w-full flex-col items-end gap-2"
-      >
+      <div className="pointer-events-none absolute bottom-[70px] right-0 z-[1] flex w-full flex-col items-end gap-2">
         <AnimatePresence initial={false}>
           {messages.map((msg) => (
             <motion.div
@@ -101,7 +99,7 @@ export function ChatInput({
                 "max-w-[260px] break-words overflow-hidden text-ellipsis px-[14px] py-[10px] text-sm",
                 msg.sender === "user"
                   ? "self-end rounded-[14px_14px_6px_14px] bg-white text-black shadow-[0_10px_20px_-6px_rgba(0,0,0,0.1)]"
-                  : "self-start rounded-[14px_14px_14px_6px] bg-sky-500 text-white shadow-[0_10px_20px_-6px_rgba(0,0,0,0.2)]"
+                  : "self-start rounded-[14px_14px_14px_6px] bg-sky-500 text-white shadow-[0_10px_20px_-6px_rgba(0,0,0,0.2)]",
               )}
             >
               <p className="will-change-transform">{msg.text}</p>
@@ -137,9 +135,7 @@ export function ChatInput({
             disabled={!hasValue}
             className={cn(
               "flex size-10 items-center justify-center overflow-hidden rounded-lg transition-colors",
-              hasValue
-                ? "bg-black hover:bg-neutral-800"
-                : "bg-[#f5f4f3]"
+              hasValue ? "bg-black hover:bg-neutral-800" : "bg-[#f5f4f3]",
             )}
             aria-label="Send"
           >
@@ -147,7 +143,7 @@ export function ChatInput({
               <ArrowUp
                 className={cn(
                   "size-5 stroke-[2.5]",
-                  hasValue ? "text-white" : "text-gray-400"
+                  hasValue ? "text-white" : "text-gray-400",
                 )}
                 aria-hidden="true"
               />

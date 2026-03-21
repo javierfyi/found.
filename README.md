@@ -16,17 +16,17 @@ That's it. The component lands in your codebase as source code you own and can m
 
 ## Components
 
-| Component | Description |
-|-----------|-------------|
-| `animated-number` | Smooth spring-physics number transitions |
-| `animated-stack` | Expandable card stack with spring animations |
-| `arrow-tooltip` | Tooltip with arrow indicator (Radix UI) |
-| `chat-input` | Chat UI with animated message bubbles |
-| `feedback` | Feedback form with loading state |
-| `hover-card` | Card revealing content on hover |
+| Component          | Description                                  |
+| ------------------ | -------------------------------------------- |
+| `animated-number`  | Smooth spring-physics number transitions     |
+| `animated-stack`   | Expandable card stack with spring animations |
+| `arrow-tooltip`    | Tooltip with arrow indicator (Radix UI)      |
+| `chat-input`       | Chat UI with animated message bubbles        |
+| `feedback`         | Feedback form with loading state             |
+| `hover-card`       | Card revealing content on hover              |
 | `progressive-blur` | Gradient blur overlay for scrollable content |
-| `shimmering-text` | Motion-powered shimmer animation |
-| `typing-text` | Typing animation with cursor |
+| `shimmering-text`  | Motion-powered shimmer animation             |
+| `typing-text`      | Typing animation with cursor                 |
 
 ## Run locally
 

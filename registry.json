@@ -9,7 +9,12 @@
       "type": "registry:component",
       "title": "Animated Number",
       "description": "A number that animates smoothly to a new value using spring physics.",
-      "files": [{"path": "registry/foundry/animated-number.tsx", "type": "registry:component"}],
+      "files": [
+        {
+          "path": "registry/foundry/animated-number.tsx",
+          "type": "registry:component"
+        }
+      ],
       "dependencies": ["motion"]
     },
     {
@@ -17,7 +22,12 @@
       "type": "registry:component",
       "title": "Animated Stack",
       "description": "An interactive stack of cards that expand and animate on hover with smooth spring animations.",
-      "files": [{"path": "registry/foundry/animated-stack.tsx", "type": "registry:component"}],
+      "files": [
+        {
+          "path": "registry/foundry/animated-stack.tsx",
+          "type": "registry:component"
+        }
+      ],
       "dependencies": ["motion", "lucide-react"]
     },
     {
@@ -25,7 +35,12 @@
       "type": "registry:component",
       "title": "Arrow Tooltip",
       "description": "A styled tooltip with an arrow indicator, built on Radix UI.",
-      "files": [{"path": "registry/foundry/arrow-tooltip.tsx", "type": "registry:component"}],
+      "files": [
+        {
+          "path": "registry/foundry/arrow-tooltip.tsx",
+          "type": "registry:component"
+        }
+      ],
       "dependencies": ["@radix-ui/react-tooltip"]
     },
     {
@@ -33,7 +48,12 @@
       "type": "registry:component",
       "title": "Chat Input",
       "description": "A minimalist chat input with animated message bubbles and auto bot replies.",
-      "files": [{"path": "registry/foundry/chat-input.tsx", "type": "registry:component"}],
+      "files": [
+        {
+          "path": "registry/foundry/chat-input.tsx",
+          "type": "registry:component"
+        }
+      ],
       "dependencies": ["motion", "lucide-react"]
     },
     {
@@ -41,7 +61,12 @@
       "type": "registry:component",
       "title": "Feedback",
       "description": "A feedback form with loading animation and click-outside detection.",
-      "files": [{"path": "registry/foundry/feedback.tsx", "type": "registry:component"}],
+      "files": [
+        {
+          "path": "registry/foundry/feedback.tsx",
+          "type": "registry:component"
+        }
+      ],
       "dependencies": ["motion"]
     },
     {
@@ -49,7 +74,12 @@
       "type": "registry:component",
       "title": "Hover Card",
       "description": "A card that reveals its description on hover with a smooth slide-up animation. Keyboard accessible.",
-      "files": [{"path": "registry/foundry/hover-card.tsx", "type": "registry:component"}],
+      "files": [
+        {
+          "path": "registry/foundry/hover-card.tsx",
+          "type": "registry:component"
+        }
+      ],
       "dependencies": []
     },
     {
@@ -57,7 +87,12 @@
       "type": "registry:component",
       "title": "Progressive Blur",
       "description": "A gradient overlay with backdrop blur that fades content at the edges of a scrollable container.",
-      "files": [{"path": "registry/foundry/progressive-blur.tsx", "type": "registry:component"}],
+      "files": [
+        {
+          "path": "registry/foundry/progressive-blur.tsx",
+          "type": "registry:component"
+        }
+      ],
       "dependencies": []
     },
     {
@@ -65,7 +100,12 @@
       "type": "registry:component",
       "title": "Shimmering Text",
       "description": "A text component with beautiful shimmer animation effects that glide across the text.",
-      "files": [{"path": "registry/foundry/shimmering-text.tsx", "type": "registry:component"}],
+      "files": [
+        {
+          "path": "registry/foundry/shimmering-text.tsx",
+          "type": "registry:component"
+        }
+      ],
       "dependencies": ["motion"]
     },
     {
@@ -73,7 +113,12 @@
       "type": "registry:component",
       "title": "Typing Text",
       "description": "A typing text animation. Highly customizable and easy to use.",
-      "files": [{"path": "registry/foundry/typing-text.tsx", "type": "registry:component"}],
+      "files": [
+        {
+          "path": "registry/foundry/typing-text.tsx",
+          "type": "registry:component"
+        }
+      ],
       "dependencies": ["motion"]
     }
   ]

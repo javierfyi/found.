@@ -24,6 +24,7 @@ Create a new component for the Foundry shadcn registry.
    - Follow existing component patterns in `registry/foundry/`
 
 2. **Add entry to `registry.json`** in the `items` array:
+
    ```json
    {
      "name": "<name>",

@@ -1,35 +1,43 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useSoundContext } from "@/contexts/sound-context"
-import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
-import { CodeBlock as HighlightedCodeBlock } from "@/components/code-block"
-import { CopyButton } from "@/components/copy-button"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useSoundContext } from "@/contexts/sound-context";
+import { HeaderSoundAndClock } from "@/components/header-sound-and-clock";
+import { CodeBlock as HighlightedCodeBlock } from "@/components/code-block";
+import { CopyButton } from "@/components/copy-button";
 
-function CodeBlock({ code, label, language = "tsx" }: { code: string; label: string; language?: string }) {
+function CodeBlock({
+  code,
+  label,
+  language = "tsx",
+}: {
+  code: string;
+  label: string;
+  language?: string;
+}) {
   return (
     <div className="relative rounded-2xl border border-border bg-muted/50">
       <div className="flex items-center justify-between border-b border-border px-4 py-1.5">
         <span className="text-xs font-bold text-black/40">{label}</span>
         <CopyButton value={code} />
       </div>
-      <HighlightedCodeBlock code={code} language={language} className="rounded-none rounded-b-2xl border-0 p-4 text-xs" />
+      <HighlightedCodeBlock
+        code={code}
+        language={language}
+        className="rounded-none rounded-b-2xl border-0 p-4 text-xs"
+      />
     </div>
-  )
+  );
 }
 
 function InlineCode({ children }: { children: React.ReactNode }) {
-  return (
-    <code className="text-xs font-bold text-black">
-      {children}
-    </code>
-  )
+  return <code className="text-xs font-bold text-black">{children}</code>;
 }
 
 export default function DocsPage() {
-  const pathname = usePathname()
-  const { playWelcome } = useSoundContext()
+  const pathname = usePathname();
+  const { playWelcome } = useSoundContext();
 
   return (
     <div className="min-h-screen bg-background">
@@ -128,21 +136,17 @@ export default function DocsPage() {
         <div className="mx-auto max-w-2xl">
           {/* Page Title */}
           <div className="mb-12">
-            <h1 className="mb-4 text-xs font-bold text-black">
-              Docs
-            </h1>
+            <h1 className="mb-4 text-xs font-bold text-black">Docs</h1>
             <p className="text-xs font-bold text-black/40">
-              Foundry is a shadcn/ui component registry. Components are installed
-              directly into your project via the shadcn CLI — no packages to
-              manage, no version conflicts. You own the source code.
+              Foundry is a shadcn/ui component registry. Components are
+              installed directly into your project via the shadcn CLI — no
+              packages to manage, no version conflicts. You own the source code.
             </p>
           </div>
 
           {/* Prerequisites */}
           <section className="mb-12">
-            <h2 className="mb-4 text-xs font-bold text-black">
-              Prerequisites
-            </h2>
+            <h2 className="mb-4 text-xs font-bold text-black">Prerequisites</h2>
             <p className="mb-4 text-xs font-bold text-black/40">
               Foundry components are built for projects that already have
               shadcn/ui initialized. If you haven&apos;t set it up yet:
@@ -153,23 +157,21 @@ export default function DocsPage() {
               language="bash"
             />
             <p className="mt-4 text-xs font-bold text-black/40">
-              This scaffolds the <InlineCode>components.json</InlineCode> config,
-              adds the <InlineCode>cn</InlineCode> utility, and sets up
-              your path aliases. Foundry uses
-              the <InlineCode>new-york</InlineCode> style
-              with <InlineCode>lucide-react</InlineCode> icons.
+              This scaffolds the <InlineCode>components.json</InlineCode>{" "}
+              config, adds the <InlineCode>cn</InlineCode> utility, and sets up
+              your path aliases. Foundry uses the{" "}
+              <InlineCode>new-york</InlineCode> style with{" "}
+              <InlineCode>lucide-react</InlineCode> icons.
             </p>
           </section>
 
           {/* Installation */}
           <section className="mb-12">
-            <h2 className="mb-4 text-xs font-bold text-black">
-              Installation
-            </h2>
+            <h2 className="mb-4 text-xs font-bold text-black">Installation</h2>
             <p className="mb-6 text-xs font-bold text-black/40">
-              Install any component by pointing the shadcn CLI at the
-              Foundry registry URL. The CLI resolves dependencies, writes the
-              source file into your project, and updates your imports.
+              Install any component by pointing the shadcn CLI at the Foundry
+              registry URL. The CLI resolves dependencies, writes the source
+              file into your project, and updates your imports.
             </p>
 
             <CodeBlock
@@ -179,9 +181,9 @@ export default function DocsPage() {
             />
 
             <p className="mt-4 mb-6 text-xs font-bold text-black/40">
-              Replace <InlineCode>animated-stack</InlineCode> with the
-              component name you want. Each component page shows the exact
-              install command with a copy button.
+              Replace <InlineCode>animated-stack</InlineCode> with the component
+              name you want. Each component page shows the exact install command
+              with a copy button.
             </p>
 
             <p className="text-xs font-bold text-black/40">
@@ -194,22 +196,19 @@ export default function DocsPage() {
 
           {/* How It Works */}
           <section className="mb-12">
-            <h2 className="mb-4 text-xs font-bold text-black">
-              How it works
-            </h2>
+            <h2 className="mb-4 text-xs font-bold text-black">How it works</h2>
             <p className="mb-4 text-xs font-bold text-black/40">
-              Foundry serves component metadata as JSON from
-              the <InlineCode>/r/[name].json</InlineCode> endpoint. Each JSON
-              file follows
-              the <InlineCode>shadcn registry-item</InlineCode> schema and
-              includes the component name, type, dependencies, and full source
-              code.
+              Foundry serves component metadata as JSON from the{" "}
+              <InlineCode>/r/[name].json</InlineCode> endpoint. Each JSON file
+              follows the <InlineCode>shadcn registry-item</InlineCode> schema
+              and includes the component name, type, dependencies, and full
+              source code.
             </p>
             <p className="mb-4 text-xs font-bold text-black/40">
               When you run <InlineCode>npx shadcn add</InlineCode>, the CLI
               fetches that JSON, reads the dependency list, installs anything
-              missing, and writes the component file into
-              your <InlineCode>components/</InlineCode> directory.
+              missing, and writes the component file into your{" "}
+              <InlineCode>components/</InlineCode> directory.
             </p>
             <p className="text-xs font-bold text-black/40">
               Because components are copied into your project as source code,
@@ -237,22 +236,21 @@ lib/
   utils.ts         # cn() utility`}
             />
             <p className="mt-4 text-xs font-bold text-black/40">
-              Components use <InlineCode>@/lib/utils</InlineCode> for
-              the <InlineCode>cn</InlineCode> classname helper and
-              import from <InlineCode>motion/react</InlineCode> for animations.
-              No other internal dependencies.
+              Components use <InlineCode>@/lib/utils</InlineCode> for the{" "}
+              <InlineCode>cn</InlineCode> classname helper and import from{" "}
+              <InlineCode>motion/react</InlineCode> for animations. No other
+              internal dependencies.
             </p>
           </section>
 
           {/* Usage */}
           <section className="mb-12">
-            <h2 className="mb-4 text-xs font-bold text-black">
-              Usage
-            </h2>
+            <h2 className="mb-4 text-xs font-bold text-black">Usage</h2>
             <p className="mb-6 text-xs font-bold text-black/40">
               Import the component from your local components directory and use
               it like any other React component. All Foundry components are
-              client components (<InlineCode>&quot;use client&quot;</InlineCode>).
+              client components (<InlineCode>&quot;use client&quot;</InlineCode>
+              ).
             </p>
             <CodeBlock
               label="app/page.tsx"
@@ -266,22 +264,20 @@ export default function Page() {
 
           {/* Tech Stack */}
           <section>
-            <h2 className="mb-4 text-xs font-bold text-black">
-              Tech stack
-            </h2>
+            <h2 className="mb-4 text-xs font-bold text-black">Tech stack</h2>
             <p className="text-xs font-bold text-black/40">
-              Foundry components are built
-              with <InlineCode>React 19</InlineCode>,{" "}
+              Foundry components are built with{" "}
+              <InlineCode>React 19</InlineCode>,{" "}
               <InlineCode>TypeScript</InlineCode>,{" "}
-              <InlineCode>Tailwind CSS v4</InlineCode>,
-              and <InlineCode>Motion</InlineCode> (Framer Motion). The registry
+              <InlineCode>Tailwind CSS v4</InlineCode>, and{" "}
+              <InlineCode>Motion</InlineCode> (Framer Motion). The registry
               itself runs on <InlineCode>Next.js 16</InlineCode> with the App
-              Router and conforms to
-              the <InlineCode>shadcn registry-item</InlineCode> JSON schema.
+              Router and conforms to the{" "}
+              <InlineCode>shadcn registry-item</InlineCode> JSON schema.
             </p>
           </section>
         </div>
       </main>
     </div>
-  )
+  );
 }
