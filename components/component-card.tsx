@@ -64,7 +64,7 @@ export function ComponentCard({
         <div className="relative h-full w-full overflow-hidden rounded-2xl bg-white">
           {/* Base: centered descriptive text */}
           <div className="flex h-full w-full items-center justify-center p-6">
-            <p className="text-xl font-semibold text-black/30">{title}</p>
+            <p className="text-xl font-semibold text-black/30 text-center">{title}</p>
           </div>
 
           {/* Video overlay — fades in on hover */}
