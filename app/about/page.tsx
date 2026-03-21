@@ -113,11 +113,11 @@ export default function AboutPage() {
             <div className="space-y-3">
               <h2 className="text-xs font-semibold text-black/60">Contact</h2>
               <div className="flex flex-col items-start leading-none gap-0">
-                <a href="mailto:hello@foundry.dev" className="text-xs font-bold text-black transition-colors hover:text-black/70">
-                  hello@foundry.dev
+                <a href="mailto:hello@euler.fyi" className="text-xs font-bold text-black transition-colors hover:text-black/70">
+                  hello@euler.fyi
                 </a>
-                <a href="https://github.com/foundry" className="-mt-0.5 text-xs font-bold text-black transition-colors hover:text-black/70">
-                  @foundry
+                <a href="https://github.com/javierfyi" className="-mt-0.5 text-xs font-bold text-black transition-colors hover:text-black/70">
+                  @javierfyi
                 </a>
               </div>
             </div>

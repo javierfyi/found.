@@ -135,8 +135,8 @@ export default function HomePage() {
 
         {/* Right - Contact */}
         <div className="flex flex-1 flex-col items-start leading-none gap-0">
-          <a href="mailto:hello@byeuler.com" target="_blank" rel="noopener" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
-            hello@byeuler.com
+          <a href="mailto:hello@byeuler.org" target="_blank" rel="noopener" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
+            hello@byeuler.org
           </a>
           <a href="tel:+1234567890" target="_blank" rel="noopener" className="-mt-0.5 text-xs font-bold text-black/40 transition-colors hover:text-black">
             (+1) 234 567 890

@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "foundry",
-  "homepage": "https://foundry.dev",
-  "author": "byeuler",
+  "homepage": "https://euler.fyi",
+  "author": "byeuler.org",
   "items": [
     {
       "name": "animated-number",

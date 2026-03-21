@@ -59,7 +59,7 @@ export default function ComponentDetailPage() {
     notFound()
   }
 
-  const registryUrl = `https://foundry.dev/r/${name}.json`
+  const registryUrl = `https://euler.fyi/r/${name}.json`
   const installCommand = `npx shadcn add ${registryUrl}`
 
   return (

@@ -165,10 +165,10 @@ export function ComponentContactSection() {
       <p className="text-base text-foreground">
         If you find any bug or issue, feel free to{" "}
         <a
-          href="mailto:hello@foundry.dev"
+          href="mailto:hello@euler.fyi"
           className="font-medium underline underline-offset-4 transition-colors hover:text-muted-foreground"
         >
-          hello@foundry.dev
+          hello@euler.fyi
         </a>
         {" "}Drop a dm.
       </p>

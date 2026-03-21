@@ -4,12 +4,12 @@ A collection of animated React components you can copy into your projects. Built
 
 No npm package to install. No runtime dependency. Just grab what you need and make it yours.
 
-**[foundry.dev](https://foundry.dev)**
+**[euler.fyi](https://euler.fyi)**
 
 ## Install a component
 
 ```bash
-npx shadcn@latest add https://foundry.dev/r/animated-stack.json
+npx shadcn@latest add https://euler.fyi/r/animated-stack.json
 ```
 
 That's it. The component lands in your codebase as source code you own and can modify however you want.

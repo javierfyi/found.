@@ -174,7 +174,7 @@ export default function DocsPage() {
 
             <CodeBlock
               label="Terminal"
-              code="npx shadcn add https://foundry.dev/r/animated-stack.json"
+              code="npx shadcn add https://euler.fyi/r/animated-stack.json"
               language="bash"
             />
 
