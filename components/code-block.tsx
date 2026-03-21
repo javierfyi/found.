@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { Highlight, themes } from "prism-react-renderer"
+import { Highlight, themes } from "prism-react-renderer";
 
 export function CodeBlock({
   code,
   language = "tsx",
   className = "",
 }: {
-  code: string
-  language?: string
-  className?: string
+  code: string;
+  language?: string;
+  className?: string;
 }) {
   return (
     <Highlight theme={themes.vsLight} code={code.trim()} language={language}>
@@ -28,5 +28,5 @@ export function CodeBlock({
         </pre>
       )}
     </Highlight>
-  )
+  );
 }

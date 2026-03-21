@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { useRef } from "react"
-import Link from "next/link"
-import { BadgeDollarSign } from "lucide-react"
-import { useSoundContext } from "@/contexts/sound-context"
+import { useRef } from "react";
+import Link from "next/link";
+import { BadgeDollarSign } from "lucide-react";
+import { useSoundContext } from "@/contexts/sound-context";
 
 interface ComponentCardProps {
-  name: string
-  title: string
-  description: string
-  id: string
-  size?: "normal" | "tall" | "wide"
-  isPro?: boolean
-  videoUrl?: string
+  name: string;
+  title: string;
+  description: string;
+  id: string;
+  size?: "normal" | "tall" | "wide";
+  isPro?: boolean;
+  videoUrl?: string;
 }
 
 export function ComponentCard({
@@ -23,18 +23,18 @@ export function ComponentCard({
   isPro = false,
   videoUrl,
 }: ComponentCardProps) {
-  const { playClick, playHover } = useSoundContext()
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const { playClick, playHover } = useSoundContext();
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   function handleMouseEnter() {
-    videoRef.current?.play()
+    videoRef.current?.play();
   }
 
   function handleMouseLeave() {
-    const video = videoRef.current
+    const video = videoRef.current;
     if (video) {
-      video.pause()
-      video.currentTime = 0
+      video.pause();
+      video.currentTime = 0;
     }
   }
 
@@ -64,7 +64,9 @@ export function ComponentCard({
         <div className="relative h-full w-full overflow-hidden rounded-2xl bg-white">
           {/* Base: centered descriptive text */}
           <div className="flex h-full w-full items-center justify-center p-6">
-            <p className="text-xl font-semibold text-black/30 text-center">{title}</p>
+            <p className="text-xl font-semibold text-black/30 text-center">
+              {title}
+            </p>
           </div>
 
           {/* Video overlay — fades in on hover */}
@@ -91,6 +93,5 @@ export function ComponentCard({
         </div>
       </div>
     </div>
-  )
+  );
 }
-

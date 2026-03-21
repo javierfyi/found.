@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { RotateCcw, ArrowUpRight } from "lucide-react"
-import { motion, type Transition } from "motion/react"
+import * as React from "react";
+import { RotateCcw, ArrowUpRight } from "lucide-react";
+import { motion, type Transition } from "motion/react";
 
 const notifications = [
   {
@@ -24,13 +24,13 @@ const notifications = [
     subtitle: "No problems found",
     time: "5m",
   },
-]
+];
 
 const transition: Transition = {
   type: "spring",
   stiffness: 300,
   damping: 26,
-}
+};
 
 const getCardVariants = (i: number) => ({
   collapsed: {
@@ -41,22 +41,22 @@ const getCardVariants = (i: number) => ({
     marginTop: i === 0 ? 0 : 4,
     scaleX: 1,
   },
-})
+});
 
 const textSwitchTransition: Transition = {
   duration: 0.22,
   ease: "easeInOut",
-}
+};
 
 const notificationTextVariants = {
   collapsed: { opacity: 1, y: 0, pointerEvents: "auto" },
   expanded: { opacity: 0, y: -16, pointerEvents: "none" },
-}
+};
 
 const viewAllTextVariants = {
   collapsed: { opacity: 0, y: 16, pointerEvents: "none" },
   expanded: { opacity: 1, y: 0, pointerEvents: "auto" },
-}
+};
 
 export function AnimatedStack() {
   return (
@@ -116,5 +116,5 @@ export function AnimatedStack() {
         </span>
       </div>
     </motion.div>
-  )
+  );
 }

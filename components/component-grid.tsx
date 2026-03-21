@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { ComponentCard } from "@/components/component-card"
-import { Search, GraduationCap, Plus, Code } from "lucide-react"
-import { useState } from "react"
+import { ComponentCard } from "@/components/component-card";
+import { Search, GraduationCap, Plus, Code } from "lucide-react";
+import { useState } from "react";
 
 const components = [
   {
@@ -59,15 +59,15 @@ const components = [
 
     isPro: true,
   },
-]
+];
 
 export function ComponentGrid() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [filterType, setFilterType] = useState<"all" | "free" | "pro">("all")
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState<"all" | "free" | "pro">("all");
 
   const filteredComponents = components.filter((component) =>
-    component.title.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+    component.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   return (
     <section className="relative pb-40">
@@ -94,9 +94,9 @@ export function ComponentGrid() {
       <div className="mx-auto max-w-[1200px] px-6">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredComponents.map((component, index) => (
-            <div 
-              key={component.name} 
-              style={{ 
+            <div
+              key={component.name}
+              style={{
                 gridRow: component.size === "tall" ? "span 2" : "span 1",
               }}
             >
@@ -112,11 +112,13 @@ export function ComponentGrid() {
           aria-hidden="true"
           className="fade_root fixed bottom-0 z-20 h-24 w-full"
           data-side="bottom"
-          style={{
-            "--stop": "25%",
-            "--blur": "6px",
-            "--background": "var(--color-background)",
-          } as React.CSSProperties}
+          style={
+            {
+              "--stop": "25%",
+              "--blur": "6px",
+              "--background": "var(--color-background)",
+            } as React.CSSProperties
+          }
         />
       </div>
 
@@ -147,18 +149,55 @@ export function ComponentGrid() {
                 type="button"
                 className="flex h-full items-center justify-center rounded-lg px-2 text-foreground/20 transition-opacity hover:bg-foreground/5"
               >
-                <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5.2168 11.2812L8.3418 8.15625L11.4668 11.2812" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M5.2168 6.90625L8.3418 3.78125L11.4668 6.90625" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.2168 11.2812L8.3418 8.15625L11.4668 11.2812"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M5.2168 6.90625L8.3418 3.78125L11.4668 6.90625"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
               <button
                 type="button"
                 className="relative flex h-full items-center justify-center rounded-lg px-2 text-foreground/20 transition-opacity hover:bg-foreground/5"
               >
-                <svg className="rotate-180" width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5.2168 11.2812L8.3418 8.15625L11.4668 11.2812" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M5.2168 6.90625L8.3418 3.78125L11.4668 6.90625" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  className="rotate-180"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.2168 11.2812L8.3418 8.15625L11.4668 11.2812"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M5.2168 6.90625L8.3418 3.78125L11.4668 6.90625"
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -167,11 +206,15 @@ export function ComponentGrid() {
             <div className="flex h-full w-full items-center gap-2 rounded-[13px] border border-muted bg-muted px-2 py-2 shadow-glass md:w-fit">
               <div className="flex items-center gap-2 pl-2 pr-4">
                 <Code className="h-4 w-4 text-foreground" />
-                <p className="hidden text-sm text-foreground md:block">Source</p>
+                <p className="hidden text-sm text-foreground md:block">
+                  Source
+                </p>
               </div>
               <button
                 type="button"
-                onClick={() => setFilterType(filterType === "free" ? "all" : "free")}
+                onClick={() =>
+                  setFilterType(filterType === "free" ? "all" : "free")
+                }
                 className={`h-full rounded-lg px-2 text-sm transition-opacity hover:bg-foreground/5 ${
                   filterType === "free"
                     ? "text-foreground font-medium"
@@ -182,7 +225,9 @@ export function ComponentGrid() {
               </button>
               <button
                 type="button"
-                onClick={() => setFilterType(filterType === "pro" ? "all" : "pro")}
+                onClick={() =>
+                  setFilterType(filterType === "pro" ? "all" : "pro")
+                }
                 className={`h-full rounded-lg px-2 text-sm transition-opacity hover:bg-foreground/5 ${
                   filterType === "pro"
                     ? "text-foreground font-medium"
@@ -198,8 +243,8 @@ export function ComponentGrid() {
           <button
             type="button"
             onClick={() => {
-              setSearchQuery("")
-              setFilterType("all")
+              setSearchQuery("");
+              setFilterType("all");
             }}
             className="flex items-center gap-2 opacity-20 transition-opacity hover:opacity-80 lg:ml-2"
           >
@@ -209,5 +254,5 @@ export function ComponentGrid() {
         </div>
       </div>
     </section>
-  )
+  );
 }

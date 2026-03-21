@@ -1,34 +1,35 @@
 export interface PropDefinition {
-  name: string
-  type: string
-  default: string
-  description: string
+  name: string;
+  type: string;
+  default: string;
+  description: string;
 }
 
 export interface ApiReferenceEntry {
-  name: string
-  description: string
-  props: PropDefinition[]
+  name: string;
+  description: string;
+  props: PropDefinition[];
 }
 
 export interface ComponentData {
-  name: string
-  title: string
-  description: string
-  id: string
-  size?: "normal" | "tall" | "wide"
-  isPro?: boolean
-  videoUrl?: string
-  example?: string
-  dependencies?: string[]
-  apiReference?: ApiReferenceEntry[]
+  name: string;
+  title: string;
+  description: string;
+  id: string;
+  size?: "normal" | "tall" | "wide";
+  isPro?: boolean;
+  videoUrl?: string;
+  example?: string;
+  dependencies?: string[];
+  apiReference?: ApiReferenceEntry[];
 }
 
 export const componentsData: ComponentData[] = [
   {
     name: "animated-stack",
     title: "Animated Stack",
-    description: "An interactive stack of cards that expand and animate on hover with smooth spring animations",
+    description:
+      "An interactive stack of cards that expand and animate on hover with smooth spring animations",
     id: "foundry1",
     size: "tall",
 
@@ -37,7 +38,8 @@ export const componentsData: ComponentData[] = [
     apiReference: [
       {
         name: "AnimatedStack",
-        description: "A self-contained notification stack component that expands on hover with spring animations.",
+        description:
+          "A self-contained notification stack component that expands on hover with spring animations.",
         props: [],
       },
     ],
@@ -50,7 +52,8 @@ export default function NotificationsPage() {
   {
     name: "shimmering-text",
     title: "Shimmering Text",
-    description: "A text component with beautiful shimmer animation effects that glide across the text.",
+    description:
+      "A text component with beautiful shimmer animation effects that glide across the text.",
     id: "foundry-shimmer",
     size: "normal",
 
@@ -59,20 +62,81 @@ export default function NotificationsPage() {
     apiReference: [
       {
         name: "ShimmeringText",
-        description: "A text component that applies a shimmering gradient animation across the text.",
+        description:
+          "A text component that applies a shimmering gradient animation across the text.",
         props: [
-          { name: "text", type: "string", default: "-", description: "Text to display with shimmer effect." },
-          { name: "duration", type: "number", default: "2", description: "Animation duration in seconds." },
-          { name: "delay", type: "number", default: "0", description: "Delay before starting animation in seconds." },
-          { name: "repeat", type: "boolean", default: "true", description: "Whether to repeat the animation." },
-          { name: "repeatDelay", type: "number", default: "0.5", description: "Pause duration between repeats in seconds." },
-          { name: "className", type: "string", default: "-", description: "Additional CSS classes." },
-          { name: "startOnView", type: "boolean", default: "true", description: "Start animation when entering viewport." },
-          { name: "once", type: "boolean", default: "false", description: "Whether to animate only once." },
-          { name: "inViewMargin", type: "UseInViewOptions[\"margin\"]", default: "-", description: "Margin for in-view detection (rootMargin)." },
-          { name: "spread", type: "number", default: "2", description: "Shimmer spread multiplier." },
-          { name: "color", type: "string", default: "-", description: "Base text color." },
-          { name: "shimmerColor", type: "string", default: "-", description: "Shimmer gradient color." },
+          {
+            name: "text",
+            type: "string",
+            default: "-",
+            description: "Text to display with shimmer effect.",
+          },
+          {
+            name: "duration",
+            type: "number",
+            default: "2",
+            description: "Animation duration in seconds.",
+          },
+          {
+            name: "delay",
+            type: "number",
+            default: "0",
+            description: "Delay before starting animation in seconds.",
+          },
+          {
+            name: "repeat",
+            type: "boolean",
+            default: "true",
+            description: "Whether to repeat the animation.",
+          },
+          {
+            name: "repeatDelay",
+            type: "number",
+            default: "0.5",
+            description: "Pause duration between repeats in seconds.",
+          },
+          {
+            name: "className",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes.",
+          },
+          {
+            name: "startOnView",
+            type: "boolean",
+            default: "true",
+            description: "Start animation when entering viewport.",
+          },
+          {
+            name: "once",
+            type: "boolean",
+            default: "false",
+            description: "Whether to animate only once.",
+          },
+          {
+            name: "inViewMargin",
+            type: 'UseInViewOptions["margin"]',
+            default: "-",
+            description: "Margin for in-view detection (rootMargin).",
+          },
+          {
+            name: "spread",
+            type: "number",
+            default: "2",
+            description: "Shimmer spread multiplier.",
+          },
+          {
+            name: "color",
+            type: "string",
+            default: "-",
+            description: "Base text color.",
+          },
+          {
+            name: "shimmerColor",
+            type: "string",
+            default: "-",
+            description: "Shimmer gradient color.",
+          },
         ],
       },
     ],
@@ -92,7 +156,8 @@ export default function HeroSection() {
   {
     name: "typing-text",
     title: "Typing Text",
-    description: "A typing text animation. Highly customizable and easy to use.",
+    description:
+      "A typing text animation. Highly customizable and easy to use.",
     id: "foundry-typing",
     size: "normal",
 
@@ -101,21 +166,59 @@ export default function HeroSection() {
     apiReference: [
       {
         name: "TypingText",
-        description: "A text component that types out characters one by one with optional looping.",
+        description:
+          "A text component that types out characters one by one with optional looping.",
         props: [
-          { name: "text", type: "string", default: "-", description: "Text to type out." },
-          { name: "delay", type: "number", default: "0.05", description: "Delay between each character in seconds." },
-          { name: "holdDelay", type: "number", default: "1", description: "Pause at end before restart (when loop is true) in seconds." },
-          { name: "loop", type: "boolean", default: "true", description: "Whether to loop the animation." },
-          { name: "className", type: "string", default: "-", description: "Additional CSS classes." },
-          { name: "children", type: "ReactNode", default: "-", description: "Optional children rendered after the typed text (e.g. a cursor)." },
+          {
+            name: "text",
+            type: "string",
+            default: "-",
+            description: "Text to type out.",
+          },
+          {
+            name: "delay",
+            type: "number",
+            default: "0.05",
+            description: "Delay between each character in seconds.",
+          },
+          {
+            name: "holdDelay",
+            type: "number",
+            default: "1",
+            description:
+              "Pause at end before restart (when loop is true) in seconds.",
+          },
+          {
+            name: "loop",
+            type: "boolean",
+            default: "true",
+            description: "Whether to loop the animation.",
+          },
+          {
+            name: "className",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes.",
+          },
+          {
+            name: "children",
+            type: "ReactNode",
+            default: "-",
+            description:
+              "Optional children rendered after the typed text (e.g. a cursor).",
+          },
         ],
       },
       {
         name: "TypingTextCursor",
         description: "An animated blinking cursor to pair with TypingText.",
         props: [
-          { name: "className", type: "string", default: "-", description: "Additional CSS classes for the cursor." },
+          {
+            name: "className",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes for the cursor.",
+          },
         ],
       },
     ],
@@ -138,7 +241,8 @@ export default function HeroSection() {
   {
     name: "animated-number",
     title: "Animated Number",
-    description: "A number that animates smoothly to a new value using spring physics.",
+    description:
+      "A number that animates smoothly to a new value using spring physics.",
     id: "foundry-number",
     size: "normal",
 
@@ -147,12 +251,33 @@ export default function HeroSection() {
     apiReference: [
       {
         name: "AnimatedNumber",
-        description: "A number display that animates smoothly to new values using spring physics.",
+        description:
+          "A number display that animates smoothly to new values using spring physics.",
         props: [
-          { name: "value", type: "number", default: "-", description: "The target number to animate to." },
-          { name: "className", type: "string", default: "-", description: "Additional CSS classes." },
-          { name: "springOptions", type: "SpringOptions", default: "-", description: "Motion spring configuration for the animation." },
-          { name: "as", type: "React.ElementType", default: "\"span\"", description: "The HTML element to render as." },
+          {
+            name: "value",
+            type: "number",
+            default: "-",
+            description: "The target number to animate to.",
+          },
+          {
+            name: "className",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes.",
+          },
+          {
+            name: "springOptions",
+            type: "SpringOptions",
+            default: "-",
+            description: "Motion spring configuration for the animation.",
+          },
+          {
+            name: "as",
+            type: "React.ElementType",
+            default: '"span"',
+            description: "The HTML element to render as.",
+          },
         ],
       },
     ],
@@ -178,7 +303,8 @@ export default function StatsPage() {
   {
     name: "hover-card",
     title: "Hover Card",
-    description: "A card that reveals its description on hover with a smooth slide-up animation. Keyboard accessible, customizable.",
+    description:
+      "A card that reveals its description on hover with a smooth slide-up animation. Keyboard accessible, customizable.",
     id: "foundry-hover-card",
     size: "normal",
 
@@ -187,17 +313,64 @@ export default function StatsPage() {
     apiReference: [
       {
         name: "HoverCard",
-        description: "A card component that reveals its description on hover with a smooth slide-up animation. Extends anchor element attributes.",
+        description:
+          "A card component that reveals its description on hover with a smooth slide-up animation. Extends anchor element attributes.",
         props: [
-          { name: "title", type: "string", default: "-", description: "The title displayed on the card." },
-          { name: "description", type: "string", default: "-", description: "The description revealed on hover." },
-          { name: "image", type: "string", default: "-", description: "Optional background image URL." },
-          { name: "href", type: "string", default: "\"#\"", description: "Link destination URL." },
-          { name: "className", type: "string", default: "-", description: "Additional CSS classes for the card container." },
-          { name: "descriptionClassName", type: "string", default: "-", description: "Additional CSS classes for the description overlay." },
-          { name: "showIcon", type: "boolean", default: "true", description: "Show the external link icon." },
-          { name: "customIcon", type: "ReactNode", default: "-", description: "Custom icon to replace the default external link icon." },
-          { name: "asDiv", type: "boolean", default: "false", description: "Render as a div instead of an anchor." },
+          {
+            name: "title",
+            type: "string",
+            default: "-",
+            description: "The title displayed on the card.",
+          },
+          {
+            name: "description",
+            type: "string",
+            default: "-",
+            description: "The description revealed on hover.",
+          },
+          {
+            name: "image",
+            type: "string",
+            default: "-",
+            description: "Optional background image URL.",
+          },
+          {
+            name: "href",
+            type: "string",
+            default: '"#"',
+            description: "Link destination URL.",
+          },
+          {
+            name: "className",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes for the card container.",
+          },
+          {
+            name: "descriptionClassName",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes for the description overlay.",
+          },
+          {
+            name: "showIcon",
+            type: "boolean",
+            default: "true",
+            description: "Show the external link icon.",
+          },
+          {
+            name: "customIcon",
+            type: "ReactNode",
+            default: "-",
+            description:
+              "Custom icon to replace the default external link icon.",
+          },
+          {
+            name: "asDiv",
+            type: "boolean",
+            default: "false",
+            description: "Render as a div instead of an anchor.",
+          },
         ],
       },
     ],
@@ -217,7 +390,8 @@ export default function ProjectsPage() {
   {
     name: "arrow-tooltip",
     title: "Arrow Tooltip",
-    description: "A styled tooltip with an arrow indicator. Built on Radix UI with refined styling and smooth animations.",
+    description:
+      "A styled tooltip with an arrow indicator. Built on Radix UI with refined styling and smooth animations.",
     id: "foundry-arrow-tooltip",
     size: "normal",
 
@@ -226,7 +400,8 @@ export default function ProjectsPage() {
     apiReference: [
       {
         name: "ArrowTooltip",
-        description: "Root component that wraps the tooltip trigger and content. Includes a built-in provider with zero delay.",
+        description:
+          "Root component that wraps the tooltip trigger and content. Includes a built-in provider with zero delay.",
         props: [],
       },
       {
@@ -238,9 +413,24 @@ export default function ProjectsPage() {
         name: "ArrowTooltipContent",
         description: "The tooltip content panel with the arrow indicator.",
         props: [
-          { name: "sideOffset", type: "number", default: "4", description: "Distance in pixels from the trigger." },
-          { name: "side", type: "\"top\" | \"right\" | \"bottom\" | \"left\"", default: "\"top\"", description: "Preferred side of the trigger to render against." },
-          { name: "className", type: "string", default: "-", description: "Additional CSS classes for the content." },
+          {
+            name: "sideOffset",
+            type: "number",
+            default: "4",
+            description: "Distance in pixels from the trigger.",
+          },
+          {
+            name: "side",
+            type: '"top" | "right" | "bottom" | "left"',
+            default: '"top"',
+            description: "Preferred side of the trigger to render against.",
+          },
+          {
+            name: "className",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes for the content.",
+          },
         ],
       },
     ],
@@ -266,7 +456,8 @@ export default function Example() {
   {
     name: "feedback",
     title: "Feedback",
-    description: "A polished feedback form with character counter, loading states, success animation, and error handling.",
+    description:
+      "A polished feedback form with character counter, loading states, success animation, and error handling.",
     id: "foundry-feedback",
     size: "normal",
 
@@ -275,24 +466,105 @@ export default function Example() {
     apiReference: [
       {
         name: "Feedback",
-        description: "A polished feedback popover with morphing animation, character counter, loading states, and success/error handling.",
+        description:
+          "A polished feedback popover with morphing animation, character counter, loading states, and success/error handling.",
         props: [
-          { name: "onSubmit", type: "(feedback: string) => Promise<void>", default: "-", description: "Async callback when feedback is submitted." },
-          { name: "onOpenChange", type: "(open: boolean) => void", default: "-", description: "Callback when the popover opens or closes." },
-          { name: "buttonText", type: "string", default: "\"Feedback\"", description: "Label for the trigger button." },
-          { name: "buttonIcon", type: "ReactNode", default: "-", description: "Custom icon for the trigger button." },
-          { name: "placeholder", type: "string", default: "\"Share your feedback...\"", description: "Textarea placeholder text." },
-          { name: "maxLength", type: "number", default: "500", description: "Maximum character count." },
-          { name: "successTitle", type: "string", default: "\"Feedback received!\"", description: "Title shown on successful submission." },
-          { name: "successMessage", type: "string", default: "\"Thanks for helping us improve.\"", description: "Message shown on successful submission." },
-          { name: "errorMessage", type: "string", default: "\"Failed to submit feedback. Please try again.\"", description: "Fallback error message." },
-          { name: "successDuration", type: "number", default: "3300", description: "Duration to show success state in milliseconds." },
-          { name: "submitText", type: "string", default: "\"Send feedback\"", description: "Label for the submit button." },
-          { name: "triggerClassName", type: "string", default: "-", description: "Additional CSS classes for the trigger button." },
-          { name: "popoverClassName", type: "string", default: "-", description: "Additional CSS classes for the popover container." },
-          { name: "showCharacterCounter", type: "boolean", default: "true", description: "Show the character count indicator." },
-          { name: "open", type: "boolean", default: "-", description: "Controlled open state." },
-          { name: "defaultOpen", type: "boolean", default: "-", description: "Default open state (uncontrolled)." },
+          {
+            name: "onSubmit",
+            type: "(feedback: string) => Promise<void>",
+            default: "-",
+            description: "Async callback when feedback is submitted.",
+          },
+          {
+            name: "onOpenChange",
+            type: "(open: boolean) => void",
+            default: "-",
+            description: "Callback when the popover opens or closes.",
+          },
+          {
+            name: "buttonText",
+            type: "string",
+            default: '"Feedback"',
+            description: "Label for the trigger button.",
+          },
+          {
+            name: "buttonIcon",
+            type: "ReactNode",
+            default: "-",
+            description: "Custom icon for the trigger button.",
+          },
+          {
+            name: "placeholder",
+            type: "string",
+            default: '"Share your feedback..."',
+            description: "Textarea placeholder text.",
+          },
+          {
+            name: "maxLength",
+            type: "number",
+            default: "500",
+            description: "Maximum character count.",
+          },
+          {
+            name: "successTitle",
+            type: "string",
+            default: '"Feedback received!"',
+            description: "Title shown on successful submission.",
+          },
+          {
+            name: "successMessage",
+            type: "string",
+            default: '"Thanks for helping us improve."',
+            description: "Message shown on successful submission.",
+          },
+          {
+            name: "errorMessage",
+            type: "string",
+            default: '"Failed to submit feedback. Please try again."',
+            description: "Fallback error message.",
+          },
+          {
+            name: "successDuration",
+            type: "number",
+            default: "3300",
+            description: "Duration to show success state in milliseconds.",
+          },
+          {
+            name: "submitText",
+            type: "string",
+            default: '"Send feedback"',
+            description: "Label for the submit button.",
+          },
+          {
+            name: "triggerClassName",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes for the trigger button.",
+          },
+          {
+            name: "popoverClassName",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes for the popover container.",
+          },
+          {
+            name: "showCharacterCounter",
+            type: "boolean",
+            default: "true",
+            description: "Show the character count indicator.",
+          },
+          {
+            name: "open",
+            type: "boolean",
+            default: "-",
+            description: "Controlled open state.",
+          },
+          {
+            name: "defaultOpen",
+            type: "boolean",
+            default: "-",
+            description: "Default open state (uncontrolled).",
+          },
         ],
       },
     ],
@@ -319,7 +591,8 @@ export default function AppLayout() {
   {
     name: "progressive-blur",
     title: "Progressive Blur",
-    description: "A gradient overlay with backdrop blur that fades content at the edges of a scrollable container.",
+    description:
+      "A gradient overlay with backdrop blur that fades content at the edges of a scrollable container.",
     id: "foundry-progressive-blur",
     size: "normal",
 
@@ -328,13 +601,39 @@ export default function AppLayout() {
     apiReference: [
       {
         name: "ProgressiveBlur",
-        description: "A positioned overlay that combines a gradient background with backdrop blur to smoothly fade content edges.",
+        description:
+          "A positioned overlay that combines a gradient background with backdrop blur to smoothly fade content edges.",
         props: [
-          { name: "className", type: "string", default: "-", description: "Additional CSS classes for the container." },
-          { name: "backgroundColor", type: "string", default: "\"#f5f4f3\"", description: "Background color for the gradient blend." },
-          { name: "position", type: "\"top\" | \"bottom\"", default: "\"top\"", description: "Position of the blur effect." },
-          { name: "height", type: "string", default: "\"150px\"", description: "Height of the blur area." },
-          { name: "blurAmount", type: "string", default: "\"4px\"", description: "Intensity of the backdrop blur." },
+          {
+            name: "className",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes for the container.",
+          },
+          {
+            name: "backgroundColor",
+            type: "string",
+            default: '"#f5f4f3"',
+            description: "Background color for the gradient blend.",
+          },
+          {
+            name: "position",
+            type: '"top" | "bottom"',
+            default: '"top"',
+            description: "Position of the blur effect.",
+          },
+          {
+            name: "height",
+            type: "string",
+            default: '"150px"',
+            description: "Height of the blur area.",
+          },
+          {
+            name: "blurAmount",
+            type: "string",
+            default: '"4px"',
+            description: "Intensity of the backdrop blur.",
+          },
         ],
       },
     ],
@@ -355,7 +654,8 @@ export default function ScrollContainer() {
   {
     name: "chat-input",
     title: "Chat Input",
-    description: "A minimalist chat input with animated message bubbles and auto bot replies.",
+    description:
+      "A minimalist chat input with animated message bubbles and auto bot replies.",
     id: "foundry-chat-input",
     size: "tall",
 
@@ -364,12 +664,33 @@ export default function ScrollContainer() {
     apiReference: [
       {
         name: "ChatInput",
-        description: "A minimalist chat input bar with animated message bubbles that appear above the input.",
+        description:
+          "A minimalist chat input bar with animated message bubbles that appear above the input.",
         props: [
-          { name: "placeholder", type: "string", default: "\"Send Message\"", description: "Placeholder text for the input." },
-          { name: "onSend", type: "(message: string) => void", default: "-", description: "Callback when a message is sent." },
-          { name: "className", type: "string", default: "-", description: "Additional CSS classes for the container." },
-          { name: "maxMessages", type: "number", default: "8", description: "Maximum number of visible messages." },
+          {
+            name: "placeholder",
+            type: "string",
+            default: '"Send Message"',
+            description: "Placeholder text for the input.",
+          },
+          {
+            name: "onSend",
+            type: "(message: string) => void",
+            default: "-",
+            description: "Callback when a message is sent.",
+          },
+          {
+            name: "className",
+            type: "string",
+            default: "-",
+            description: "Additional CSS classes for the container.",
+          },
+          {
+            name: "maxMessages",
+            type: "number",
+            default: "8",
+            description: "Maximum number of visible messages.",
+          },
         ],
       },
     ],
@@ -385,9 +706,9 @@ export default function ChatPage() {
   )
 }`,
   },
-]
+];
 
 // Helper function to get component by name
 export function getComponentByName(name: string): ComponentData | undefined {
-  return componentsData.find((component) => component.name === name)
+  return componentsData.find((component) => component.name === name);
 }

@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -77,8 +77,11 @@
 }
 
 @theme inline {
-  --font-sans: 'Neue Haas Grotesk Display Pro 65 Medium', 'Neue Haas Grotesk Display Pro', var(--font-dm-sans), 'DM Sans', var(--font-inter), 'Inter', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans:
+    "Neue Haas Grotesk Display Pro 65 Medium", "Neue Haas Grotesk Display Pro",
+    var(--font-dm-sans), "DM Sans", var(--font-inter), "Inter", system-ui,
+    sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -131,7 +134,9 @@
 
 @layer utilities {
   .shadow-glass {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.06);
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.04),
+      0 0 1px rgba(0, 0, 0, 0.06);
   }
 
   .fade_root {
@@ -146,14 +151,30 @@
 
   .fade_root[data-side="top"] {
     background: linear-gradient(to top, transparent, var(--background));
-    mask-image: linear-gradient(to bottom, var(--background) var(--stop), transparent);
-    -webkit-mask-image: linear-gradient(to bottom, var(--background) var(--stop), transparent);
+    mask-image: linear-gradient(
+      to bottom,
+      var(--background) var(--stop),
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      var(--background) var(--stop),
+      transparent
+    );
   }
 
   .fade_root[data-side="bottom"] {
     background: linear-gradient(to bottom, transparent, var(--background));
-    mask-image: linear-gradient(to top, var(--background) var(--stop), transparent);
-    -webkit-mask-image: linear-gradient(to top, var(--background) var(--stop), transparent);
+    mask-image: linear-gradient(
+      to top,
+      var(--background) var(--stop),
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to top,
+      var(--background) var(--stop),
+      transparent
+    );
   }
 
   @keyframes slideUp {

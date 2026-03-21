@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 function useOnClickOutside<T extends HTMLElement = HTMLElement>(
   ref: React.RefObject<T | null>, // ← FIXED: Accept nullable refs
   handler: (event: MouseEvent | TouchEvent) => void,
-  enabled: boolean = true
+  enabled: boolean = true,
 ) {
   useEffect(() => {
     if (!enabled) return;
@@ -211,7 +211,10 @@ export function Feedback({
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", duration: 0.3, bounce: 0.2 }}
           >
-            <motion.span layoutId="feedback-title" className="flex items-center gap-2">
+            <motion.span
+              layoutId="feedback-title"
+              className="flex items-center gap-2"
+            >
               {buttonIcon ?? defaultIcon}
               {buttonText}
             </motion.span>
@@ -247,7 +250,12 @@ export function Feedback({
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ type: "spring", duration: 0.6, bounce: 0.4, delay: 0.1 }}
+                    transition={{
+                      type: "spring",
+                      duration: 0.6,
+                      bounce: 0.4,
+                      delay: 0.1,
+                    }}
                   >
                     <svg
                       width="32"
@@ -299,7 +307,9 @@ export function Feedback({
                   <textarea
                     ref={textareaRef}
                     value={feedback}
-                    onChange={(e) => setFeedback(e.target.value.slice(0, maxLength))}
+                    onChange={(e) =>
+                      setFeedback(e.target.value.slice(0, maxLength))
+                    }
                     placeholder={placeholder}
                     maxLength={maxLength}
                     required
@@ -359,10 +369,18 @@ export function Feedback({
                             initial={{ opacity: 0, y: -25 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 25 }}
-                            transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+                            transition={{
+                              type: "spring",
+                              duration: 0.3,
+                              bounce: 0,
+                            }}
                             className="flex items-center justify-center"
                           >
-                            {formState === "loading" ? <LoadingDots /> : submitText}
+                            {formState === "loading" ? (
+                              <LoadingDots />
+                            ) : (
+                              submitText
+                            )}
                           </motion.span>
                         </AnimatePresence>
                       </button>

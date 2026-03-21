@@ -3,8 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-export interface HoverCardProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface HoverCardProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   /**
    * The title of the card
    */
@@ -91,7 +90,7 @@ export function HoverCard({
   const wrapperClassName = cn(
     "group relative flex h-[340px] w-[340px] items-end overflow-hidden rounded-2xl bg-white text-left no-underline",
     "shadow-[0px_0px_0px_1px_rgba(9,9,11,0.08),0px_1px_2px_-1px_rgba(9,9,11,0.08),0px_2px_4px_0px_rgba(9,9,11,0.04)]",
-    className
+    className,
   );
 
   const content = (
@@ -111,15 +110,13 @@ export function HoverCard({
           "transition-transform duration-500",
           "[transition-timing-function:cubic-bezier(0.19,1,0.22,1)]",
           "group-hover:translate-y-0 group-focus-visible:translate-y-0",
-          descriptionClassName
+          descriptionClassName,
         )}
       >
         <h3 className="font-medium text-neutral-900">{title}</h3>
         <p className="mt-1 leading-none text-neutral-500">{description}</p>
         {showIcon && (
-          <div className="text-neutral-600">
-            {customIcon ?? defaultIcon}
-          </div>
+          <div className="text-neutral-600">{customIcon ?? defaultIcon}</div>
         )}
       </div>
     </>
@@ -135,4 +132,3 @@ export function HoverCard({
     </a>
   );
 }
-

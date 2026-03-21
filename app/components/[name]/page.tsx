@@ -1,66 +1,75 @@
-"use client"
+"use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CopyButton } from "@/components/copy-button"
-import { InstallationSection, ApiReferenceSection, KeepInMindSection, ComponentContactSection } from "@/components/component-docs"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { notFound, useParams } from "next/navigation"
-import { getComponentByName } from "@/lib/components-data"
-import { useSoundContext } from "@/contexts/sound-context"
-import { useEffect, useState } from "react"
-import { AnimatedStack } from "@/registry/foundry/animated-stack"
-import { ShimmeringText } from "@/registry/foundry/shimmering-text"
-import { TypingText, TypingTextCursor } from "@/registry/foundry/typing-text"
-import { AnimatedNumberDemo } from "@/registry/foundry/animated-number"
-import { HoverCard } from "@/registry/foundry/hover-card"
-import { Feedback } from "@/registry/foundry/feedback"
-import { ProgressiveBlur } from "@/registry/foundry/progressive-blur"
-import { ArrowTooltip, ArrowTooltipTrigger, ArrowTooltipContent } from "@/registry/foundry/arrow-tooltip"
-import { ChatInput } from "@/registry/foundry/chat-input"
-import { HeaderSoundAndClock } from "@/components/header-sound-and-clock"
-import { CodeBlock } from "@/components/code-block"
-import { getComponentSource } from "./actions"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CopyButton } from "@/components/copy-button";
+import {
+  InstallationSection,
+  ApiReferenceSection,
+  KeepInMindSection,
+  ComponentContactSection,
+} from "@/components/component-docs";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { notFound, useParams } from "next/navigation";
+import { getComponentByName } from "@/lib/components-data";
+import { useSoundContext } from "@/contexts/sound-context";
+import { useEffect, useState } from "react";
+import { AnimatedStack } from "@/registry/foundry/animated-stack";
+import { ShimmeringText } from "@/registry/foundry/shimmering-text";
+import { TypingText, TypingTextCursor } from "@/registry/foundry/typing-text";
+import { AnimatedNumberDemo } from "@/registry/foundry/animated-number";
+import { HoverCard } from "@/registry/foundry/hover-card";
+import { Feedback } from "@/registry/foundry/feedback";
+import { ProgressiveBlur } from "@/registry/foundry/progressive-blur";
+import {
+  ArrowTooltip,
+  ArrowTooltipTrigger,
+  ArrowTooltipContent,
+} from "@/registry/foundry/arrow-tooltip";
+import { ChatInput } from "@/registry/foundry/chat-input";
+import { HeaderSoundAndClock } from "@/components/header-sound-and-clock";
+import { CodeBlock } from "@/components/code-block";
+import { getComponentSource } from "./actions";
 
 function LiveClock() {
-  const [time, setTime] = useState("")
+  const [time, setTime] = useState("");
 
   useEffect(() => {
     const updateTime = () => {
-      const now = new Date()
-      const hours = now.getHours()
-      const minutes = now.getMinutes().toString().padStart(2, "0")
-      const seconds = now.getSeconds().toString().padStart(2, "0")
-      const period = hours >= 12 ? "p.m." : "a.m."
-      const displayHours = hours % 12 || 12
-      setTime(`${displayHours}:${minutes}:${seconds} ${period}`)
-    }
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
-    return () => clearInterval(interval)
-  }, [])
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      const seconds = now.getSeconds().toString().padStart(2, "0");
+      const period = hours >= 12 ? "p.m." : "a.m.";
+      const displayHours = hours % 12 || 12;
+      setTime(`${displayHours}:${minutes}:${seconds} ${period}`);
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-  return <span>{time}</span>
+  return <span>{time}</span>;
 }
 
 export default function ComponentDetailPage() {
-  const params = useParams()
-  const name = params.name as string
-  const component = getComponentByName(name)
-  const pathname = `/components/${name}`
-  const { playWelcome } = useSoundContext()
-  const [sourceCode, setSourceCode] = useState<string | null>(null)
+  const params = useParams();
+  const name = params.name as string;
+  const component = getComponentByName(name);
+  const pathname = `/components/${name}`;
+  const { playWelcome } = useSoundContext();
+  const [sourceCode, setSourceCode] = useState<string | null>(null);
 
   useEffect(() => {
-    getComponentSource(name).then(setSourceCode)
-  }, [name])
+    getComponentSource(name).then(setSourceCode);
+  }, [name]);
 
   if (!component) {
-    notFound()
+    notFound();
   }
 
-  const registryUrl = `https://euler.fyi/r/${name}.json`
-  const installCommand = `npx shadcn add ${registryUrl}`
+  const registryUrl = `https://euler.fyi/r/${name}.json`;
+  const installCommand = `npx shadcn add ${registryUrl}`;
 
   return (
     <div className="min-h-screen bg-background">
@@ -172,21 +181,45 @@ export default function ComponentDetailPage() {
             <div className="flex items-center gap-1 pt-1">
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(window.location.href)
+                  navigator.clipboard.writeText(window.location.href);
                 }}
                 className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 title="Copy link"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>
               </button>
               <button
                 onClick={() => {
-                  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out ${component.title} from Foundry`)}&url=${encodeURIComponent(window.location.href)}`, '_blank')
+                  window.open(
+                    `https://twitter.com/intent/tweet?text=${encodeURIComponent(`Check out ${component.title} from Foundry`)}&url=${encodeURIComponent(window.location.href)}`,
+                    "_blank",
+                  );
                 }}
                 className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 title="Share on X"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
               </button>
             </div>
           </div>
@@ -225,7 +258,10 @@ export default function ComponentDetailPage() {
                   <CopyButton value={sourceCode} />
                 </div>
                 <div className="max-h-[500px] overflow-auto rounded-b-2xl border border-border bg-muted/50">
-                  <CodeBlock code={sourceCode} className="rounded-none border-0" />
+                  <CodeBlock
+                    code={sourceCode}
+                    className="rounded-none border-0"
+                  />
                 </div>
               </div>
             ) : (
@@ -247,7 +283,9 @@ export default function ComponentDetailPage() {
         {/* Usage */}
         {component.example && (
           <div className="mt-16">
-            <h2 className="mb-6 text-2xl font-semibold tracking-tight">Usage</h2>
+            <h2 className="mb-6 text-2xl font-semibold tracking-tight">
+              Usage
+            </h2>
             <div className="relative">
               <div className="absolute right-4 top-4 z-10">
                 <CopyButton value={component.example} />
@@ -267,11 +305,15 @@ export default function ComponentDetailPage() {
         <ComponentContactSection />
       </main>
     </div>
-  )
+  );
 }
 
-function PreviewSection({ component }: { component: ReturnType<typeof getComponentByName> }) {
-  if (!component) return null
+function PreviewSection({
+  component,
+}: {
+  component: ReturnType<typeof getComponentByName>;
+}) {
+  if (!component) return null;
 
   if (component.name === "animated-stack") {
     return (
@@ -280,17 +322,22 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
           <AnimatedStack />
         </div>
       </div>
-    )
+    );
   }
 
   if (component.name === "shimmering-text") {
     return (
       <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
         <div className="relative w-full max-w-2xl flex items-center justify-center">
-          <ShimmeringText text="Shimmering Text" className="text-2xl font-bold" duration={1.5} repeatDelay={1} />
+          <ShimmeringText
+            text="Shimmering Text"
+            className="text-2xl font-bold"
+            duration={1.5}
+            repeatDelay={1}
+          />
         </div>
       </div>
-    )
+    );
   }
 
   if (component.name === "typing-text") {
@@ -308,7 +355,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
           </TypingText>
         </div>
       </div>
-    )
+    );
   }
 
   if (component.name === "animated-number") {
@@ -318,7 +365,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
           <AnimatedNumberDemo />
         </div>
       </div>
-    )
+    );
   }
 
   if (component.name === "hover-card") {
@@ -333,7 +380,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
           />
         </div>
       </div>
-    )
+    );
   }
 
   if (component.name === "feedback") {
@@ -342,8 +389,8 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
         <div className="relative w-full max-w-2xl flex items-center justify-center">
           <Feedback
             onSubmit={async (feedback) => {
-              await new Promise((r) => setTimeout(r, 800))
-              console.log("Feedback:", feedback)
+              await new Promise((r) => setTimeout(r, 800));
+              console.log("Feedback:", feedback);
             }}
             buttonText="Feedback"
             placeholder="Share your feedback..."
@@ -351,7 +398,7 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
           />
         </div>
       </div>
-    )
+    );
   }
 
   if (component.name === "arrow-tooltip") {
@@ -364,13 +411,11 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
                 Hover me
               </button>
             </ArrowTooltipTrigger>
-            <ArrowTooltipContent>
-              Arrow tooltip content
-            </ArrowTooltipContent>
+            <ArrowTooltipContent>Arrow tooltip content</ArrowTooltipContent>
           </ArrowTooltip>
         </div>
       </div>
-    )
+    );
   }
 
   if (component.name === "progressive-blur") {
@@ -389,20 +434,21 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
               <div key={i}>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Obcaecati, reiciendis eum vitae nostrum, temporibus repudiandae
-                voluptatibus, natus iure ipsa velit odit quibusdam illum. Quaerat
-                cumque laudantium libero reprehenderit perferendis quo nulla
-                voluptate? Repellat tenetur labore exercitationem dicta libero
-                voluptate suscipit, iusto ea assumenda. Ipsa enim, quidem atque
-                modi error eaque, debitis perferendis, hic iste libero dignissimos
-                ea! Quod inventore beatae aspernatur nulla rem perferendis aperiam
-                at debitis delectus odit quia animi ex mollitia vero molestias
-                itaque deleniti, quos exercitationem consequatur assumenda dolor?
+                voluptatibus, natus iure ipsa velit odit quibusdam illum.
+                Quaerat cumque laudantium libero reprehenderit perferendis quo
+                nulla voluptate? Repellat tenetur labore exercitationem dicta
+                libero voluptate suscipit, iusto ea assumenda. Ipsa enim, quidem
+                atque modi error eaque, debitis perferendis, hic iste libero
+                dignissimos ea! Quod inventore beatae aspernatur nulla rem
+                perferendis aperiam at debitis delectus odit quia animi ex
+                mollitia vero molestias itaque deleniti, quos exercitationem
+                consequatur assumenda dolor?
               </div>
             ))}
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   if (component.name === "chat-input") {
@@ -410,12 +456,12 @@ function PreviewSection({ component }: { component: ReturnType<typeof getCompone
       <div className="flex min-h-[500px] items-end justify-center rounded-2xl bg-muted p-8 pb-12">
         <ChatInput />
       </div>
-    )
+    );
   }
 
   return (
     <div className="flex min-h-[500px] items-center justify-center rounded-2xl bg-muted p-8">
       <p className="text-xl font-semibold text-black/30">{component.title}</p>
     </div>
-  )
+  );
 }

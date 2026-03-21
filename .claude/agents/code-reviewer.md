@@ -10,6 +10,7 @@ Review code changes against Foundry project conventions.
 ## Review Checklist
 
 ### Registry Components
+
 - [ ] Single file, self-contained in `registry/foundry/<name>.tsx`
 - [ ] Has `"use client"` directive
 - [ ] Exports a named PascalCase component
@@ -20,6 +21,7 @@ Review code changes against Foundry project conventions.
 - [ ] Entry exists in `registry.json` with name, type, title, description, files, dependencies
 
 ### Code Quality
+
 - [ ] No magic numbers — use named constants
 - [ ] Functions under 50 lines
 - [ ] Files under 300 lines
@@ -29,6 +31,7 @@ Review code changes against Foundry project conventions.
 - [ ] No unused imports or variables
 
 ### Accessibility
+
 - [ ] Interactive elements are keyboard accessible
 - [ ] ARIA attributes used where needed
 - [ ] Color contrast meets WCAG AA

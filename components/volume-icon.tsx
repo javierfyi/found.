@@ -44,7 +44,7 @@ const VolumeIcon = forwardRef<VolumeIconHandle, VolumeIconProps>(
           setIsHovered(true);
         }
       },
-      [onMouseEnter]
+      [onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
@@ -55,7 +55,7 @@ const VolumeIcon = forwardRef<VolumeIconHandle, VolumeIconProps>(
           setIsHovered(false);
         }
       },
-      [onMouseLeave]
+      [onMouseLeave],
     );
 
     return (
@@ -127,7 +127,7 @@ const VolumeIcon = forwardRef<VolumeIconHandle, VolumeIconProps>(
         </svg>
       </div>
     );
-  }
+  },
 );
 
 VolumeIcon.displayName = "VolumeIcon";
