@@ -28,3 +28,6 @@ next-env.d.ts
 
 # generated registry
 public/r/
+
+# macOS
+.DS_Store

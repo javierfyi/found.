@@ -18,6 +18,3 @@ const nextConfig = {
 }
 
 export default nextConfig
-
-
-// Etienne Planeix
