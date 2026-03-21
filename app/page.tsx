@@ -120,19 +120,6 @@ export default function HomePage() {
           © 2026 Foundry
         </div>
 
-        {/* Center - Social Links */}
-        <div className="flex flex-1 flex-col items-start leading-none gap-0">
-          <a href="https://github.com" target="_blank" rel="noopener" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
-            Instagram
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener" className="-mt-0.5 text-xs font-bold text-black/40 transition-colors hover:text-black">
-            LinkedIn
-          </a>
-          <a href="https://discord.com" target="_blank" rel="noopener" className="-mt-0.5 text-xs font-bold text-black/40 transition-colors hover:text-black">
-            Pinterest
-          </a>
-        </div>
-
         {/* Right - Contact */}
         <div className="flex flex-1 flex-col items-start leading-none gap-0">
           <a href="mailto:hello@byeuler.org" target="_blank" rel="noopener" className="text-xs font-bold text-black/40 transition-colors hover:text-black">
